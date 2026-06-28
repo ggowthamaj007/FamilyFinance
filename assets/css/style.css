@@ -564,7 +564,7 @@ body {
 .form-label {
     font-size: 12px;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--text-primary);
 }
 
 .form-control {
@@ -659,6 +659,21 @@ body {
     padding: 24px;
     overflow-y: auto;
     flex: 1;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0 16px;
+}
+
+@media (min-width: 600px) {
+    .modal-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .modal-grid .full-width {
+        grid-column: 1 / -1;
+    }
 }
 
 .modal-footer {
@@ -1017,6 +1032,10 @@ select.form-control option {
     opacity: 0;
     margin: 0;
     padding: 0;
+}
+
+.hidden {
+    display: none !important;
 }
 
 .linked-field-group.visible {

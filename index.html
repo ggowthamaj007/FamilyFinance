@@ -39,6 +39,9 @@
                     <a href="#emis"><i class="ri-bank-card-line"></i> <span>EMIs &amp; CCs</span></a>
                 </li>
                 <li class="menu-item">
+                    <a href="#trading"><i class="ri-stock-line"></i> <span>Trading Journal</span></a>
+                </li>
+                <li class="menu-item">
                     <a href="#import"><i class="ri-file-excel-line"></i> <span>Excel Wizard</span></a>
                 </li>
                 <li class="menu-item">
@@ -76,7 +79,7 @@
             <!-- DASHBOARD TAB -->
             <!-- ========================================== -->
             <section id="dashboard" class="tab-content active">
-                <div class="filter-row" style="margin-bottom: 20px; background-color: var(--bg-surface); padding: 15px; border-radius: 12px; display: flex; gap: 15px; align-items: center; border: 1px solid var(--border-color);">
+                <div class="filter-row" style="background-color: var(--bg-surface); padding: 15px; border-radius: 12px; display: flex; gap: 15px; align-items: center; border: 1px solid var(--border-color);">
                     <div style="font-weight: 600; margin-right: 10px;">Dashboard Filter:</div>
                     <select id="dash-filter-year" class="form-control" style="width: 100px;" onchange="loadDashboardPage()">
                         <option value="All">All Years</option>
@@ -93,20 +96,99 @@
                     <input type="date" id="dash-date-from" class="form-control" onchange="loadDashboardPage()">
                     <label>To:</label>
                     <input type="date" id="dash-date-to" class="form-control" onchange="loadDashboardPage()">
-                    <button class="btn btn-primary" style="padding:6px 12px; font-size:11px;" onclick="setDashboardToCurrentMonth()">Current Month</button>
+                    <button class="btn btn-secondary" id="btn-current-month" style="padding:6px 12px; font-size:11px;" onclick="setDashboardToCurrentMonth()">Current Month</button>
                     <button class="btn btn-secondary" style="padding:6px 12px; font-size:11px;" onclick="clearDashboardFilter()">Clear Custom Dates</button>
                 </div>
-                <div class="dashboard-grid">
-                    <!-- Net Worth Summary Card -->
-                    <div class="summary-card" style="--card-accent: var(--accent);">
+                
+                <div id="dash-account-warnings" style="display: none;"></div>
+                
+                <!-- Top Row: Net Worth + Cash Flow Tally (single line) -->
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px;">
+                        <h3 style="margin:0; font-size: 13px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Portfolio & Cash Flow Summary</h3>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 11px; color: var(--text-muted); font-weight: 600;" id="tally-title">TALLY MONTH:</span>
+                            <input type="month" id="reconcile-month-picker" class="form-control" style="width: 130px; padding: 4px 8px; font-size: 12px; height: 28px;" onchange="renderMonthTallyWidget()">
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-grid" style="grid-template-columns: repeat(4, 1fr);">
+                        <!-- Net Worth -->
+                        <div class="summary-card" style="--card-accent: var(--accent);">
                         <div class="card-header">
-                            <span>NET WORTH (ESTIMATED)</span>
+                            <span>NET WORTH</span>
                             <div class="card-icon"><i class="ri-shield-user-line"></i></div>
                         </div>
                         <div class="card-value" id="dash-net-worth">0</div>
-                        <div class="card-footer normal">Net position including outside debt</div>
+                        <div class="card-footer normal">Total Assets minus Liabilities</div>
                     </div>
                     
+                    <!-- Inflows -->
+                    <div class="summary-card" style="--card-accent: var(--success);">
+                        <div class="card-header">
+                            <span>MONTHLY INFLOWS</span>
+                            <div class="card-icon" style="background-color: var(--success-light); color: var(--success);"><i class="ri-arrow-up-circle-line"></i></div>
+                        </div>
+                        <div class="card-value" id="tally-inflows">0</div>
+                        <div class="card-footer normal">Total income & money in</div>
+                    </div>
+                    
+                    <!-- Outflows -->
+                    <div class="summary-card" style="--card-accent: var(--danger);">
+                        <div class="card-header">
+                            <span>MONTHLY OUTFLOWS</span>
+                            <div class="card-icon" style="background-color: var(--danger-light); color: var(--danger);"><i class="ri-arrow-down-circle-line"></i></div>
+                        </div>
+                        <div class="card-value" id="tally-outflows">0</div>
+                        <div class="card-footer normal">Total expenses & money out</div>
+                    </div>
+                    
+                    <!-- Net Cash -->
+                    <div class="summary-card" style="--card-accent: var(--warning);">
+                        <div class="card-header">
+                            <span>MONTHLY SURPLUS</span>
+                            <div class="card-icon" style="background-color: var(--warning-light); color: var(--warning);"><i class="ri-wallet-3-line"></i></div>
+                        </div>
+                        <div class="card-value" id="tally-net-cash">0</div>
+                        <div class="card-footer normal">Net remaining for month</div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Chart (left) + P&L (right) -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="dashboard-panel">
+                        <div class="panel-header">
+                            <span class="panel-title">Last 6 Months Income vs Expense Trend</span>
+                        </div>
+                        <div style="height: 100%; min-height: 280px; position: relative;">
+                            <canvas id="monthlyTrendChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="dashboard-panel">
+                        <div class="panel-header">
+                            <span class="panel-title">Personal P&L (Current Month)</span>
+                        </div>
+                        <div class="table-wrapper" style="max-height: 400px; overflow-y: auto;">
+                            <table class="custom-table" id="dashboard-pnl-table" style="font-size: 12px;">
+                                <thead style="position: sticky; top: 0; background: var(--bg-surface); z-index: 1; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                                    <tr>
+                                        <th style="text-align: left;">Category</th>
+                                        <th style="text-align: right;">ACTUAL</th>
+                                        <th style="text-align: right;">BUDGET</th>
+                                        <th style="text-align: right;">VARIANCE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logged Amounts Row -->
+                <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
                     <!-- Monthly Incomes Summary Card -->
                     <div class="summary-card" style="--card-accent: var(--success);">
                         <div class="card-header">
@@ -135,26 +217,6 @@
                         </div>
                         <div class="card-value" id="dash-outstanding-debt">0</div>
                         <div class="card-footer normal">Money Lent vs Borrowed</div>
-                    </div>
-                </div>
-
-                <!-- Charts Section -->
-                <div class="content-grid">
-                    <div class="dashboard-panel">
-                        <div class="panel-header">
-                            <span class="panel-title">Last 6 Months Income vs Expense Trend</span>
-                        </div>
-                        <div style="height: 300px; position: relative;">
-                            <canvas id="monthlyTrendChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="dashboard-panel">
-                        <div class="panel-header">
-                            <span class="panel-title">Category Breakdown</span>
-                        </div>
-                        <div style="height: 300px; position: relative;">
-                            <canvas id="categoryBreakdownChart"></canvas>
-                        </div>
                     </div>
                 </div>
 
@@ -206,30 +268,6 @@
                             <div class="reminders-list" id="budget-alerts-list">
                                 <!-- Rendered dynamically -->
                             </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Monthly Tally Section -->
-                <div class="dashboard-panel">
-                    <div class="panel-header">
-                        <span class="panel-title" id="tally-title">Monthly Cash Flow Tally</span>
-                        <div class="panel-actions">
-                            <input type="month" id="reconcile-month-picker" class="form-control" style="width: 150px; padding: 6px 12px;" onchange="renderMonthTallyWidget()">
-                        </div>
-                    </div>
-                    <div class="tally-grid">
-                        <div class="tally-item">
-                            <span class="tally-label">Total Inflows (Incomes + Received)</span>
-                            <span class="tally-value" id="tally-inflows" style="color:var(--success);">0</span>
-                        </div>
-                        <div class="tally-item">
-                            <span class="tally-label">Total Outflows (Expenses + Paid)</span>
-                            <span class="tally-value" id="tally-outflows" style="color:var(--danger);">0</span>
-                        </div>
-                        <div class="tally-item tally-total-card">
-                            <span class="tally-label">Net Surplus/Deficit</span>
-                            <span class="tally-value" id="tally-net-cash">0</span>
                         </div>
                     </div>
                 </div>
@@ -294,6 +332,8 @@
                         <span class="panel-title">Monthly Budget Planner</span>
                         <div class="panel-actions" style="display: flex; gap: 10px; align-items: center;">
                             <input type="month" id="budget-month-filter" class="form-control" onchange="loadBudgetPage()" title="Select Month for Actuals" style="padding: 6px 12px; height: 35px; width: 150px;">
+                            <button class="btn btn-secondary" onclick="copyPreviousMonthActuals()" style="padding: 6px 12px; font-size:12px;" title="Copy actual expenses from the previous month to your budget"><i class="ri-file-copy-line"></i> Copy Last Month</button>
+                            <button class="btn btn-secondary" onclick="resetBudgets()" style="padding: 6px 12px; font-size:12px;" title="Clear all budgets to zero"><i class="ri-refresh-line"></i> Reset</button>
                             <button class="btn btn-primary" onclick="saveBudgetPlanner()"><i class="ri-save-line"></i> Save Budgets</button>
                         </div>
                     </div>
@@ -363,6 +403,31 @@
                         </table>
                     </div>
                 </div>
+
+                <div class="dashboard-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Settled Loans (Past Records)</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="custom-table" id="settled-debts-table">
+                            <thead>
+                                <tr>
+                                    <th>Date Created</th>
+                                    <th>Account</th>
+                                    <th>Loan Type</th>
+                                    <th>Contact Person</th>
+                                    <th>Remarks</th>
+                                    <th>Principal</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rendered dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 
                 <div class="dashboard-panel">
                     <div class="panel-header">
@@ -387,6 +452,16 @@
                     </div>
                     
                     <div class="chit-cards-grid" id="chits-cards-grid">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+                
+                <div class="dashboard-panel" style="margin-top: 20px;">
+                    <div class="panel-header">
+                        <span class="panel-title">Completed Investments (Matured)</span>
+                    </div>
+                    
+                    <div class="chit-cards-grid" id="completed-chits-cards-grid">
                         <!-- Rendered dynamically -->
                     </div>
                 </div>
@@ -437,6 +512,30 @@
                     
                     <div class="dashboard-panel">
                         <div class="panel-header">
+                            <span class="panel-title">Completed EMIs</span>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="custom-table" id="completed-emis-table">
+                                <thead>
+                                    <tr>
+                                        <th>EMI Loan Name</th>
+                                        <th>Acc Owner</th>
+                                        <th>Lending Bank</th>
+                                        <th>Monthly Payment</th>
+                                        <th>Rate</th>
+                                        <th>Status</th>
+                                        <th style="text-align: right;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-panel">
+                        <div class="panel-header">
                             <span class="panel-title">Credit Cards Billing Dues</span>
                             <div class="panel-actions">
                                 <button class="btn btn-primary" style="padding: 6px 12px; font-size:12px;" onclick="openCCAddModal()"><i class="ri-add-line"></i> Add Card</button>
@@ -448,7 +547,100 @@
                     </div>
                 </div>
             </section>
+            <!-- ========================================== -->
+            <!-- TRADING JOURNAL TAB -->
+            <!-- ========================================== -->
+            <section id="trading" class="tab-content">
+                <div class="filter-row" style="background-color: var(--bg-surface); padding: 15px; border-radius: 12px; display: flex; gap: 15px; align-items: center; border: 1px solid var(--border-color);">
+                    <div style="font-weight: 600; margin-right: 10px;">Trade Filter:</div>
+                    <select id="trade-filter-type" class="form-control" style="width: 140px;" onchange="loadTradingPage()">
+                        <option value="All">All Types</option>
+                        <option value="Intraday">Intraday</option>
+                        <option value="Positional">Positional</option>
+                    </select>
+                    <select id="trade-filter-status" class="form-control" style="width: 140px;" onchange="loadTradingPage()">
+                        <option value="All">All Statuses</option>
+                        <option value="Closed">Closed Trades</option>
+                        <option value="Open">Open Trades</option>
+                    </select>
+                    <button class="btn btn-primary" style="margin-left: auto; display: flex; align-items: center; gap: 5px;" onclick="openTradeModal()">
+                        <i class="ri-add-line"></i> Add Trade
+                    </button>
+                </div>
+                
+                <div class="dashboard-grid" style="grid-template-columns: repeat(4, 1fr);">
+                    <!-- Total Trades -->
+                    <div class="summary-card" style="--card-accent: var(--accent);">
+                        <div class="card-header">
+                            <span>TOTAL TRADES</span>
+                            <div class="card-icon"><i class="ri-stock-line"></i></div>
+                        </div>
+                        <div class="card-value" id="trade-total-count">0</div>
+                        <div class="card-footer normal">Number of distinct trades</div>
+                    </div>
+                    
+                    <!-- Open Trades -->
+                    <div class="summary-card" style="--card-accent: var(--warning);">
+                        <div class="card-header">
+                            <span>OPEN POSITIONS</span>
+                            <div class="card-icon" style="background-color: var(--warning-light); color: var(--warning);"><i class="ri-pulse-line"></i></div>
+                        </div>
+                        <div class="card-value" id="trade-open-count">0</div>
+                        <div class="card-footer normal">Currently holding</div>
+                    </div>
+                    
+                    <!-- Win Rate -->
+                    <div class="summary-card" style="--card-accent: var(--success);">
+                        <div class="card-header">
+                            <span>WIN RATE</span>
+                            <div class="card-icon" style="background-color: var(--success-light); color: var(--success);"><i class="ri-trophy-line"></i></div>
+                        </div>
+                        <div class="card-value" id="trade-win-rate">0%</div>
+                        <div class="card-footer normal">Profitable vs Loss trades</div>
+                    </div>
+                    
+                    <!-- Overall Return -->
+                    <div class="summary-card" id="trade-return-card" style="--card-accent: var(--accent);">
+                        <div class="card-header">
+                            <span>REALIZED P&L</span>
+                            <div class="card-icon"><i class="ri-money-rupee-circle-line"></i></div>
+                        </div>
+                        <div class="card-value" id="trade-overall-return">0</div>
+                        <div class="card-footer normal">Total closed profit/loss</div>
+                    </div>
+                </div>
 
+                <div class="dashboard-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Trade Statement</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="custom-table" id="trading-table">
+                            <thead>
+                                <tr>
+                                    <th>SYMBOL</th>
+                                    <th>TYPE</th>
+                                    <th>ENTRY DATE</th>
+                                    <th>EXIT DATE</th>
+                                    <th style="text-align: right;">QTY</th>
+                                    <th style="text-align: right;">AVG BUY</th>
+                                    <th style="text-align: right;">AVG SELL</th>
+                                    <th style="text-align: right;">LTP (CURRENT)</th>
+                                    <th style="text-align: right;">P&L</th>
+                                    <th style="text-align: right;">RETURN %</th>
+                                    <th style="text-align: right;">TARGET</th>
+                                    <th>REMARKS</th>
+                                    <th style="text-align: center;">STATUS</th>
+                                    <th style="text-align: center;">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
             <!-- ========================================== -->
             <!-- EXCEL WIZARD TAB -->
             <!-- ========================================== -->
@@ -468,6 +660,7 @@
                                 <select id="import-file-type" class="form-control">
                                     <option value="paytm">Paytm UPI Statement (.xlsx)</option>
                                     <option value="standard">Standard Uniform Template (.xlsx)</option>
+                                    <option value="tradebook">Zerodha Stock Tradebook (.xlsx)</option>
                                 </select>
                             </div>
                             <div class="form-group" style="margin-bottom:0; flex:1; min-width:250px;">
@@ -565,21 +758,19 @@
                 <div class="modal-title">Log New Transaction</div>
                 <button class="modal-close" onclick="closeAllModals()">&times;</button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="form-label">Accnt. Name</label>
-                    <select id="tx-account" class="form-control">
-                        <option value="Gowtham">Gowtham</option>
-                        <option value="Renuka">Renuka</option>
-                    </select>
-                </div>
+            <div class="modal-body modal-grid">
                 <div class="form-group">
                     <label class="form-label">Date</label>
                     <input type="date" id="tx-date" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Description</label>
-                    <input type="text" id="tx-description" class="form-control" placeholder="e.g. S G TYRE">
+                    <label class="form-label">Transaction Type</label>
+                    <select id="tx-type" class="form-control" onchange="handleTxTypeChange()">
+                        <option value="Expense">Expense (Outflow)</option>
+                        <option value="Income">Income (Inflow)</option>
+                        <option value="Savings">Savings/Investment</option>
+                        <option value="Transfer">Self-Transfer</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Category</label>
@@ -588,12 +779,14 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Transaction Type</label>
-                    <select id="tx-type" class="form-control">
-                        <option value="Expense">Expense (Outflow)</option>
-                        <option value="Income">Income (Inflow)</option>
-                        <option value="Savings">Savings/Investment</option>
-                    </select>
+                    <label class="form-label">Amount (INR)</label>
+                    <input type="text" inputmode="decimal" id="tx-amount" class="form-control" placeholder="0.00" onblur="this.value = formatCurr(parseAmountStr(this.value))">
+                </div>
+                
+                <!-- Dynamic Fields -->
+                <div class="form-group hidden" id="tx-to-account-group">
+                    <label class="form-label">To Account</label>
+                    <select id="tx-to-account" class="form-control"></select>
                 </div>
                 <div class="form-group linked-field-group hidden" id="tx-linked-item-group">
                     <label class="form-label" id="tx-linked-item-label">Link to</label>
@@ -601,9 +794,23 @@
                         <option value="">-- Select --</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Amount (INR)</label>
-                    <input type="text" inputmode="decimal" id="tx-amount" class="form-control" placeholder="0.00" onblur="this.value = formatCurr(parseAmountStr(this.value))">
+                <div class="form-group linked-field-group hidden" id="tx-linked-round-group">
+                    <label class="form-label">Select Round</label>
+                    <select id="tx-linked-round" class="form-control">
+                        <option value="">-- Auto --</option>
+                    </select>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label class="form-label">Accnt. Name</label>
+                    <select id="tx-account" class="form-control">
+                        <option value="Gowtham">Gowtham</option>
+                        <option value="Renuka">Renuka</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label class="form-label">Description (Optional)</label>
+                    <input type="text" id="tx-description" class="form-control" placeholder="e.g. S G TYRE">
                 </div>
             </div>
             <div class="modal-footer">
@@ -699,10 +906,8 @@
                         <thead>
                             <tr>
                                 <th>Round</th>
-                                <th>Winning Bid</th>
+                                <th>Installment</th>
                                 <th>Discount</th>
-                                <th>Dividend/Pers</th>
-                                <th>You Pay</th>
                                 <th>You Receive</th>
                                 <th>Status</th>
                             </tr>
@@ -746,10 +951,6 @@
                 <div class="form-group">
                     <label class="form-label">Payment Frequency (Months)</label>
                     <input type="number" id="chit-add-freq" class="form-control" value="1">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Target Completion/Win Month# (1 to Months)</label>
-                    <input type="number" id="chit-add-taken" class="form-control" value="10">
                 </div>
             </div>
             <div class="modal-footer">
@@ -856,6 +1057,53 @@
     <script src="assets/js/lib/xlsx.full.min.js"></script>
     <!-- Chart.js (Interactive Reports) -->
     <script src="assets/js/lib/chart.umd.js"></script>
+    <div class="modal-overlay" id="add-trade-modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2>Add / Edit Trade</h2>
+                <i class="ri-close-line close-modal" onclick="closeAllModals()"></i>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Symbol</label>
+                <input type="text" id="trade-symbol" class="form-control" placeholder="e.g. RELIANCE" style="text-transform: uppercase;">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Trade Date</label>
+                <input type="date" id="trade-date" class="form-control">
+            </div>
+            <div class="form-group" style="display: flex; gap: 10px;">
+                <div style="flex: 1;">
+                    <label class="form-label">Type</label>
+                    <select id="trade-type" class="form-control">
+                        <option value="buy">Buy</option>
+                        <option value="sell">Sell</option>
+                    </select>
+                </div>
+                <div style="flex: 1;">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" id="trade-qty" class="form-control" min="1" value="1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Price</label>
+                <input type="number" id="trade-price" class="form-control" step="0.05">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Target Value</label>
+                <input type="number" id="trade-target" class="form-control" placeholder="Optional">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Remarks</label>
+                <input type="text" id="trade-remarks" class="form-control" placeholder="Optional notes">
+            </div>
+            
+            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="saveTradeEntry()">Save Trade</button>
+            <input type="hidden" id="trade-edit-id">
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/importEngine.js"></script>
     <!-- Core Application Logic -->
     <script src="assets/js/app.js"></script>
 </body>

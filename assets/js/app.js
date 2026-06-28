@@ -8,6 +8,7 @@ const DEMO_DATA = {
     categories: {"Expense":{"Entertainment":["Activities","Media/Cinema","Sports","Gadgets","Vacation/Travel"],"Miscellaneous":["Other"],"Home Expenses":["Mortgage/Rent","Electricity","Water","Home Supplies"],"Transfer (Out)":["Lent to Others","Borrow Repayment"],"Bills/Subscriptions":["OTT\u0027s","Memberships","Mobile/Wifi"],"Daily Living":["Groceries","Personal Supplies","Clothing","Eating Out","Grooming"],"Health":["Hospital","Medicine/Drugs"],"Charity/Gifts":["Gifts Given","Donations"],"Transportation":["Fuel","Bus/Taxi/Train Fare","Repairs/Maintenance"],"Obligations":["To Home_G","To Home_R","Credit Cards","Other Loans"]},"Income":{"Carryforward":["Previous Balance"],"Variable":["Other Income"],"Transfer (In)":["Lent Repayment","Borrowed From"],"Fixed":["Salary_G","Salary_R"]},"Savings":{"Savings":["Emergency Fund","Investments"]}},
     statements: [],
     debts: [],
+    trades: [],
     descriptionMap: {"29-May-26":"IRCTC Wallet","08-Apr-26":"From Accenture","14-Feb-26":"Parker Pen","26-Feb-26":"Ghee, Paneer","13-May-26":"Eating Out","21-Nov-25":"Dinner @Shanthi Nagar","02-Apr-26":"From Ilanjiyam","29-Nov-25":"Pizza","23-Apr-26":"Bus","23-Dec-25":"Tea","04-Apr-26":"Chilli Chicken","29-Dec-25":"Curd","13-Mar-26":"Chicken","07-Dec-25":"Puliyur Ticket","05-Mar-26":"Internet Bill claim","14-Apr-26":"Marriage Reg. for Vasanth","01-Mar-26":"Juice","12-Dec-25":"Petrol","26-Apr-26":"Redbus to BG","18-Dec-25":"Grocerries","09-Mar-26":"Research 360","26-Nov-25":"Cone","18-Apr-26":"You tube Movie","17-Dec-25":"KFC","10-Dec-25":"Water Bill","17-Jan-26":"Fish","27-Dec-25":"Market, Yelahanka","17-May-26":"Tea","21-Apr-26":"Grocerries","23-Nov-25":"Aadhar Registration","08-Feb-26":"Puliyur EB Bill","05-Feb-26":"Bakery","16-Apr-26":"Swiggy Instamart","08-Jan-26":"Zepto-Weight Machine","07-Feb-26":"Dairy Milk","09-Feb-26":"To Home","09-Apr-26":"Milk","16-Mar-26":"Paani Poori","14-Jan-26":"Tea","06-May-26":"THE BIG MARKET","01-May-26":"Thangamayil","24-Dec-25":"Arav Farm","01-Jun-26":"Thangamayil","22-Dec-25":"Biriyani","21-Dec-25":"IRCTC Turicorin to BG","21-May-26":"BMTC","14-May-26":"Milk","25-Feb-26":"Chicken Roll","27-Mar-26":"Bus to Salem","19-Mar-26":"Curd","13-Dec-25":"Flower","14-Nov-25":"Grocerries-Untill 14-Nov","06-Jan-26":"Milk","19-Dec-25":"Grocerries","31-Dec-25":"Tea","15-Mar-26":"RKM Bus","25-Jan-26":"Perambalur Shopping","18-Jan-26":"Fruits Marapannor","22-May-26":"Chicken","28-Apr-26":"Shawarma","25-Dec-25":"Onion","09-Dec-25":"Annual Maintenance Fee","22-Nov-25":"Medicals","20-Mar-26":"Milk","12-May-26":"Number Plate","03-Mar-26":"Electricity","24-Jan-26":"Tea Snacks","03-Apr-26":"To Vaibhav","21-Jan-26":"SCAM","08-Dec-25":"Zepto","05-Apr-26":"Threading","10-Apr-26":"Zudio","15-Apr-26":"Popeyes","10-Jan-26":"Home Rent","28-Mar-26":"Fruits \u0026 Fuel, Goodalur","06-Apr-26":"Selvarani Current bill","27-Apr-26":"Thangamayil","28-Jan-26":"Zepto","24-May-26":"Bike Repair","11-Mar-26":"Parking @ marudhamalai","24-Mar-26":"Eating Out","13-Feb-26":"Kaviraj Marriage Train tickets","09-Nov-25":"Snacks","24-Apr-26":"Chicken Rice","13-Nov-25":"KPN Fresh","07-Apr-26":"Gift to Gowtham","05-Jan-26":"Cold tablet","02-Feb-26":"Electricity","17-Apr-26":"Snacks","12-Jan-26":"Paani Poori","03-May-26":"Perambalur Shopping","19-Jan-26":"Milk","03-Nov-25":"DINOY GE","16-May-26":"Swiggy Instamart","21-Feb-26":"Auto to SMVT","06-Mar-26":"KFC","03-Jan-26":"Tea","02-Mar-26":"Thangamayil","14-Dec-25":"Thangamayil - Diamond Bracelet","17-Mar-26":"Milk \u0026 Snacks","16-Nov-25":"Tea","23-May-26":"Tea","30-Dec-25":"Dress Alteration","13-Jan-26":"Ajio, Jacket","25-Mar-26":"Parotta","20-May-26":"Milk","19-Feb-26":"Sherif Bhai Biriyani-Zomato","19-May-26":"Capacitor","10-Feb-26":"Jimiki","16-Jan-26":"Murugan Stores","27-Jan-26":"Paani Poori","15-Feb-26":"Milk","23-Mar-26":"Bus to Perambalur","12-Apr-26":"Milk \u0026 Curd","12-Mar-26":"Milk","24-Nov-25":"Vela Bakery","15-Dec-25":"From Selvarani","26-Dec-25":"Tomato","22-Feb-26":"Local Bus","04-May-26":"Redbus Perambalur to BG","30-Nov-25":"Zepto-Rice","20-Jan-26":"Chicken","26-Jan-26":"Domino\u0027s","02-May-26":"From Elanjiyam","07-Mar-26":"Selvarani EMI","17-Feb-26":"Ointment for Neck","30-Apr-26":"Skate Shoes","29-Mar-26":"Flower","16-Dec-25":"Cab, Santhi Nagar to Home","22-Apr-26":"Cab","02-Nov-25":"SANTHIYA M","28-Dec-25":"Ithihaas","07-May-26":"Milk \u0026 Snacks","01-Dec-25":"Thalasery Hotel","02-Dec-25":"KPN Fresh","20-Apr-26":"Grocerries","05-Nov-25":"CHRG-ATM TXN DECLINE FEE","20-Feb-26":"Zepto - Cake","13-Apr-26":"Water Wash","08-Nov-25":"Sagar Dress","19-Apr-26":"Dress","09-Jan-26":"Wifi-Selvarani","23-Feb-26":"Cab from Majestic to Home","25-Nov-25":"Oil, KPN","11-Feb-26":"To Renu Thatha","11-Nov-25":"SETC","15-Jan-26":"EB Bill","11-Apr-26":"Muskan Fashion","29-Apr-26":"Thangamayil","05-May-26":"Airtel Wifi","01-Nov-25":"Selvarani","18-Nov-25":"Gocerries","17-Nov-25":"Zepto","01-Jan-26":"Chicken","07-Jan-26":"IRCTC Turicorin to BG-Cancelled","22-Mar-26":"Zepto","01-Apr-26":"To Savings Box","25-May-26":"Milk","11-Jan-26":"Mall Parking","21-Mar-26":"Zepto","31-Mar-26":"Thangamayil","09-May-26":"PVR INOX","10-Mar-26":"Juice","03-Dec-25":"Arav Farm","26-May-26":"EB Bill Parimala","15-May-26":"Speedometer Repair","27-Nov-25":"Thangamayil","04-Jan-26":"Malabar Foods","01-Feb-26":"Allowances","28-Nov-25":"Ajio","04-Nov-25":"Parimala Jio","18-Mar-26":"Milk \u0026 Snacks","12-Nov-25":"Monitor Cable","05-Dec-25":"Netflix","28-May-26":"Swiggy","04-Mar-26":"Zepto","06-Nov-25":"RAMACHAN","18-May-26":"Milk/Curd","14-Mar-26":"Bus Ticket","02-Jan-26":"Fruits","08-Mar-26":"Chicken","16-Feb-26":"Zepto-Potato, Milk","20-Dec-25":"Prawn","23-Jan-26":"Tea Snacks","29-Jan-26":"Dinner","18-Feb-26":"Chilli Chicken","03-Feb-26":"Zip Tag","10-May-26":"THE BIG MARKET"},
     budgets: {"Investments":12000,"Lent Repayment":8000,"Salary_R":48500,"OTT\u0027s":299,"Electricity":800,"To Home_G":5000,"Home Supplies":1000,"Credit Cards":5000,"Groceries":6000,"Water":250,"Clothing":2000,"Repairs/Maintenance":200,"Gifts Given":2760,"Mortgage/Rent":16250,"Fuel":600,"Media/Cinema":1000,"Mobile/Wifi":2000,"Borrowed From":10000,"Borrow Repayment":6875,"Salary_G":56200,"Eating Out":4000,"Grooming":300,"Medicine/Drugs":329,"Personal Supplies":1000,"To Home_R":4621,"Hospital":2000,"Activities":4500,"Bus/Taxi/Train Fare":2000,"Memberships":602},
     settings: {
@@ -39,6 +40,7 @@ function initAppState() {
     if (!appState.emis) appState.emis = [];
     if (!appState.chits) appState.chits = [];
     if (!appState.debts) appState.debts = [];
+    if (!appState.trades) appState.trades = [];
     if (!appState.descriptionMap) appState.descriptionMap = {};
     if (!appState.statements) appState.statements = [];
     if (!appState.categories) appState.categories = DEMO_DATA.categories;
@@ -267,33 +269,37 @@ function toggleTheme() {
 // -------------------------------------------------------------
 function calculateChitRound(chit, bidNum, bidAmount) {
     const installment = chit.totalValue / chit.members;
-    const discount = chit.totalValue - bidAmount;
-    const divisor = chit.members - bidNum;
     
-    // Standard division of discount among remaining active savers
-    const dividend = divisor > 0 ? (discount / divisor) : 0;
+    // Find all statements linked to this round
+    const stmts = appState.statements.filter(s => s.linkedId === chit.id && s.linkedRound === bidNum);
     
     let userPayment = installment;
+    let discount = 0;
     let userReceived = 0;
+    let hasPayment = false;
     
-    if (bidNum < chit.takenBidNum) {
-        // Dividend discount is subtracted before user wins the chit
-        userPayment = installment - dividend;
-    } else if (bidNum === chit.takenBidNum) {
-        // Round when chit is won: pays full installment, receives winning bid amount
-        userPayment = installment;
-        userReceived = bidAmount;
-    } else {
-        // After winning: pays full installment, no dividend discount
-        userPayment = installment;
+    stmts.forEach(s => {
+        if (s.type === "Savings" || s.type === "Expense") { // Payment
+            userPayment = Math.abs(s.amount);
+            discount = installment - userPayment;
+            hasPayment = true;
+        } else if (s.type === "Income") { // Payout received
+            userReceived += Math.abs(s.amount);
+        }
+    });
+    
+    if (!hasPayment) {
+        userPayment = installment; // Fallback to full installment
+        discount = 0;
     }
     
     return {
         installment,
         discount,
-        dividend,
         userPayment,
-        userReceived
+        userReceived,
+        hasPayment,
+        isPaid: hasPayment || userReceived > 0
     };
 }
 
@@ -305,7 +311,9 @@ function getChitCalculations(chit) {
     for (let r = 1; r <= chit.members; r++) {
         const bid = chit.bids.find(b => b.bidNum === r) || { bidNum: r, bidAmount: chit.totalValue };
         const calc = calculateChitRound(chit, r, bid.bidAmount);
-        totalPaid += calc.userPayment;
+        if (calc.hasPayment) {
+            totalPaid += calc.userPayment;
+        }
         totalReceived += calc.userReceived;
         calculatedRounds.push({
             bidNum: r,
@@ -373,7 +381,9 @@ function getContactSummary() {
                 lentAmount: 0,
                 lentRepaid: 0,
                 borrowAmount: 0,
-                borrowRepaid: 0
+                borrowRepaid: 0,
+                accountsLentFrom: new Set(),
+                accountsBorrowedBy: new Set()
             };
         }
         
@@ -381,9 +391,11 @@ function getContactSummary() {
         if (debt.type === "Lent") {
             contacts[name].lentAmount += debt.amount;
             contacts[name].lentRepaid += repaid;
+            if (debt.amount - repaid > 0) contacts[name].accountsLentFrom.add(debt.account || 'Us');
         } else {
             contacts[name].borrowAmount += debt.amount;
             contacts[name].borrowRepaid += repaid;
+            if (debt.amount - repaid > 0) contacts[name].accountsBorrowedBy.add(debt.account || 'Us');
         }
     });
     
@@ -393,6 +405,8 @@ function getContactSummary() {
         const outstandingWeOwe = c.borrowAmount - c.borrowRepaid;
         return {
             ...c,
+            accountsLentFromArr: Array.from(c.accountsLentFrom),
+            accountsBorrowedByArr: Array.from(c.accountsBorrowedBy),
             outstandingOwedToUs,
             outstandingWeOwe,
             netFamilyPosition: outstandingOwedToUs - outstandingWeOwe // Positive: Contact owes us, Negative: We owe contact
@@ -641,9 +655,98 @@ function importExcelFile(file, type, onLoadCallback) {
                     subCategory: subcat
                 });
             }
+        } else if (type === "tradebook") {
+            const sheet = workbook.Sheets["Equity"];
+            if (!sheet) {
+                alert("Sheet 'Equity' not found in Tradebook Excel file.");
+                return;
+            }
+            
+            const rawJson = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+            let headerRowIndex = -1;
+            for (let r = 0; r < rawJson.length; r++) {
+                if (rawJson[r].includes("Symbol") && rawJson[r].includes("Trade Date")) {
+                    headerRowIndex = r;
+                    break;
+                }
+            }
+            
+            if (headerRowIndex === -1) {
+                alert("Tradebook headers not found.");
+                return;
+            }
+            
+            const headers = rawJson[headerRowIndex];
+            const colIdx = {
+                symbol: headers.indexOf("Symbol"),
+                date: headers.indexOf("Trade Date"),
+                type: headers.indexOf("Trade Type"),
+                qty: headers.indexOf("Quantity"),
+                price: headers.indexOf("Price")
+            };
+            
+            let addedCount = 0;
+            let dupCount = 0;
+            for (let r = headerRowIndex + 1; r < rawJson.length; r++) {
+                const row = rawJson[r];
+                if (!row || row.length === 0 || !row[colIdx.symbol]) continue;
+                
+                let rawDate = row[colIdx.date].toString().trim();
+                let qty = parseFloat(row[colIdx.qty]);
+                let price = parseFloat(row[colIdx.price]);
+                let tType = row[colIdx.type].toString().trim().toLowerCase();
+                let symbol = row[colIdx.symbol].toString().trim();
+                
+                if (isNaN(qty) || isNaN(price)) continue;
+                
+                const exec = {
+                    id: "tr_" + Date.now() + "_" + Math.random().toString(36).substr(2, 4),
+                    symbol: symbol,
+                    date: rawDate,
+                    type: tType,
+                    quantity: qty,
+                    price: price
+                };
+                
+                // Duplicate check
+                const isDup = appState.trades.some(t => t.symbol === exec.symbol && t.date === exec.date && t.type === exec.type && t.quantity === exec.quantity && t.price === exec.price);
+                
+                if (!isDup) {
+                    appState.trades.push(exec);
+                    addedCount++;
+                } else {
+                    dupCount++;
+                }
+            }
+            
+            saveState();
+            alert(`Imported ${addedCount} new executions. Skipped ${dupCount} duplicates.`);
+            loadTradingPage();
+            window.location.hash = "#trading";
+            return;
         }
         
+        let deduplicatedRows = [];
+        let skippedDups = 0;
+        
         importedRows.forEach(row => {
+            const isDup = appState.statements.some(s => 
+                s.date === row.date && 
+                s.amount === row.amount && 
+                s.description === row.description
+            );
+            if (!isDup) {
+                deduplicatedRows.push(row);
+            } else {
+                skippedDups++;
+            }
+        });
+        
+        if (skippedDups > 0) {
+            alert(`Skipped ${skippedDups} duplicate statements that were already imported.`);
+        }
+        
+        deduplicatedRows.forEach(row => {
             const memorySubCat = appState.descriptionMap[row.description];
             if (memorySubCat) {
                 row.subCategory = memorySubCat;
@@ -653,8 +756,8 @@ function importExcelFile(file, type, onLoadCallback) {
             }
         });
         
-        excelStagingTransactions = importedRows;
-        onLoadCallback(importedRows);
+        excelStagingTransactions = deduplicatedRows;
+        onLoadCallback(deduplicatedRows);
     };
     reader.readAsArrayBuffer(file);
 }
@@ -672,10 +775,11 @@ function findSubcategoryMatch(tag) {
 }
 
 // Helper: build category optgroup options string, alphabetically sorted
-function buildCategoryOptgroupOptions(selectedValue) {
+function buildCategoryOptgroupOptions(selectedValue, filterType = null) {
     let html = '';
     const groups = Object.keys(appState.categories).sort();
     groups.forEach(group => {
+        if (filterType && filterType !== "Transfer" && group !== filterType) return;
         const cats = Object.keys(appState.categories[group]).sort();
         cats.forEach(cat => {
             html += `<optgroup label="${cat}">`;
@@ -687,6 +791,14 @@ function buildCategoryOptgroupOptions(selectedValue) {
             html += `</optgroup>`;
         });
     });
+    
+    if (filterType === "Income") {
+        html += `<optgroup label="Investments (Payouts)">`;
+        const sel = ("Recurring Investments" === selectedValue) ? ' selected' : '';
+        html += `<option value="Recurring Investments"${sel}>Recurring Investments</option>`;
+        html += `</optgroup>`;
+    }
+    
     return html;
 }
 
@@ -794,6 +906,8 @@ function handleHashRouter() {
             loadChitsPage();
         } else if (hash === "#emis") {
             loadEMIsPage();
+        } else if (hash === "#trading") {
+            loadTradingPage();
         } else if (hash === "#settings") {
             loadSettingsPage();
         } else if (hash === "#import") {
@@ -845,7 +959,49 @@ function loadDashboardPage() {
     });
     
     const debtSummary = getDebtSummary();
-    const netWorth = totalIncome - totalExpense + debtSummary.netOverallPosition;
+    let positions = (typeof getTradingPositions === "function") ? getTradingPositions() : [];
+    let openPositionsValue = 0;
+    positions.forEach(p => {
+        if (p.status === "Open" && p.buyPrice > 0) {
+            let cp = p.currentPrice ? parseFloat(p.currentPrice) : p.buyPrice;
+            openPositionsValue += (cp * p.qty);
+        }
+    });
+    const netWorth = totalIncome - totalExpense + debtSummary.netOverallPosition + openPositionsValue;
+    
+    // Check for negative account balances
+    const balances = getAccountBalances();
+    let warningsHtml = "";
+    for (const [acc, bal] of Object.entries(balances)) {
+        if (bal < 0) {
+            warningsHtml += `<div style="background-color: var(--warning-light); color: var(--warning); padding: 12px; border-radius: var(--radius-md); border-left: 4px solid var(--warning); margin-bottom: 8px;">
+                <strong>⚠️ Caution:</strong> Account '${acc}' is currently in minus (₹${formatCurr(Math.abs(bal))}). Please log income to balance it.
+            </div>`;
+        }
+    }
+    
+    // Check for Budget Overruns in Current Month
+    const currentMonth = new Date().toISOString().slice(0, 7);
+    const actuals = {};
+    appState.statements.forEach(s => {
+        if (s.date.startsWith(currentMonth) && s.type === "Expense") {
+            actuals[s.subCategory] = (actuals[s.subCategory] || 0) + Math.abs(s.amount);
+        }
+    });
+    for (const [subcat, actual] of Object.entries(actuals)) {
+        const expected = appState.budgets[subcat] || 0;
+        if (expected > 0 && actual > expected) {
+            warningsHtml += `<div style="background-color: var(--danger-light); color: var(--danger); padding: 12px; border-radius: var(--radius-md); border-left: 4px solid var(--danger); margin-bottom: 8px;">
+                <strong>⚠️ Caution:</strong> Budget for '${subcat}' is exceeded by ₹${formatCurr(actual - expected)}.
+            </div>`;
+        }
+    }
+    
+    const warningsContainer = document.getElementById("dash-account-warnings");
+    if (warningsContainer) {
+        warningsContainer.innerHTML = warningsHtml;
+        warningsContainer.style.display = warningsHtml ? "block" : "none";
+    }
     
     document.getElementById("dash-net-worth").textContent = formatCurr(netWorth);
     document.getElementById("dash-income").textContent = formatCurr(totalIncome);
@@ -863,6 +1019,7 @@ function loadDashboardPage() {
     
     renderDueReminders();
     renderBudgetAlerts(filtered);
+    renderDashboardPnL(filtered);
     renderDashboardCharts(filtered);
     renderRecentTransactions(filtered);
     renderMonthTallyWidget();
@@ -890,6 +1047,8 @@ window.setDashboardToCurrentMonth = function() {
     document.getElementById("dash-filter-month").value = (today.getMonth() + 1).toString().padStart(2, '0');
     document.getElementById("dash-date-from").value = "";
     document.getElementById("dash-date-to").value = "";
+    const cmBtn = document.getElementById("btn-current-month");
+    if (cmBtn) { cmBtn.classList.remove("btn-secondary"); cmBtn.classList.add("btn-primary"); }
     loadDashboardPage();
 };
 
@@ -898,6 +1057,8 @@ window.clearDashboardFilter = function() {
     document.getElementById("dash-filter-month").value = "All";
     document.getElementById("dash-date-from").value = "";
     document.getElementById("dash-date-to").value = "";
+    const cmBtn = document.getElementById("btn-current-month");
+    if (cmBtn) { cmBtn.classList.remove("btn-primary"); cmBtn.classList.add("btn-secondary"); }
     loadDashboardPage();
 };
 
@@ -957,9 +1118,11 @@ function renderDueReminders() {
     
     const today = new Date();
     const reminders = [];
+    const balances = getAccountBalances();
     
     appState.creditCards.forEach(cc => {
-        if (cc.outstandingAmount > 0) {
+        const outstanding = Math.abs(balances[cc.name] || 0);
+        if (outstanding > 0) {
             let dueDate = new Date(today.getFullYear(), today.getMonth(), cc.dueDate);
             if (today.getDate() > cc.dueDate) {
                 dueDate.setMonth(dueDate.getMonth() + 1);
@@ -968,10 +1131,10 @@ function renderDueReminders() {
             reminders.push({
                 id: cc.id,
                 title: `${cc.name} Credit Card Due`,
-                desc: `${formatCurr(cc.outstandingAmount)} due on ${dueDate.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}`,
+                desc: `${formatCurr(outstanding)} due on ${dueDate.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}`,
                 daysLeft: daysLeft,
                 type: daysLeft <= 5 ? "urgent" : "warning",
-                payAction: () => triggerCreditCardPayment(cc)
+                payAction: () => triggerCreditCardPayment({id: cc.id, name: cc.name, account: cc.account, outstandingAmount: outstanding})
             });
         }
     });
@@ -1132,7 +1295,7 @@ function renderMonthTallyWidget() {
     const [y, m] = targetYM.split("-");
     const monthName = new Date(y, m - 1).toLocaleString('default', { month: 'long', year: 'numeric' });
     
-    document.getElementById("tally-title").textContent = `Monthly Tally: ${monthName}`;
+    document.getElementById("tally-title").textContent = `TALLY MONTH: ${monthName.toUpperCase()}`;
     document.getElementById("tally-inflows").textContent = formatCurr(data.totalInflow);
     document.getElementById("tally-outflows").textContent = formatCurr(data.totalOutflow);
     
@@ -1148,99 +1311,137 @@ function renderMonthTallyWidget() {
 // -------------------------------------------------------------
 // CHARTS RENDERING (Chart.js)
 // -------------------------------------------------------------
-function renderDashboardCharts(statementsToUse = appState.statements) {
-    const isDark = (document.documentElement.getAttribute("data-theme") || "dark") === "dark";
-    const textColors = isDark ? "#9ca3af" : "#475569";
-    const gridColors = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)";
+function renderDashboardPnL(statementsToUse) {
+    const tbody = document.querySelector("#dashboard-pnl-table tbody");
+    if (!tbody) return;
     
-    const catBreakdown = {};
-    let totalAmount = 0;
+    const pnlData = {
+        Income: {},
+        Expense: {},
+        Savings: {}
+    };
+    
+    for (const subcat in appState.budgets) {
+        let parentType = null;
+        let parentCat = null;
+        
+        for (const t in appState.categories) {
+            for (const c in appState.categories[t]) {
+                if (appState.categories[t][c].includes(subcat)) {
+                    parentType = t;
+                    parentCat = c;
+                    break;
+                }
+            }
+            if (parentType) break;
+        }
+        
+        if (parentType && pnlData[parentType]) {
+            if (!pnlData[parentType][parentCat]) {
+                pnlData[parentType][parentCat] = { actual: 0, budget: 0 };
+            }
+            pnlData[parentType][parentCat].budget += appState.budgets[subcat];
+        }
+    }
     
     statementsToUse.forEach(s => {
-        const amt = Math.abs(s.amount);
-        totalAmount += amt;
+        let parentType = s.type;
+        if (!pnlData[parentType]) return;
         
         let parentCat = s.subCategory || "Uncategorized";
-        // Find the parent category name from categories tree
-        for (const type in appState.categories) {
-            for (const cat in appState.categories[type]) {
-                if (appState.categories[type][cat].includes(s.subCategory)) {
-                    parentCat = cat;
+        if (appState.categories[parentType]) {
+            for (const c in appState.categories[parentType]) {
+                if (appState.categories[parentType][c].includes(s.subCategory)) {
+                    parentCat = c;
                     break;
                 }
             }
         }
-        catBreakdown[parentCat] = (catBreakdown[parentCat] || 0) + amt;
+        
+        if (!pnlData[parentType][parentCat]) {
+            pnlData[parentType][parentCat] = { actual: 0, budget: 0 };
+        }
+        pnlData[parentType][parentCat].actual += Math.abs(s.amount);
     });
     
-    const ctxPie = document.getElementById("categoryBreakdownChart");
-    if (ctxPie) {
-        if (charts.pie) charts.pie.destroy();
+    let html = "";
+    let overallIncomeAct = 0;
+    let overallIncomeBud = 0;
+    let overallExpenseAct = 0;
+    let overallExpenseBud = 0;
+    
+    const renderSection = (type, label) => {
+        const cats = Object.keys(pnlData[type]).sort();
+        if (cats.length === 0) return;
         
-        const labels = Object.keys(catBreakdown);
-        const data = Object.values(catBreakdown);
+        html += `<tr style="background-color: var(--bg-surface);"><td colspan="4" style="font-weight:700; color:var(--text-muted); padding-top:12px;">${label}</td></tr>`;
         
-        if (labels.length === 0) {
-            charts.pie = new Chart(ctxPie, {
-                type: 'doughnut',
-                data: {
-                    labels: ["No Data"],
-                    datasets: [{
-                        data: [1],
-                        backgroundColor: ["rgba(156,163,175,0.15)"],
-                        borderColor: ["transparent"]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } }
-                }
-            });
-        } else {
-            charts.pie = new Chart(ctxPie, {
-                type: 'doughnut',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: data,
-                        backgroundColor: [
-                            'rgba(99, 102, 241, 0.7)',
-                            'rgba(16, 185, 129, 0.7)',
-                            'rgba(245, 158, 11, 0.7)',
-                            'rgba(239, 68, 68, 0.7)',
-                            'rgba(139, 92, 246, 0.7)',
-                            'rgba(236, 72, 153, 0.7)',
-                            'rgba(20, 184, 166, 0.7)',
-                            'rgba(251, 146, 60, 0.7)',
-                            'rgba(34, 211, 238, 0.7)',
-                            'rgba(163, 230, 53, 0.7)',
-                            'rgba(244, 114, 182, 0.7)',
-                            'rgba(96, 165, 250, 0.7)',
-                            'rgba(253, 186, 116, 0.7)',
-                            'rgba(167, 139, 250, 0.7)',
-                            'rgba(110, 231, 183, 0.7)'
-                        ],
-                        borderColor: isDark ? '#111827' : '#ffffff',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: textColors,
-                                font: { family: 'Inter', size: 10 }
-                            }
-                        }
-                    }
-                }
-            });
+        let secActual = 0;
+        let secBudget = 0;
+        
+        cats.forEach(c => {
+            const act = pnlData[type][c].actual;
+            const bud = pnlData[type][c].budget;
+            secActual += act;
+            secBudget += bud;
+            
+            const variance = act - bud;
+            let statusIcon = "";
+            let varColor = "";
+            
+            if (type === "Income") {
+                statusIcon = act >= bud ? '✔️' : '❌';
+                varColor = variance >= 0 ? 'var(--success)' : 'var(--danger)';
+            } else {
+                statusIcon = act <= bud ? '✔️' : '❌';
+                varColor = variance <= 0 ? 'var(--success)' : 'var(--danger)';
+            }
+            
+            html += `<tr>
+                <td style="padding-left: 16px;">${c}</td>
+                <td style="text-align: right;">${formatCurr(act)}</td>
+                <td style="text-align: right;">${formatCurr(bud)}</td>
+                <td style="text-align: right; color: ${varColor}">${statusIcon} ${formatCurr(variance)}</td>
+            </tr>`;
+        });
+        
+        html += `<tr style="font-weight:700; background-color: var(--bg-surface);">
+            <td style="padding-left: 16px; color: var(--text-muted);">${label} Total</td>
+            <td style="text-align: right;">${formatCurr(secActual)}</td>
+            <td style="text-align: right;">${formatCurr(secBudget)}</td>
+            <td style="text-align: right;">${formatCurr(secActual - secBudget)}</td>
+        </tr>`;
+        
+        if (type === "Income") {
+            overallIncomeAct = secActual;
+            overallIncomeBud = secBudget;
         }
-    }
+        if (type === "Expense") {
+            overallExpenseAct = secActual;
+            overallExpenseBud = secBudget;
+        }
+    };
+    
+    renderSection("Income", "Income");
+    renderSection("Expense", "Expense");
+    renderSection("Savings", "Savings");
+    
+    const surplusAct = overallIncomeAct - overallExpenseAct;
+    const surplusBud = overallIncomeBud - overallExpenseBud;
+    html += `<tr style="font-weight:700; background-color: var(--border-color); font-size: 14px;">
+        <td style="padding: 12px 16px;">Income Surplus / (Deficit)</td>
+        <td style="text-align: right; color: ${surplusAct >= 0 ? 'var(--success)' : 'var(--danger)'}">${formatCurr(surplusAct)}</td>
+        <td style="text-align: right;">${formatCurr(surplusBud)}</td>
+        <td style="text-align: right;">${formatCurr(surplusAct - surplusBud)}</td>
+    </tr>`;
+    
+    tbody.innerHTML = html;
+}
+
+function renderDashboardCharts(statementsToUse = appState.statements) {
+    const isDark = (document.documentElement.getAttribute("data-theme") || "dark") === "dark";
+    const textColors = isDark ? "#9ca3af" : "#475569";
+    const gridColors = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)";
     
     const trendLabels = [];
     const incomeData = [];
@@ -1349,6 +1550,15 @@ function loadBudgetPage() {
     groups.forEach(type => {
         const cats = Object.keys(appState.categories[type]).sort();
         cats.forEach(cat => {
+            const subs = [...appState.categories[type][cat]].sort();
+            
+            let catExpected = 0;
+            let catActual = 0;
+            subs.forEach(subcat => {
+                catExpected += appState.budgets[subcat] || 0;
+                catActual += actuals[subcat] || 0;
+            });
+            
             const card = document.createElement("div");
             card.className = "dashboard-panel";
             card.style.padding = "0";
@@ -1362,7 +1572,15 @@ function loadBudgetPage() {
             header.style.margin = "0";
             header.style.backgroundColor = "var(--surface-2)";
             header.style.borderBottom = "1px solid var(--border)";
-            header.innerHTML = `<span class="panel-title" style="font-size: 15px; margin: 0;">${cat} <span style="font-size: 11px; color: var(--text-muted); font-weight: normal; margin-left: 5px;">${type}</span></span>`;
+            header.innerHTML = `
+                <div style="display:flex; justify-content:space-between; width: 100%; align-items:center;">
+                    <span class="panel-title" style="font-size: 15px; margin: 0;">${cat} <span style="font-size: 11px; color: var(--text-muted); font-weight: normal; margin-left: 5px;">${type}</span></span>
+                    <div style="font-size: 13px;">
+                        <span style="color: var(--text-muted); margin-right: 12px;">Budget: <span style="color:var(--text-primary); font-weight:600;">${formatCurr(catExpected)}</span></span>
+                        <span style="color: var(--text-muted);">Actual: <span style="color:var(--text-primary); font-weight:600;">${formatCurr(catActual)}</span></span>
+                    </div>
+                </div>
+            `;
             
             const tableWrapper = document.createElement("div");
             tableWrapper.style.overflowX = "auto";
@@ -1386,7 +1604,6 @@ function loadBudgetPage() {
             
             const tbody = table.querySelector("tbody");
 
-            const subs = [...appState.categories[type][cat]].sort();
             subs.forEach((subcat, idx) => {
                 const tr = document.createElement("tr");
                 if (idx === subs.length - 1) {
@@ -1397,17 +1614,21 @@ function loadBudgetPage() {
                 let diff = expected - actual;
                 
                 let diffStyle = "";
+                let cautionIcon = "";
                 if (type === "Expense") {
-                    if (diff < 0) diffStyle = "color: var(--danger); font-weight: bold;";
+                    if (diff < 0) {
+                        diffStyle = "color: var(--danger); font-weight: bold;";
+                        cautionIcon = ' <i class="ri-alert-fill" title="Budget Exceeded!" style="color: var(--danger);"></i>';
+                    }
                     else if (diff >= 0) diffStyle = "color: var(--success);";
                 } else if (type === "Income") {
                     diff = actual - expected; 
-                    if (diff < 0) diffStyle = "color: var(--danger); font-weight: bold;";
+                    if (diff < 0) diffStyle = "color: var(--warning); font-weight: bold;";
                     else if (diff >= 0) diffStyle = "color: var(--success);";
                 }
                 
                 tr.innerHTML = `
-                    <td style="padding: 10px 15px; font-weight: 500;">${subcat}</td>
+                    <td style="padding: 10px 15px; font-weight: 500;">${subcat}${cautionIcon}</td>
                     <td style="padding: 6px 10px;"><input type="text" inputmode="decimal" class="form-control budget-input" data-subcat="${subcat}" value="${formatCurr(expected)}" onblur="this.value = formatCurr(parseAmountStr(this.value))" style="padding: 4px 8px; height: 30px; font-size: 13px;"></td>
                     <td style="padding: 10px 10px; text-align: right;">${formatCurr(actual)}</td>
                     <td style="padding: 10px 15px; text-align: right; ${diffStyle}">${formatCurr(diff)}</td>
@@ -1434,6 +1655,56 @@ function saveBudgetPlanner() {
     alert("Budgets saved successfully!");
     loadBudgetPage();
 }
+
+window.resetBudgets = function() {
+    if (confirm("Are you sure you want to reset all budgets to zero?")) {
+        for (const subcat in appState.budgets) {
+            appState.budgets[subcat] = 0;
+        }
+        saveState();
+        loadBudgetPage();
+    }
+};
+
+window.copyPreviousMonthActuals = function() {
+    const picker = document.getElementById("budget-month-filter");
+    if (!picker) return;
+    
+    // Default to copying from previous calendar month if nothing selected
+    let targetYM = picker.value;
+    if (!targetYM) {
+        const date = new Date();
+        date.setMonth(date.getMonth() - 1);
+        targetYM = date.toISOString().slice(0, 7);
+    }
+    
+    if (!confirm(`This will overwrite your budgets with your actual expenses from ${targetYM}. Proceed?`)) {
+        return;
+    }
+    
+    // Calculate actual expenses for the target month
+    const actuals = {};
+    appState.statements.forEach(s => {
+        if (s.date.startsWith(targetYM) && s.type === "Expense") {
+            const sc = s.subCategory || "Uncategorized";
+            actuals[sc] = (actuals[sc] || 0) + Math.abs(s.amount);
+        }
+    });
+    
+    // Also reset categories that had no expenses last month to 0
+    for (const subcat in appState.budgets) {
+        appState.budgets[subcat] = 0;
+    }
+    
+    // Apply actuals as new budget
+    for (const subcat in actuals) {
+        appState.budgets[subcat] = actuals[subcat];
+    }
+    
+    saveState();
+    loadBudgetPage();
+    alert("Budgets updated to match " + targetYM + " actuals!");
+};
 
 function exportTransactionsCSV() {
     const txType = document.getElementById("exp-filter-type") ? document.getElementById("exp-filter-type").value : "";
@@ -1553,7 +1824,36 @@ function editStatementItem(id) {
 
 function deleteStatementItem(id) {
     if (confirm("Are you sure you want to delete this transaction record?")) {
-        appState.statements = appState.statements.filter(t => t.id !== id);
+        const t = appState.statements.find(s => s.id === id);
+        if (t && t.linkedId) {
+            if (t.linkedId.startsWith("emi_")) {
+                const emi = appState.emis.find(e => e.id === t.linkedId);
+                if (emi) emi.remainingMonths = Math.min(emi.tenureMonths, emi.remainingMonths + 1);
+            } else if (t.linkedId.startsWith("chit_")) {
+                const chit = appState.chits.find(c => c.id === t.linkedId);
+                if (chit && chit.bids.length > 0) chit.bids.pop();
+            } else if (t.linkedId.startsWith("debt_")) {
+                if (t.id === "s_" + t.linkedId) {
+                    // This is the principal transaction. Deleting it deletes the entire debt.
+                    if (confirm("This transaction is the original principal of a Loan/Debt. Deleting it will delete the entire Debt ledger along with its repayments. Proceed?")) {
+                        appState.debts = appState.debts.filter(d => d.id !== t.linkedId);
+                        // Also delete any repayment transactions associated with this debt
+                        appState.statements = appState.statements.filter(s => s.linkedId !== t.linkedId);
+                        saveState();
+                        filterExpensesTable();
+                        loadDebtsPage(); // Refresh debt UI if active
+                        return; // Done
+                    } else {
+                        return; // Cancel deletion
+                    }
+                } else {
+                    const debt = appState.debts.find(d => d.id === t.linkedId);
+                    if (debt) debt.repayments = debt.repayments.filter(r => r.id !== id);
+                }
+            }
+        }
+        
+        appState.statements = appState.statements.filter(s => s.id !== id);
         saveState();
         filterExpensesTable();
     }
@@ -1568,36 +1868,70 @@ function loadDebtsPage() {
 }
 
 function renderDebtsTable() {
-    const tbody = document.querySelector("#debts-table tbody");
-    tbody.innerHTML = "";
+    const activeTbody = document.querySelector("#debts-table tbody");
+    const settledTbody = document.querySelector("#settled-debts-table tbody");
+    if (!activeTbody || !settledTbody) return;
     
-    if (appState.debts.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-muted);">No lending/borrowing agreements saved.</td></tr>`;
-        return;
-    }
+    activeTbody.innerHTML = "";
+    settledTbody.innerHTML = "";
+    
+    const activeDebts = [];
+    const settledDebts = [];
     
     appState.debts.forEach(d => {
-        const tr = document.createElement("tr");
         const repaid = d.repayments.reduce((sum, r) => sum + r.amount, 0);
         const outstanding = Math.max(0, d.amount - repaid);
-        const isLent = d.type === "Lent";
-        
-        tr.innerHTML = `
-            <td>${formatDateDisplay(d.date)}</td>
-            <td><strong>${d.account}</strong></td>
-            <td><span class="badge ${isLent ? 'badge-income' : 'badge-expense'}">${d.type}</span></td>
-            <td><strong>${d.person}</strong></td>
-            <td>${d.remarks || "-"}</td>
-            <td>${formatCurr(d.amount)}</td>
-            <td>${formatCurr(repaid)}</td>
-            <td style="font-weight: 700; color: ${outstanding > 0 ? 'var(--warning)' : 'var(--success)'}">${formatCurr(outstanding)}</td>
-            <td style="text-align: right; display: flex; gap: 4px; justify-content: flex-end;">
-                ${outstanding > 0 ? `<button class="btn btn-success" style="padding: 4px 8px; font-size: 11px;" onclick="openRepaymentModal('${d.id}')"><i class="ri-refund-2-line"></i> Repay</button>` : ""}
-                <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="deleteDebtItem('${d.id}')"><i class="ri-delete-bin-line"></i></button>
-            </td>
-        `;
-        tbody.appendChild(tr);
+        if (outstanding > 0) activeDebts.push({ ...d, repaid, outstanding });
+        else settledDebts.push({ ...d, repaid, outstanding });
     });
+    
+    if (activeDebts.length === 0) {
+        activeTbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--text-muted);">No active lending/borrowing agreements.</td></tr>`;
+    } else {
+        activeDebts.forEach(d => {
+            const isLent = d.type === "Lent";
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${formatDateDisplay(d.date)}</td>
+                <td><strong>${d.account}</strong></td>
+                <td><span class="badge ${isLent ? 'badge-income' : 'badge-expense'}">${d.type}</span></td>
+                <td><strong>${d.person}</strong></td>
+                <td>${d.remarks || "-"}</td>
+                <td>${formatCurr(d.amount)}</td>
+                <td>${formatCurr(d.repaid)}</td>
+                <td style="font-weight: 700; color: var(--warning)">${formatCurr(d.outstanding)}</td>
+                <td style="text-align: right; display: flex; gap: 4px; justify-content: flex-end;">
+                    <button class="btn btn-success" style="padding: 4px 8px; font-size: 11px;" onclick="openRepaymentModal('${d.id}')"><i class="ri-refund-2-line"></i> Repay</button>
+                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="promptEditDebt('${d.id}')"><i class="ri-pencil-line"></i></button>
+                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="deleteDebtItem('${d.id}')"><i class="ri-delete-bin-line"></i></button>
+                </td>
+            `;
+            activeTbody.appendChild(tr);
+        });
+    }
+    
+    if (settledDebts.length === 0) {
+        settledTbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-muted);">No settled loans yet.</td></tr>`;
+    } else {
+        settledDebts.forEach(d => {
+            const isLent = d.type === "Lent";
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${formatDateDisplay(d.date)}</td>
+                <td><strong>${d.account}</strong></td>
+                <td><span class="badge ${isLent ? 'badge-income' : 'badge-expense'}">${d.type}</span></td>
+                <td><strong>${d.person}</strong></td>
+                <td>${d.remarks || "-"}</td>
+                <td>${formatCurr(d.amount)}</td>
+                <td><span class="badge" style="background-color: var(--success-light); color: var(--success);">Settled</span></td>
+                <td style="text-align: right; display: flex; gap: 4px; justify-content: flex-end;">
+                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="promptEditDebt('${d.id}')"><i class="ri-pencil-line"></i></button>
+                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="deleteDebtItem('${d.id}')"><i class="ri-delete-bin-line"></i></button>
+                </td>
+            `;
+            settledTbody.appendChild(tr);
+        });
+    }
 }
 
 function renderFamilyDebtPosition() {
@@ -1643,14 +1977,17 @@ function renderFamilyDebtPosition() {
             color = "var(--text-muted)";
         }
         
+        const lentAccts = c.accountsLentFromArr.length > 0 ? c.accountsLentFromArr.join("/") : "Us";
+        const borrowAccts = c.accountsBorrowedByArr.length > 0 ? c.accountsBorrowedByArr.join("/") : "Us";
+        
         card.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <strong style="font-size: 14px;">${c.name}</strong>
                 <span style="font-weight: 700; color: ${color}; font-size: 12px;">${positionText}</span>
             </div>
             <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; display: flex; flex-direction: column; gap: 2px;">
-                <span>Owed to Gowtham/Renuka: ${formatCurr(c.outstandingOwedToUs)}</span>
-                <span>Owed by Gowtham/Renuka: ${formatCurr(c.outstandingWeOwe)}</span>
+                <span>Owed to ${lentAccts}: ${formatCurr(c.outstandingOwedToUs)}</span>
+                <span>Owed by ${borrowAccts}: ${formatCurr(c.outstandingWeOwe)}</span>
             </div>
         `;
         container.appendChild(card);
@@ -1727,15 +2064,30 @@ function saveRepaymentEntry() {
 // CHITS TAB
 // -------------------------------------------------------------
 function loadChitsPage() {
-    const container = document.getElementById("chits-cards-grid");
-    container.innerHTML = "";
+    const activeContainer = document.getElementById("chits-cards-grid");
+    const completedContainer = document.getElementById("completed-chits-cards-grid");
+    if (!activeContainer || !completedContainer) return;
+    
+    activeContainer.innerHTML = "";
+    completedContainer.innerHTML = "";
     
     if (appState.chits.length === 0) {
-        container.innerHTML = `<div style="grid-column:1/-1; text-align: center; color: var(--text-muted); font-size: 13px;">No Chit Funds created yet. Click "Add New Chit" to start tracking!</div>`;
+        activeContainer.innerHTML = `<div style="grid-column:1/-1; text-align: center; color: var(--text-muted); font-size: 13px;">No Chit Funds created yet. Click "Add New Plan" to start tracking!</div>`;
         return;
     }
     
+    const activeChits = [];
+    const completedChits = [];
+    
     appState.chits.forEach(chit => {
+        if (chit.bids.length >= chit.members) {
+            completedChits.push(chit);
+        } else {
+            activeChits.push(chit);
+        }
+    });
+    
+    const renderCard = (chit, container) => {
         const calcs = getChitCalculations(chit);
         const card = document.createElement("div");
         card.className = "dashboard-panel";
@@ -1743,12 +2095,15 @@ function loadChitsPage() {
         
         const completedRounds = chit.bids.length;
         const totalRounds = chit.members;
-        const completionPct = (completedRounds / totalRounds) * 100;
+        const completionPct = Math.min(100, (completedRounds / totalRounds) * 100);
         
         card.innerHTML = `
             <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 12px;">
                 <strong style="font-size: 16px; font-family: var(--font-heading);">${chit.name}</strong>
-                <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="deleteChitItem('${chit.id}')"><i class="ri-delete-bin-line"></i></button>
+                <div>
+                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px; margin-right: 4px;" onclick="promptEditChit('${chit.id}')"><i class="ri-pencil-line"></i></button>
+                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="deleteChitItem('${chit.id}')"><i class="ri-delete-bin-line"></i></button>
+                </div>
             </div>
             
             <div class="chit-details-grid">
@@ -1760,9 +2115,6 @@ function loadChitsPage() {
                 
                 <span class="chit-detail-label">Installment Base:</span>
                 <span class="chit-detail-value">${formatCurr(chit.totalValue / chit.members)}</span>
-                
-                <span class="chit-detail-label">Winning Bid round:</span>
-                <span class="chit-detail-value">Round #${chit.takenBidNum}</span>
                 
                 <span class="chit-detail-label">Total Payments Made:</span>
                 <span class="chit-detail-value">${formatCurr(calcs.totalPaid)}</span>
@@ -1782,7 +2134,7 @@ function loadChitsPage() {
                     <span>${Math.round(completionPct)}%</span>
                 </div>
                 <div class="progress-bar-container">
-                    <div class="progress-bar-fill" style="width: ${completionPct}%;"></div>
+                    <div class="progress-bar-fill" style="width: ${completionPct}%; ${completionPct === 100 ? 'background: var(--success);' : ''}"></div>
                 </div>
             </div>
             
@@ -1791,7 +2143,19 @@ function loadChitsPage() {
             </button>
         `;
         container.appendChild(card);
-    });
+    };
+
+    if (activeChits.length === 0) {
+        activeContainer.innerHTML = `<div style="grid-column:1/-1; text-align: center; color: var(--text-muted); font-size: 13px;">No active investments right now.</div>`;
+    } else {
+        activeChits.forEach(chit => renderCard(chit, activeContainer));
+    }
+    
+    if (completedChits.length === 0) {
+        completedContainer.innerHTML = `<div style="grid-column:1/-1; text-align: center; color: var(--text-muted); font-size: 13px;">No matured investments yet.</div>`;
+    } else {
+        completedChits.forEach(chit => renderCard(chit, completedContainer));
+    }
 }
 
 function deleteChitItem(id) {
@@ -1809,6 +2173,27 @@ function openChitLedgerModal(chitId) {
     document.getElementById("ledger-chit-id").value = chitId;
     document.getElementById("ledger-modal-title").textContent = `Ledger: ${chit.name}`;
     
+    // Migrate linked statements to have a linkedRound if missing
+    const linkedStatements = appState.statements.filter(s => s.linkedId === chit.id);
+    linkedStatements.sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    let maxRound = 0;
+    linkedStatements.forEach(s => {
+        if (s.linkedRound && s.linkedRound > maxRound) {
+            maxRound = s.linkedRound;
+        }
+    });
+    
+    let r = maxRound + 1;
+    let modified = false;
+    linkedStatements.forEach(s => {
+        if (!s.linkedRound) {
+            s.linkedRound = r++;
+            modified = true;
+        }
+    });
+    if (modified) saveState();
+    
     const calcs = getChitCalculations(chit);
     const tbody = document.querySelector("#chit-ledger-table tbody");
     tbody.innerHTML = "";
@@ -1817,17 +2202,12 @@ function openChitLedgerModal(chitId) {
         const tr = document.createElement("tr");
         tr.innerHTML = `
             <td>Round ${r.bidNum}</td>
-            <td>
-                <input type="number" class="form-control" style="width: 100px; padding: 4px 8px; font-size: 12px;" 
-                       value="${r.bidAmount}" onchange="updateChitBidAmount('${chitId}', ${r.bidNum}, this.value)">
-            </td>
+            <td>${formatCurr(r.installment)}</td>
             <td>${formatCurr(r.discount)}</td>
-            <td>${formatCurr(r.dividend)}</td>
-            <td>${formatCurr(r.userPayment)}</td>
             <td style="font-weight: 700; color: var(--success);">${r.userReceived > 0 ? formatCurr(r.userReceived) : "-"}</td>
             <td>
-                <span class="badge ${r.bidNum <= chit.bids.length ? 'badge-income' : 'badge-pending'}">
-                    ${r.bidNum <= chit.bids.length ? 'Paid' : 'Pending'}
+                <span class="badge ${r.isPaid ? 'badge-income' : 'badge-pending'}">
+                    ${r.isPaid ? 'Paid' : 'Pending'}
                 </span>
             </td>
         `;
@@ -1837,63 +2217,36 @@ function openChitLedgerModal(chitId) {
     document.getElementById("chit-ledger-modal").classList.add("active");
 }
 
-function updateChitBidAmount(chitId, bidNum, value) {
-    const val = parseAmountStr(value);
-    if (isNaN(val) || val <= 0) return;
-    
-    const chit = appState.chits.find(c => c.id === chitId);
-    if (!chit) return;
-    
-    let bid = chit.bids.find(b => b.bidNum === bidNum);
-    if (bid) {
-        bid.bidAmount = val;
-    } else {
-        chit.bids.push({ bidNum, bidAmount: val });
-    }
-    
-    chit.bids.sort((a,b) => a.bidNum - b.bidNum);
-    saveState();
-    
-    const calcs = getChitCalculations(chit);
-    const tbody = document.querySelector("#chit-ledger-table tbody");
-    tbody.innerHTML = "";
-    calcs.rounds.forEach(r => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td>Round ${r.bidNum}</td>
-            <td>
-                <input type="number" class="form-control" style="width: 100px; padding: 4px 8px; font-size: 12px;" 
-                       value="${r.bidAmount}" onchange="updateChitBidAmount('${chitId}', ${r.bidNum}, this.value)">
-            </td>
-            <td>${formatCurr(r.discount)}</td>
-            <td>${formatCurr(r.dividend)}</td>
-            <td>${formatCurr(r.userPayment)}</td>
-            <td style="font-weight: 700; color: var(--success);">${r.userReceived > 0 ? formatCurr(r.userReceived) : "-"}</td>
-            <td>
-                <span class="badge ${r.bidNum <= chit.bids.length ? 'badge-income' : 'badge-pending'}">
-                    ${r.bidNum <= chit.bids.length ? 'Paid' : 'Pending'}
-                </span>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
 // -------------------------------------------------------------
 // EMIs TAB
 // -------------------------------------------------------------
 function loadEMIsPage() {
-    const tbody = document.querySelector("#emis-table tbody");
-    tbody.innerHTML = "";
+    const activeTbody = document.querySelector("#emis-table tbody");
+    const completedTbody = document.querySelector("#completed-emis-table tbody");
+    if (!activeTbody || !completedTbody) return;
+    
+    activeTbody.innerHTML = "";
+    completedTbody.innerHTML = "";
     
     let totalEmiAmount = 0;
-    appState.emis.forEach(e => totalEmiAmount += e.amount);
+    const activeEmis = [];
+    const completedEmis = [];
+    
+    appState.emis.forEach(e => {
+        if (e.remainingMonths > 0) {
+            activeEmis.push(e);
+            totalEmiAmount += e.amount;
+        } else {
+            completedEmis.push(e);
+        }
+    });
+    
     document.getElementById("emi-total-monthly").textContent = formatCurr(totalEmiAmount);
     
-    if (appState.emis.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No active EMI loans found.</td></tr>`;
+    if (activeEmis.length === 0) {
+        activeTbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No active EMI loans found.</td></tr>`;
     } else {
-        appState.emis.forEach(e => {
+        activeEmis.forEach(e => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td><strong>${e.name}</strong></td>
@@ -1902,33 +2255,64 @@ function loadEMIsPage() {
                 <td>${formatCurr(e.amount)}</td>
                 <td>${e.interestRate}%</td>
                 <td>${e.remainingMonths} / ${e.tenureMonths} mos</td>
-                <td style="text-align: right;">
+                <td style="text-align: right; white-space: nowrap;">
+                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px; margin-right: 4px;" onclick="promptEditEMI('${e.id}')">
+                        <i class="ri-pencil-line"></i>
+                    </button>
                     <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="deleteEMIItem('${e.id}')">
                         <i class="ri-delete-bin-line"></i>
                     </button>
                 </td>
             `;
-            tbody.appendChild(tr);
+            activeTbody.appendChild(tr);
+        });
+    }
+
+    if (completedEmis.length === 0) {
+        completedTbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No completed EMIs yet.</td></tr>`;
+    } else {
+        completedEmis.forEach(e => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td><strong>${e.name}</strong></td>
+                <td>${e.account}</td>
+                <td>${e.bank}</td>
+                <td>${formatCurr(e.amount)}</td>
+                <td>${e.interestRate}%</td>
+                <td><span class="badge" style="background-color: var(--success-light); color: var(--success);">Completed</span></td>
+                <td style="text-align: right; white-space: nowrap;">
+                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px; margin-right: 4px;" onclick="promptEditEMI('${e.id}')">
+                        <i class="ri-pencil-line"></i>
+                    </button>
+                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="deleteEMIItem('${e.id}')">
+                        <i class="ri-delete-bin-line"></i>
+                    </button>
+                </td>
+            `;
+            completedTbody.appendChild(tr);
         });
     }
 
     const ccList = document.getElementById("cc-billing-list");
     if (ccList) {
         ccList.innerHTML = "";
+        const balances = getAccountBalances();
         if (appState.creditCards.length === 0) {
             ccList.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 13px; padding: 20px;">No credit cards tracked.</div>`;
         } else {
             appState.creditCards.forEach(cc => {
+                const outstanding = Math.abs(balances[cc.name] || 0);
                 const item = document.createElement("div");
                 item.className = "reminder-item normal";
                 item.innerHTML = `
                     <div class="reminder-info">
                         <div class="reminder-title" style="font-weight:700;">${cc.name} (${cc.account})</div>
-                        <div class="reminder-desc">Limit: ${formatCurr(cc.limit)} | Outstanding: ${formatCurr(cc.outstandingAmount)}</div>
+                        <div class="reminder-desc">Limit: ${formatCurr(cc.limit)} | Outstanding: ${formatCurr(outstanding)}</div>
                         <div class="reminder-desc" style="font-size:10px; color:var(--text-muted);">Stmt Day: ${cc.statementDate}th | Due Day: ${cc.dueDate}th</div>
                     </div>
                     <div style="display:flex; gap:4px; align-items:center;">
-                        ${cc.outstandingAmount > 0 ? `<button class="btn btn-success" style="padding: 6px 10px; font-size: 11px;" onclick="triggerCreditCardPayment({id: '${cc.id}', name: '${cc.name}', account: '${cc.account}', outstandingAmount: ${cc.outstandingAmount}})"><i class="ri-check-line"></i> Pay</button>` : ""}
+                        ${outstanding > 0 ? `<button class="btn btn-success" style="padding: 6px 10px; font-size: 11px;" onclick="triggerCreditCardPayment({id: '${cc.id}', name: '${cc.name}', account: '${cc.account}', outstandingAmount: ${outstanding}})"><i class="ri-check-line"></i> Pay</button>` : ""}
+                        <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px;" onclick="promptEditCreditCard('${cc.id}')"><i class="ri-pencil-line"></i></button>
                         <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px;" onclick="deleteCCItem('${cc.id}')"><i class="ri-delete-bin-line"></i></button>
                     </div>
                 `;
@@ -2234,15 +2618,70 @@ let transactionModalCallback = null;
 
 let _editingTransactionId = null;
 
+function getAccountBalances() {
+    let balances = {};
+    appState.accounts.forEach(a => balances[a] = 0);
+    if (appState.creditCards) {
+        appState.creditCards.forEach(cc => balances[cc.name] = -(cc.outstandingAmount || 0));
+    }
+    appState.statements.forEach(t => {
+        if (balances[t.account] !== undefined) {
+            if (t.type === "Income") balances[t.account] += Math.abs(t.amount);
+            else if (t.type === "Expense" || t.type === "Savings") balances[t.account] -= Math.abs(t.amount);
+            else if (t.type === "Transfer") balances[t.account] -= Math.abs(t.amount);
+        }
+        if (t.type === "Transfer" && t.toAccount && balances[t.toAccount] !== undefined) {
+            balances[t.toAccount] += Math.abs(t.amount);
+        }
+    });
+    return balances;
+}
+
+function populateAccountDropdown(selectId) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+    
+    const balances = getAccountBalances();
+    const currentVal = select.value;
+    
+    select.innerHTML = "";
+    
+    // Regular Accounts
+    select.innerHTML += `<optgroup label="Bank / Cash">`;
+    appState.accounts.forEach(acc => {
+        const bal = balances[acc] || 0;
+        const formattedBal = formatCurr(Math.abs(bal));
+        const sign = bal < 0 ? "-" : "";
+        select.innerHTML += `<option value="${acc}">${acc} (${sign}₹${formattedBal})</option>`;
+    });
+    select.innerHTML += `</optgroup>`;
+    
+    // Credit Cards
+    if (appState.creditCards && appState.creditCards.length > 0) {
+        select.innerHTML += `<optgroup label="Credit Cards">`;
+        appState.creditCards.forEach(cc => {
+            const bal = balances[cc.name] || 0;
+            const formattedBal = formatCurr(Math.abs(bal));
+            const sign = bal < 0 ? "-" : "";
+            select.innerHTML += `<option value="${cc.name}">${cc.name} (${sign}₹${formattedBal})</option>`;
+        });
+        select.innerHTML += `</optgroup>`;
+    }
+    
+    const allAccounts = appState.accounts.concat((appState.creditCards || []).map(c => c.name));
+    if (currentVal && allAccounts.includes(currentVal)) {
+        select.value = currentVal;
+    }
+}
+
 function openTransactionModal(options = {}) {
     const modal = document.getElementById("transaction-modal");
     const select = document.getElementById("tx-subcategory");
-    select.innerHTML = `<option value="">-- Select Category --</option>` + buildCategoryOptgroupOptions('');
     
+    populateAccountDropdown("tx-account");
     document.getElementById("tx-account").value = options.account || "Gowtham";
     document.getElementById("tx-date").value = options.date || new Date().toISOString().slice(0, 10);
     document.getElementById("tx-description").value = options.description || "";
-    document.getElementById("tx-subcategory").value = options.subCategory || "";
     document.getElementById("tx-amount").value = options.amount ? formatCurr(Math.abs(options.amount)) : "";
     document.getElementById("tx-type").value = options.type || "Expense";
     
@@ -2260,11 +2699,55 @@ function openTransactionModal(options = {}) {
         updateLinkedItemDropdown(this.value);
     };
     
-    // Initialize linked item state
-    updateLinkedItemDropdown(options.subCategory || "", options.linkedId || "");
+    // This populates tx-subcategory based on tx-type
+    handleTxTypeChange(options.linkedId);
+    
+    // Restore the subCategory if provided
+    if (options.subCategory) {
+        select.value = options.subCategory;
+        updateLinkedItemDropdown(options.subCategory, options.linkedId);
+    }
+    
+    if (options.type === "Transfer" && options.toAccount) {
+        document.getElementById("tx-to-account").value = options.toAccount;
+    }
     
     transactionModalCallback = options.onSuccess || null;
     modal.classList.add("active");
+}
+
+function handleTxTypeChange(prefillLinkedId = null) {
+    const type = document.getElementById("tx-type").value;
+    const toAccountGroup = document.getElementById("tx-to-account-group");
+    const linkedGroup = document.getElementById("tx-linked-item-group");
+    const select = document.getElementById("tx-subcategory");
+    
+    const currentSubCat = select.value;
+    
+    if (type === "Transfer") {
+        toAccountGroup.classList.remove("hidden");
+        linkedGroup.classList.add("hidden");
+        select.innerHTML = `<option value="">-- Transfer --</option>`;
+        populateAccountDropdown("tx-to-account");
+    } else {
+        toAccountGroup.classList.add("hidden");
+        select.innerHTML = `<option value="">-- Select Category --</option>` + buildCategoryOptgroupOptions(currentSubCat, type);
+        const subCat = select.value;
+        const currentLinked = prefillLinkedId || document.getElementById("tx-linked-item").value;
+        updateLinkedItemDropdown(subCat, currentLinked);
+    }
+}
+
+function getCategoryType(subCategoryName) {
+    if (!subCategoryName) return null;
+    for (const type in appState.categories) {
+        for (const group in appState.categories[type]) {
+            if (appState.categories[type][group].includes(subCategoryName)) {
+                return type;
+            }
+        }
+    }
+    return null;
 }
 
 function updateLinkedItemDropdown(selectedSubCategory, selectedLinkedId = "") {
@@ -2274,7 +2757,7 @@ function updateLinkedItemDropdown(selectedSubCategory, selectedLinkedId = "") {
     
     if (!group || !linkedSelect) return;
     
-    const loanSubcats = ["Credit Cards", "Other Loans", "Lent to Others", "Borrow Repayment"];
+    const loanSubcats = ["Credit Cards", "Other Loans", "Lent to Others", "Borrow Repayment", "Borrowed From", "Lent Repayment"];
     const chitSubcats = ["Emergency Fund", "Investments", "Recurring Investments"];
     const emiRelated = selectedSubCategory && (selectedSubCategory.toLowerCase().includes("emi") || selectedSubCategory === "EMI");
     
@@ -2322,6 +2805,39 @@ function updateLinkedItemDropdown(selectedSubCategory, selectedLinkedId = "") {
         group.classList.add("hidden");
         linkedSelect.innerHTML = `<option value="">-- Select --</option>`;
     }
+    
+    linkedSelect.onchange = function() {
+        const roundGroup = document.getElementById("tx-linked-round-group");
+        const roundSelect = document.getElementById("tx-linked-round");
+        const val = this.value;
+        if (val && val.startsWith("ch_")) {
+            const chit = appState.chits.find(c => c.id === val);
+            if (chit) {
+                roundSelect.innerHTML = `<option value="">-- Auto --</option>`;
+                for (let i = 1; i <= chit.members; i++) {
+                    roundSelect.innerHTML += `<option value="${i}">Round ${i}</option>`;
+                }
+                roundGroup.classList.remove("hidden");
+                return;
+            }
+        }
+        roundGroup.classList.add("hidden");
+        roundSelect.innerHTML = `<option value="">-- Auto --</option>`;
+    };
+    
+    // Trigger onchange to initialize the round dropdown visibility
+    if (selectedLinkedId) {
+        linkedSelect.onchange();
+        // If we have an editing transaction, try to pre-fill the round
+        if (typeof _editingTransactionId !== 'undefined' && _editingTransactionId) {
+            const tx = appState.statements.find(t => t.id === _editingTransactionId);
+            if (tx && tx.linkedRound) {
+                document.getElementById("tx-linked-round").value = tx.linkedRound;
+            }
+        }
+    } else {
+        document.getElementById("tx-linked-round-group").classList.add("hidden");
+    }
 }
 
 function saveTransactionEntry() {
@@ -2348,15 +2864,38 @@ function saveTransactionEntry() {
     
     const linkedId = document.getElementById("tx-linked-item")?.value;
     
+    let toAccount = null;
+    let finalSubcat = subcat;
+    
+    if (type === "Transfer") {
+        toAccount = document.getElementById("tx-to-account").value;
+        if (!toAccount) {
+            alert("Please select a destination account for the transfer.");
+            return;
+        }
+        if (account === toAccount) {
+            alert("Cannot transfer to the same account.");
+            return;
+        }
+        finalSubcat = "Self Transfer";
+    }
+    
+    const txId = _editingTransactionId || ("s_" + Date.now());
+    
+    const linkedRoundVal = document.getElementById("tx-linked-round")?.value;
+    const linkedRound = linkedRoundVal ? parseInt(linkedRoundVal) : null;
+    
     appState.statements.unshift({
-        id: _editingTransactionId || ("s_" + Date.now()),
+        id: txId,
         account,
+        toAccount,
         date,
         description: desc,
-        subCategory: subcat,
+        subCategory: finalSubcat,
         amount,
         type,
-        linkedId: linkedId || null
+        linkedId: linkedId || null,
+        linkedRound
     });
     
     appState.statements.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -2371,8 +2910,12 @@ function saveTransactionEntry() {
             const emi = appState.emis.find(e => e.id === oldLinkedId);
             if (emi) emi.remainingMonths = Math.min(emi.tenureMonths, emi.remainingMonths + 1);
         } else if (oldLinkedId.startsWith("chit_")) {
-            const chit = appState.chits.find(c => c.id === oldLinkedId);
-            if (chit && chit.bids.length > 0) chit.bids.pop();
+            // we don't modify chit bids anymore based on statement
+        } else if (oldLinkedId.startsWith("debt_")) {
+            const debt = appState.debts.find(d => d.id === oldLinkedId);
+            if (debt) {
+                debt.repayments = debt.repayments.filter(r => r.id !== _editingTransactionId);
+            }
         }
     }
     
@@ -2381,7 +2924,7 @@ function saveTransactionEntry() {
         if (linkedId.startsWith("debt_")) {
             const debt = appState.debts.find(d => d.id === linkedId);
             if (debt) {
-                debt.repayments.push({ id: "rep_" + Date.now(), date, account, amount: rawAmt });
+                debt.repayments.push({ id: txId, date, account, amount: rawAmt });
             }
         } else if (linkedId.startsWith("emi_")) {
             const emi = appState.emis.find(e => e.id === linkedId);
@@ -2389,12 +2932,7 @@ function saveTransactionEntry() {
                 emi.remainingMonths = Math.max(0, emi.remainingMonths - 1);
             }
         } else if (linkedId.startsWith("chit_")) {
-            const chit = appState.chits.find(c => c.id === linkedId);
-            if (chit) {
-                const nextBid = chit.bids.length + 1;
-                chit.bids.push({ bidNum: nextBid, bidAmount: chit.totalValue });
-                chit.bids.sort((a,b) => a.bidNum - b.bidNum);
-            }
+            // No bid modification needed here anymore
         }
     }
     
@@ -2410,7 +2948,26 @@ function saveTransactionEntry() {
     }
 }
 
+let _editingDebtId = null;
+
+function promptEditDebt(id) {
+    const debt = appState.debts.find(d => d.id === id);
+    if (!debt) return;
+    
+    _editingDebtId = id;
+    document.getElementById("debt-add-type").value = debt.type;
+    document.getElementById("debt-add-title").textContent = debt.type === "Lent" ? "Edit Money Lent" : "Edit Money Borrowed";
+    document.getElementById("debt-add-date").value = debt.date;
+    document.getElementById("debt-add-person").value = debt.person;
+    document.getElementById("debt-add-account").value = debt.account;
+    document.getElementById("debt-add-amount").value = formatCurr(debt.amount);
+    document.getElementById("debt-add-remarks").value = debt.remarks || "";
+    
+    document.getElementById("debt-add-modal").classList.add("active");
+}
+
 function openDebtModal(type) {
+    _editingDebtId = null;
     document.getElementById("debt-add-type").value = type;
     document.getElementById("debt-add-title").textContent = type === "Lent" ? "Add Money Lent To Someone" : "Add Money Borrowed From Someone";
     document.getElementById("debt-add-date").value = new Date().toISOString().slice(0, 10);
@@ -2436,42 +2993,80 @@ function saveDebtEntry() {
     
     const tag = type === "Lent" ? "Lent to Others" : "Borrowed From";
     
-    appState.debts.unshift({
-        id: "d_" + Date.now(),
-        type,
-        account,
-        date,
-        person,
-        categoryTag: tag,
-        amount,
-        remarks,
-        repayments: []
-    });
+    if (_editingDebtId) {
+        const debt = appState.debts.find(d => d.id === _editingDebtId);
+        if (debt) {
+            debt.type = type;
+            debt.account = account;
+            debt.date = date;
+            debt.person = person;
+            debt.categoryTag = tag;
+            debt.amount = amount;
+            debt.remarks = remarks;
+        }
+    } else {
+        const debtId = "debt_" + Date.now();
+        appState.debts.unshift({
+            id: debtId,
+            type,
+            account,
+            date,
+            person,
+            categoryTag: tag,
+            amount,
+            remarks,
+            repayments: []
+        });
+        
+        // Log the initial transaction for cash flow and net worth
+        const isLent = type === "Lent";
+        appState.statements.unshift({
+            id: "s_" + debtId,
+            account: account,
+            date: date,
+            description: `${type} ${isLent ? 'to' : 'from'} ${person}: ${remarks}`,
+            subCategory: tag,
+            amount: isLent ? -amount : amount,
+            type: isLent ? "Expense" : "Income",
+            linkedId: debtId
+        });
+    }
     
-    appState.statements.unshift({
-        id: "s_debt_" + Date.now(),
-        account,
-        date,
-        description: type === "Lent" ? `Lent to ${person}: ${remarks}` : `Borrowed from ${person}: ${remarks}`,
-        subCategory: tag,
-        amount: type === "Lent" ? -amount : amount,
-        type: type === "Lent" ? "Expense" : "Income"
-    });
-    
+    _editingDebtId = null;
     saveState();
     closeAllModals();
     loadDebtsPage();
 }
 
+let _editingChitId = null;
+
+function promptEditChit(id) {
+    const chit = appState.chits.find(c => c.id === id);
+    if (!chit) return;
+    
+    _editingChitId = id;
+    document.getElementById("chit-add-name").value = chit.name;
+    document.getElementById("chit-add-date").value = chit.startDate;
+    document.getElementById("chit-add-value").value = formatCurr(chit.totalValue);
+    document.getElementById("chit-add-members").value = chit.members;
+    document.getElementById("chit-add-freq").value = chit.freqMonths;
+    
+    const modal = document.getElementById("chit-add-modal");
+    modal.querySelector(".modal-title").textContent = "Edit Recurring Deposit (Chit)";
+    modal.classList.add("active");
+}
+
 function openChitAddModal() {
+    _editingChitId = null;
     document.getElementById("chit-add-date").value = new Date().toISOString().slice(0, 10);
     document.getElementById("chit-add-name").value = "";
     document.getElementById("chit-add-value").value = "200000";
     document.getElementById("chit-add-members").value = "10";
     document.getElementById("chit-add-freq").value = "3";
-    document.getElementById("chit-add-taken").value = "5";
     
-    document.getElementById("chit-add-modal").classList.add("active");
+    const modal = document.getElementById("chit-add-modal");
+    modal.querySelector(".modal-title").textContent = "Add Recurring Deposit (Chit)";
+    modal.classList.add("active");
 }
 
 function saveChitEntry() {
@@ -2480,30 +3075,60 @@ function saveChitEntry() {
     const value = parseAmountStr(document.getElementById("chit-add-value").value);
     const members = parseInt(document.getElementById("chit-add-members").value);
     const freq = parseInt(document.getElementById("chit-add-freq").value);
-    const taken = parseInt(document.getElementById("chit-add-taken").value);
     
-    if (!name || !date || isNaN(value) || isNaN(members) || isNaN(freq) || isNaN(taken)) {
+    if (!name || !date || isNaN(value) || isNaN(members) || isNaN(freq)) {
         alert("Please fill all inputs.");
         return;
     }
     
-    appState.chits.push({
-        id: "ch_" + Date.now(),
-        name,
-        totalValue: value,
-        members,
-        freqMonths: freq,
-        takenBidNum: taken,
-        startDate: date,
-        bids: []
-    });
+    if (_editingChitId) {
+        const chit = appState.chits.find(c => c.id === _editingChitId);
+        if (chit) {
+            chit.name = name;
+            chit.startDate = date;
+            chit.totalValue = value;
+            chit.members = members;
+            chit.freqMonths = freq;
+        }
+    } else {
+        appState.chits.push({
+            id: "ch_" + Date.now(),
+            name,
+            totalValue: value,
+            members,
+            freqMonths: freq,
+            startDate: date,
+            bids: []
+        });
+    }
     
     saveState();
     closeAllModals();
     loadChitsPage();
 }
 
+let _editingEMIId = null;
+
+function promptEditEMI(id) {
+    const emi = appState.emis.find(e => e.id === id);
+    if (!emi) return;
+    
+    _editingEMIId = id;
+    document.getElementById("emi-add-name").value = emi.name;
+    document.getElementById("emi-add-account").value = emi.account;
+    document.getElementById("emi-add-bank").value = emi.bank;
+    document.getElementById("emi-add-amount").value = formatCurr(emi.amount);
+    document.getElementById("emi-add-rate").value = emi.interestRate;
+    document.getElementById("emi-add-tenure").value = emi.tenureMonths;
+    document.getElementById("emi-add-date").value = emi.startDate;
+    
+    const modal = document.getElementById("emi-add-modal");
+    modal.querySelector(".modal-title").textContent = "Edit EMI Tracker";
+    modal.classList.add("active");
+}
+
 function openEMIAddModal() {
+    _editingEMIId = null;
     document.getElementById("emi-add-date").value = new Date().toISOString().slice(0, 10);
     document.getElementById("emi-add-name").value = "";
     document.getElementById("emi-add-bank").value = "";
@@ -2511,7 +3136,9 @@ function openEMIAddModal() {
     document.getElementById("emi-add-rate").value = "";
     document.getElementById("emi-add-tenure").value = "";
     
-    document.getElementById("emi-add-modal").classList.add("active");
+    const modal = document.getElementById("emi-add-modal");
+    modal.querySelector(".modal-title").textContent = "Add EMI Tracker";
+    modal.classList.add("active");
 }
 
 function saveEMIEntry() {
@@ -2528,31 +3155,66 @@ function saveEMIEntry() {
         return;
     }
     
-    appState.emis.push({
-        id: "emi_" + Date.now(),
-        name,
-        account,
-        bank,
-        amount,
-        interestRate: rate,
-        tenureMonths: tenure,
-        startDate: date,
-        remainingMonths: tenure
-    });
+    if (_editingEMIId) {
+        const emi = appState.emis.find(e => e.id === _editingEMIId);
+        if (emi) {
+            emi.name = name;
+            emi.account = account;
+            emi.bank = bank;
+            emi.amount = amount;
+            emi.interestRate = rate;
+            emi.tenureMonths = tenure;
+            emi.startDate = date;
+        }
+    } else {
+        appState.emis.push({
+            id: "emi_" + Date.now(),
+            name,
+            account,
+            bank,
+            amount,
+            interestRate: rate,
+            tenureMonths: tenure,
+            startDate: date,
+            remainingMonths: tenure
+        });
+    }
     
     saveState();
     closeAllModals();
     loadEMIsPage();
 }
 
+let _editingCCId = null;
+
+function promptEditCreditCard(id) {
+    const cc = appState.creditCards.find(c => c.id === id);
+    if (!cc) return;
+    
+    _editingCCId = id;
+    document.getElementById("cc-add-name").value = cc.name;
+    document.getElementById("cc-add-account").value = cc.account;
+    document.getElementById("cc-add-limit").value = formatCurr(cc.limit);
+    document.getElementById("cc-add-stmt").value = cc.statementDate;
+    document.getElementById("cc-add-due").value = cc.dueDate;
+    document.getElementById("cc-add-outstanding").value = formatCurr(cc.outstandingAmount || 0);
+    
+    const modal = document.getElementById("cc-add-modal");
+    modal.querySelector(".modal-title").textContent = "Edit Credit Card";
+    modal.classList.add("active");
+}
+
 function openCCAddModal() {
+    _editingCCId = null;
     document.getElementById("cc-add-name").value = "";
     document.getElementById("cc-add-limit").value = "";
     document.getElementById("cc-add-stmt").value = "15";
     document.getElementById("cc-add-due").value = "5";
     document.getElementById("cc-add-outstanding").value = "0";
     
-    document.getElementById("cc-add-modal").classList.add("active");
+    const modal = document.getElementById("cc-add-modal");
+    modal.querySelector(".modal-title").textContent = "Track Credit Card Dues";
+    modal.classList.add("active");
 }
 
 function saveCCEntry() {
@@ -2568,19 +3230,34 @@ function saveCCEntry() {
         return;
     }
     
-    appState.creditCards.push({
-        id: "cc_" + Date.now(),
-        name,
-        account,
-        limit,
-        statementDate: stmt,
-        dueDate: due,
-        outstandingAmount: outstanding
-    });
+    if (_editingCCId) {
+        const cc = appState.creditCards.find(c => c.id === _editingCCId);
+        if (cc) {
+            cc.name = name;
+            cc.account = account;
+            cc.limit = limit;
+            cc.statementDate = stmt;
+            cc.dueDate = due;
+            cc.outstandingAmount = outstanding;
+        }
+    } else {
+        appState.creditCards.push({
+            id: "cc_" + Date.now(),
+            name,
+            account,
+            limit,
+            statementDate: stmt,
+            dueDate: due,
+            outstandingAmount: outstanding
+        });
+    }
     
     saveState();
     closeAllModals();
     loadDashboardPage();
+    if (document.getElementById("debts") && document.getElementById("debts").classList.contains("active")) {
+        loadDebtsPage();
+    }
 }
 
 function triggerBackupRestore(e) {
@@ -2605,6 +3282,363 @@ function eraseAllData() {
     }
 }
 
+// -------------------------------------------------------------
+// TRADING JOURNAL LOGIC
+// -------------------------------------------------------------
+function getTradingPositions() {
+    if (!appState.trades) return [];
+    let executions = [...appState.trades].sort((a, b) => new Date(a.date) - new Date(b.date));
+    let positions = [];
+    let symbolMap = {}; 
+    
+    executions.forEach(exec => {
+        let sym = exec.symbol;
+        if (!symbolMap[sym]) symbolMap[sym] = { openBuys: [], openSells: [] };
+        
+        let map = symbolMap[sym];
+        let remainingQty = exec.quantity;
+        
+        if (exec.type === "buy") {
+            while (remainingQty > 0 && map.openSells.length > 0) {
+                let s = map.openSells[0];
+                let matchedQty = Math.min(remainingQty, s.quantity);
+                let isIntraday = (s.date === exec.date);
+                positions.push({
+                    symbol: sym,
+                    type: isIntraday ? "Intraday" : "Positional",
+                    entryDate: s.date,
+                    exitDate: exec.date,
+                    qty: matchedQty,
+                    buyPrice: exec.price,
+                    sellPrice: s.price,
+                    pnl: (s.price - exec.price) * matchedQty,
+                    returnPct: ((s.price - exec.price) / exec.price) * 100,
+                    status: "Closed",
+                    target: s.target || exec.target || "",
+                    remarks: s.remarks || exec.remarks || "",
+                    currentPrice: "",
+                    execIds: s.id && exec.id ? [s.id, exec.id] : []
+                });
+                s.quantity -= matchedQty;
+                remainingQty -= matchedQty;
+                if (s.quantity <= 0) map.openSells.shift();
+            }
+            if (remainingQty > 0) {
+                map.openBuys.push({ ...exec, quantity: remainingQty });
+            }
+        } else if (exec.type === "sell") {
+            while (remainingQty > 0 && map.openBuys.length > 0) {
+                let b = map.openBuys[0];
+                let matchedQty = Math.min(remainingQty, b.quantity);
+                let isIntraday = (b.date === exec.date);
+                positions.push({
+                    symbol: sym,
+                    type: isIntraday ? "Intraday" : "Positional",
+                    entryDate: b.date,
+                    exitDate: exec.date,
+                    qty: matchedQty,
+                    buyPrice: b.price,
+                    sellPrice: exec.price,
+                    pnl: (exec.price - b.price) * matchedQty,
+                    returnPct: ((exec.price - b.price) / b.price) * 100,
+                    status: "Closed",
+                    target: b.target || exec.target || "",
+                    remarks: b.remarks || exec.remarks || "",
+                    currentPrice: "",
+                    execIds: b.id && exec.id ? [b.id, exec.id] : []
+                });
+                b.quantity -= matchedQty;
+                remainingQty -= matchedQty;
+                if (b.quantity <= 0) map.openBuys.shift();
+            }
+            if (remainingQty > 0) {
+                map.openSells.push({ ...exec, quantity: remainingQty });
+            }
+        }
+    });
+    
+    for (let sym in symbolMap) {
+        let map = symbolMap[sym];
+        
+        if (map.openBuys.length > 0) {
+            let totalQty = 0;
+            let totalCost = 0;
+            let execIds = [];
+            map.openBuys.forEach(b => {
+                totalQty += b.quantity;
+                totalCost += (b.price * b.quantity);
+                if (b.id) execIds.push(b.id);
+            });
+            let avgBuy = totalCost / totalQty;
+            let currentPrice = map.openBuys[0].currentPrice || "";
+            let pnl = 0;
+            let returnPct = 0;
+            if (currentPrice) {
+                pnl = (parseFloat(currentPrice) - avgBuy) * totalQty;
+                returnPct = ((parseFloat(currentPrice) - avgBuy) / avgBuy) * 100;
+            }
+            
+            positions.push({
+                symbol: sym,
+                type: "Positional",
+                entryDate: map.openBuys[0].date,
+                exitDate: "-",
+                qty: totalQty,
+                buyPrice: avgBuy,
+                sellPrice: 0,
+                pnl: pnl,
+                returnPct: returnPct,
+                status: "Open",
+                target: map.openBuys[0].target || "",
+                remarks: map.openBuys[0].remarks || "",
+                currentPrice: currentPrice,
+                execIds: execIds
+            });
+        }
+        
+        if (map.openSells.length > 0) {
+            let totalQty = 0;
+            let totalCost = 0;
+            let execIds = [];
+            map.openSells.forEach(s => {
+                totalQty += s.quantity;
+                totalCost += (s.price * s.quantity);
+                if (s.id) execIds.push(s.id);
+            });
+            let avgSell = totalCost / totalQty;
+            let currentPrice = map.openSells[0].currentPrice || "";
+            let pnl = 0;
+            let returnPct = 0;
+            if (currentPrice) {
+                pnl = (avgSell - parseFloat(currentPrice)) * totalQty;
+                returnPct = ((avgSell - parseFloat(currentPrice)) / avgSell) * 100;
+            }
+            
+            positions.push({
+                symbol: sym,
+                type: "Positional",
+                entryDate: map.openSells[0].date,
+                exitDate: "-",
+                qty: totalQty,
+                buyPrice: 0,
+                sellPrice: avgSell,
+                pnl: pnl,
+                returnPct: returnPct,
+                status: "Open",
+                target: map.openSells[0].target || "",
+                remarks: map.openSells[0].remarks || "",
+                currentPrice: currentPrice,
+                execIds: execIds
+            });
+        }
+    }
+    
+    positions.sort((a, b) => {
+        let dA = a.exitDate === "-" ? a.entryDate : a.exitDate;
+        let dB = b.exitDate === "-" ? b.entryDate : b.exitDate;
+        return new Date(dB) - new Date(dA);
+    });
+    
+    return positions;
+}
+
+function loadTradingPage() {
+    if (!appState.trades) appState.trades = [];
+    
+    const filterType = document.getElementById("trade-filter-type") ? document.getElementById("trade-filter-type").value : "All";
+    const filterStatus = document.getElementById("trade-filter-status") ? document.getElementById("trade-filter-status").value : "All";
+    
+    let positions = getTradingPositions();
+    
+    // Apply Filters
+    let filtered = positions.filter(p => {
+        let typeMatch = filterType === "All" || p.type === filterType;
+        let statusMatch = filterStatus === "All" || p.status === filterStatus;
+        return typeMatch && statusMatch;
+    });
+    
+    // Calculate Summary Metrics
+    let totalTrades = 0;
+    let openPositions = 0;
+    let winCount = 0;
+    let lossCount = 0;
+    let totalPnl = 0;
+    
+    filtered.forEach(p => {
+        totalTrades++;
+        if (p.status === "Open") {
+            openPositions++;
+        } else if (p.status === "Closed") {
+            totalPnl += p.pnl;
+            if (p.pnl >= 0) winCount++;
+            else lossCount++;
+        }
+    });
+    
+    let closedTrades = winCount + lossCount;
+    let winRate = closedTrades > 0 ? ((winCount / closedTrades) * 100).toFixed(1) : 0;
+    
+    // Update DOM
+    if (document.getElementById("trade-total-count")) document.getElementById("trade-total-count").textContent = totalTrades;
+    if (document.getElementById("trade-open-count")) document.getElementById("trade-open-count").textContent = openPositions;
+    if (document.getElementById("trade-win-rate")) document.getElementById("trade-win-rate").textContent = winRate + "%";
+    
+    let returnCard = document.getElementById("trade-return-card");
+    let returnVal = document.getElementById("trade-overall-return");
+    if (returnCard && returnVal) {
+        returnVal.textContent = formatCurr(totalPnl);
+        returnVal.style.color = totalPnl >= 0 ? "var(--success)" : "var(--danger)";
+        returnCard.style.setProperty("--card-accent", totalPnl >= 0 ? "var(--success)" : "var(--danger)");
+    }
+    
+    // Render Table
+    const tbody = document.querySelector("#trading-table tbody");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    
+    if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--text-muted); padding: 30px;">No trades match the selected filters. Use the Excel Wizard to import a Zerodha Tradebook.</td></tr>`;
+        return;
+    }
+    
+    filtered.forEach(p => {
+        const tr = document.createElement("tr");
+        let pnlColor = p.pnl >= 0 ? "var(--success)" : "var(--danger)";
+        if (p.status === "Open") pnlColor = "var(--text-color)";
+        
+        tr.innerHTML = `
+            <td><strong>${p.symbol}</strong></td>
+            <td><span class="badge" style="background: ${p.type === 'Intraday' ? 'rgba(245, 158, 11, 0.1)' : 'rgba(59, 130, 246, 0.1)'}; color: ${p.type === 'Intraday' ? '#f59e0b' : '#3b82f6'}; border: 1px solid ${p.type === 'Intraday' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(59, 130, 246, 0.2)'};">${p.type}</span></td>
+            <td>${formatDateDisplay(p.entryDate)}</td>
+            <td>${p.exitDate === "-" ? "-" : formatDateDisplay(p.exitDate)}</td>
+            <td style="text-align: right;">${p.qty}</td>
+            <td style="text-align: right;">${p.buyPrice > 0 ? formatCurr(p.buyPrice) : "-"}</td>
+            <td style="text-align: right;">${p.sellPrice > 0 ? formatCurr(p.sellPrice) : "-"}</td>
+            <td style="text-align: right;">
+                ${p.status === "Open" ? `<input type="number" step="0.05" class="form-control" style="width:80px; padding: 4px; font-size: 12px; display: inline-block;" value="${p.currentPrice || ''}" onchange="updateTradeField('${p.execIds[0]}', 'currentPrice', this.value)" placeholder="LTP">` : '-'}
+            </td>
+            <td style="text-align: right; font-weight: 600; color: ${pnlColor}">${p.status === "Open" && !p.currentPrice ? "-" : formatCurr(p.pnl)}</td>
+            <td style="text-align: right; color: ${pnlColor}">${p.status === "Open" && !p.currentPrice ? "-" : p.returnPct.toFixed(2) + "%"}</td>
+            <td style="text-align: right;">
+                <input type="number" step="0.05" class="form-control" style="width:80px; padding: 4px; font-size: 12px; display: inline-block;" value="${p.target || ''}" onchange="updateTradeField('${p.execIds[0]}', 'target', this.value)" placeholder="Target">
+            </td>
+            <td>
+                <input type="text" class="form-control" style="width:120px; padding: 4px; font-size: 12px; display: inline-block;" value="${p.remarks || ''}" onchange="updateTradeField('${p.execIds[0]}', 'remarks', this.value)" placeholder="Remarks">
+            </td>
+            <td style="text-align: center;"><span class="badge" style="background:${p.status === 'Open' ? 'var(--warning)' : 'var(--bg-surface)'}; border: 1px solid ${p.status === 'Open' ? 'transparent' : 'var(--border-color)'}">${p.status}</span></td>
+            <td style="text-align: center;">
+                <div style="display:flex; justify-content:center; gap:5px;">
+                    <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="openTradeModal('${p.execIds ? p.execIds[0] : ''}')" title="Edit">
+                        <i class="ri-edit-line"></i>
+                    </button>
+                    <button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="deleteTrade('${p.execIds ? p.execIds.join(',') : ''}')" title="Delete">
+                        <i class="ri-delete-bin-line" style="color:var(--danger)"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function updateTradeField(execId, field, value) {
+    if (!execId) return;
+    let exec = appState.trades.find(t => t.id === execId);
+    if (exec) {
+        if (field === 'target' || field === 'currentPrice') {
+            exec[field] = value ? parseFloat(value) : "";
+        } else {
+            exec[field] = value;
+        }
+        saveState();
+        loadTradingPage();
+        if (document.getElementById("dashboard").classList.contains("active")) {
+            loadDashboardPage();
+        }
+    }
+}
+
+function deleteTrade(execIdsStr) {
+    if (!execIdsStr) return;
+    
+    if (confirm("Are you sure you want to delete this trade and its underlying executions?")) {
+        const idsToDelete = execIdsStr.split(',');
+        appState.trades = appState.trades.filter(t => !idsToDelete.includes(t.id));
+        saveState();
+        loadTradingPage();
+    }
+}
+
+function openTradeModal(execId) {
+    document.getElementById("trade-edit-id").value = "";
+    document.getElementById("trade-symbol").value = "";
+    document.getElementById("trade-date").value = new Date().toISOString().split("T")[0];
+    document.getElementById("trade-type").value = "buy";
+    document.getElementById("trade-qty").value = "1";
+    document.getElementById("trade-price").value = "";
+    document.getElementById("trade-target").value = "";
+    document.getElementById("trade-remarks").value = "";
+    
+    if (execId) {
+        let exec = appState.trades.find(t => t.id === execId);
+        if (exec) {
+            document.getElementById("trade-edit-id").value = exec.id;
+            document.getElementById("trade-symbol").value = exec.symbol;
+            document.getElementById("trade-date").value = exec.date;
+            document.getElementById("trade-type").value = exec.type;
+            document.getElementById("trade-qty").value = exec.quantity;
+            document.getElementById("trade-price").value = exec.price;
+            document.getElementById("trade-target").value = exec.target || "";
+            document.getElementById("trade-remarks").value = exec.remarks || "";
+        }
+    }
+    
+    document.getElementById("add-trade-modal").classList.add("active");
+}
+
+function saveTradeEntry() {
+    let id = document.getElementById("trade-edit-id").value;
+    let symbol = document.getElementById("trade-symbol").value.trim().toUpperCase();
+    let date = document.getElementById("trade-date").value;
+    let type = document.getElementById("trade-type").value;
+    let qty = parseFloat(document.getElementById("trade-qty").value);
+    let price = parseFloat(document.getElementById("trade-price").value);
+    let target = parseFloat(document.getElementById("trade-target").value) || 0;
+    let remarks = document.getElementById("trade-remarks").value.trim();
+    
+    if (!symbol || !date || isNaN(qty) || isNaN(price)) {
+        alert("Please fill all required fields correctly.");
+        return;
+    }
+    
+    if (id) {
+        let exec = appState.trades.find(t => t.id === id);
+        if (exec) {
+            exec.symbol = symbol;
+            exec.date = date;
+            exec.type = type;
+            exec.quantity = qty;
+            exec.price = price;
+            exec.target = target;
+            exec.remarks = remarks;
+        }
+    } else {
+        appState.trades.push({
+            id: "tr_" + Date.now() + "_" + Math.random().toString(36).substr(2, 4),
+            symbol,
+            date,
+            type,
+            quantity: qty,
+            price,
+            target,
+            remarks
+        });
+    }
+    
+    saveState();
+    closeAllModals();
+    loadTradingPage();
+}
 function closeAllModals() {
     document.querySelectorAll(".modal-overlay").forEach(m => m.classList.remove("active"));
 }
