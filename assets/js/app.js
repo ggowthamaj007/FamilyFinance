@@ -12,8 +12,7 @@ const DEMO_DATA = {
     descriptionMap: {"29-May-26":"IRCTC Wallet","08-Apr-26":"From Accenture","14-Feb-26":"Parker Pen","26-Feb-26":"Ghee, Paneer","13-May-26":"Eating Out","21-Nov-25":"Dinner @Shanthi Nagar","02-Apr-26":"From Ilanjiyam","29-Nov-25":"Pizza","23-Apr-26":"Bus","23-Dec-25":"Tea","04-Apr-26":"Chilli Chicken","29-Dec-25":"Curd","13-Mar-26":"Chicken","07-Dec-25":"Puliyur Ticket","05-Mar-26":"Internet Bill claim","14-Apr-26":"Marriage Reg. for Vasanth","01-Mar-26":"Juice","12-Dec-25":"Petrol","26-Apr-26":"Redbus to BG","18-Dec-25":"Grocerries","09-Mar-26":"Research 360","26-Nov-25":"Cone","18-Apr-26":"You tube Movie","17-Dec-25":"KFC","10-Dec-25":"Water Bill","17-Jan-26":"Fish","27-Dec-25":"Market, Yelahanka","17-May-26":"Tea","21-Apr-26":"Grocerries","23-Nov-25":"Aadhar Registration","08-Feb-26":"Puliyur EB Bill","05-Feb-26":"Bakery","16-Apr-26":"Swiggy Instamart","08-Jan-26":"Zepto-Weight Machine","07-Feb-26":"Dairy Milk","09-Feb-26":"To Home","09-Apr-26":"Milk","16-Mar-26":"Paani Poori","14-Jan-26":"Tea","06-May-26":"THE BIG MARKET","01-May-26":"Thangamayil","24-Dec-25":"Arav Farm","01-Jun-26":"Thangamayil","22-Dec-25":"Biriyani","21-Dec-25":"IRCTC Turicorin to BG","21-May-26":"BMTC","14-May-26":"Milk","25-Feb-26":"Chicken Roll","27-Mar-26":"Bus to Salem","19-Mar-26":"Curd","13-Dec-25":"Flower","14-Nov-25":"Grocerries-Untill 14-Nov","06-Jan-26":"Milk","19-Dec-25":"Grocerries","31-Dec-25":"Tea","15-Mar-26":"RKM Bus","25-Jan-26":"Perambalur Shopping","18-Jan-26":"Fruits Marapannor","22-May-26":"Chicken","28-Apr-26":"Shawarma","25-Dec-25":"Onion","09-Dec-25":"Annual Maintenance Fee","22-Nov-25":"Medicals","20-Mar-26":"Milk","12-May-26":"Number Plate","03-Mar-26":"Electricity","24-Jan-26":"Tea Snacks","03-Apr-26":"To Vaibhav","21-Jan-26":"SCAM","08-Dec-25":"Zepto","05-Apr-26":"Threading","10-Apr-26":"Zudio","15-Apr-26":"Popeyes","10-Jan-26":"Home Rent","28-Mar-26":"Fruits \u0026 Fuel, Goodalur","06-Apr-26":"Selvarani Current bill","27-Apr-26":"Thangamayil","28-Jan-26":"Zepto","24-May-26":"Bike Repair","11-Mar-26":"Parking @ marudhamalai","24-Mar-26":"Eating Out","13-Feb-26":"Kaviraj Marriage Train tickets","09-Nov-25":"Snacks","24-Apr-26":"Chicken Rice","13-Nov-25":"KPN Fresh","07-Apr-26":"Gift to Gowtham","05-Jan-26":"Cold tablet","02-Feb-26":"Electricity","17-Apr-26":"Snacks","12-Jan-26":"Paani Poori","03-May-26":"Perambalur Shopping","19-Jan-26":"Milk","03-Nov-25":"DINOY GE","16-May-26":"Swiggy Instamart","21-Feb-26":"Auto to SMVT","06-Mar-26":"KFC","03-Jan-26":"Tea","02-Mar-26":"Thangamayil","14-Dec-25":"Thangamayil - Diamond Bracelet","17-Mar-26":"Milk \u0026 Snacks","16-Nov-25":"Tea","23-May-26":"Tea","30-Dec-25":"Dress Alteration","13-Jan-26":"Ajio, Jacket","25-Mar-26":"Parotta","20-May-26":"Milk","19-Feb-26":"Sherif Bhai Biriyani-Zomato","19-May-26":"Capacitor","10-Feb-26":"Jimiki","16-Jan-26":"Murugan Stores","27-Jan-26":"Paani Poori","15-Feb-26":"Milk","23-Mar-26":"Bus to Perambalur","12-Apr-26":"Milk \u0026 Curd","12-Mar-26":"Milk","24-Nov-25":"Vela Bakery","15-Dec-25":"From Selvarani","26-Dec-25":"Tomato","22-Feb-26":"Local Bus","04-May-26":"Redbus Perambalur to BG","30-Nov-25":"Zepto-Rice","20-Jan-26":"Chicken","26-Jan-26":"Domino\u0027s","02-May-26":"From Elanjiyam","07-Mar-26":"Selvarani EMI","17-Feb-26":"Ointment for Neck","30-Apr-26":"Skate Shoes","29-Mar-26":"Flower","16-Dec-25":"Cab, Santhi Nagar to Home","22-Apr-26":"Cab","02-Nov-25":"SANTHIYA M","28-Dec-25":"Ithihaas","07-May-26":"Milk \u0026 Snacks","01-Dec-25":"Thalasery Hotel","02-Dec-25":"KPN Fresh","20-Apr-26":"Grocerries","05-Nov-25":"CHRG-ATM TXN DECLINE FEE","20-Feb-26":"Zepto - Cake","13-Apr-26":"Water Wash","08-Nov-25":"Sagar Dress","19-Apr-26":"Dress","09-Jan-26":"Wifi-Selvarani","23-Feb-26":"Cab from Majestic to Home","25-Nov-25":"Oil, KPN","11-Feb-26":"To Renu Thatha","11-Nov-25":"SETC","15-Jan-26":"EB Bill","11-Apr-26":"Muskan Fashion","29-Apr-26":"Thangamayil","05-May-26":"Airtel Wifi","01-Nov-25":"Selvarani","18-Nov-25":"Gocerries","17-Nov-25":"Zepto","01-Jan-26":"Chicken","07-Jan-26":"IRCTC Turicorin to BG-Cancelled","22-Mar-26":"Zepto","01-Apr-26":"To Savings Box","25-May-26":"Milk","11-Jan-26":"Mall Parking","21-Mar-26":"Zepto","31-Mar-26":"Thangamayil","09-May-26":"PVR INOX","10-Mar-26":"Juice","03-Dec-25":"Arav Farm","26-May-26":"EB Bill Parimala","15-May-26":"Speedometer Repair","27-Nov-25":"Thangamayil","04-Jan-26":"Malabar Foods","01-Feb-26":"Allowances","28-Nov-25":"Ajio","04-Nov-25":"Parimala Jio","18-Mar-26":"Milk \u0026 Snacks","12-Nov-25":"Monitor Cable","05-Dec-25":"Netflix","28-May-26":"Swiggy","04-Mar-26":"Zepto","06-Nov-25":"RAMACHAN","18-May-26":"Milk/Curd","14-Mar-26":"Bus Ticket","02-Jan-26":"Fruits","08-Mar-26":"Chicken","16-Feb-26":"Zepto-Potato, Milk","20-Dec-25":"Prawn","23-Jan-26":"Tea Snacks","29-Jan-26":"Dinner","18-Feb-26":"Chilli Chicken","03-Feb-26":"Zip Tag","10-May-26":"THE BIG MARKET"},
     budgets: {"Investments":12000,"Lent Repayment":8000,"Salary_R":48500,"OTT\u0027s":299,"Electricity":800,"To Home_G":5000,"Home Supplies":1000,"Credit Cards":5000,"Groceries":6000,"Water":250,"Clothing":2000,"Repairs/Maintenance":200,"Gifts Given":2760,"Mortgage/Rent":16250,"Fuel":600,"Media/Cinema":1000,"Mobile/Wifi":2000,"Borrowed From":10000,"Borrow Repayment":6875,"Salary_G":56200,"Eating Out":4000,"Grooming":300,"Medicine/Drugs":329,"Personal Supplies":1000,"To Home_R":4621,"Hospital":2000,"Activities":4500,"Bus/Taxi/Train Fare":2000,"Memberships":602},
     settings: {
-        theme: "dark",
-        currency: "â‚¹"
+        currency: "₹"
     }
 };
 
@@ -72,9 +71,17 @@ function initAppState() {
         } else if (appState.categories && appState.categories.Savings) {
             appState.categories.Savings["Savings"] = ["Recurring Investments"];
         }
+        
+        if (appState.categories && appState.categories.Investments && appState.categories.Investments.Fixed) {
+            if (!appState.categories.Investments.Fixed.includes("Chit Fund")) {
+                appState.categories.Investments.Fixed.push("Chit Fund");
+            }
+        }
     } catch (e) {
         console.error("Could not inject EMI/Recurring Investments categories", e);
     }
+    
+    populateAccountFilters();
     
     // Auto-sync EMI/Chit progress based on actual linked statements on load
     if (appState.emis && appState.statements) {
@@ -97,6 +104,37 @@ function initAppState() {
     
     // Run one-time data migration to fix swapped fields
     migrateSwappedFields();
+}
+
+function populateAccountFilters() {
+    const dashSelect = document.getElementById("dash-filter-account");
+    const expSelect = document.getElementById("exp-filter-account");
+    
+    if (dashSelect) {
+        const curVal = dashSelect.value;
+        dashSelect.innerHTML = '<option value="All">All Accounts</option>';
+        if (appState.accounts) {
+            appState.accounts.forEach(acc => {
+                const opt = document.createElement("option");
+                opt.value = acc; opt.textContent = acc;
+                dashSelect.appendChild(opt);
+            });
+        }
+        if (curVal) dashSelect.value = curVal;
+    }
+    
+    if (expSelect) {
+        const curVal = expSelect.value;
+        expSelect.innerHTML = '<option value="All">All Accounts</option>';
+        if (appState.accounts) {
+            appState.accounts.forEach(acc => {
+                const opt = document.createElement("option");
+                opt.value = acc; opt.textContent = acc;
+                expSelect.appendChild(opt);
+            });
+        }
+        if (curVal) expSelect.value = curVal;
+    }
 }
 
 function saveState() {
@@ -255,16 +293,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // Switch themes
 function toggleTheme() {
     const current = document.documentElement.getAttribute("data-theme") || "dark";
-    const next = current === "light" ? "dark" : "light";
+    let next = "dark";
+    if (current === "dark") next = "light";
+    else if (current === "light") next = "fresh";
+    
     document.documentElement.setAttribute("data-theme", next);
     appState.settings.theme = next;
     saveState();
-    
-    // Update theme toggle button icon
-    const themeBtn = document.querySelector(".theme-toggle i");
-    if (themeBtn) {
-        themeBtn.className = next === "dark" ? "ri-sun-line" : "ri-moon-line";
-    }
     
     // Rerender dashboard charts with new grid colors
     if (window.location.hash === "#dashboard" || !window.location.hash) {
@@ -870,7 +905,14 @@ function downloadBackupFile() {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
     const dlAnchorElem = document.createElement('a');
     dlAnchorElem.setAttribute("href", dataStr);
-    dlAnchorElem.setAttribute("download", `family_finance_backup_${new Date().toISOString().slice(0, 10)}.json`);
+    const now = new Date();
+    const dateStr = now.getFullYear() + "-" + 
+                   String(now.getMonth() + 1).padStart(2, '0') + "-" + 
+                   String(now.getDate()).padStart(2, '0') + "_" + 
+                   String(now.getHours()).padStart(2, '0') + "-" + 
+                   String(now.getMinutes()).padStart(2, '0') + "-" + 
+                   String(now.getSeconds()).padStart(2, '0');
+    dlAnchorElem.setAttribute("download", `family_finance_backup_${dateStr}.json`);
     dlAnchorElem.click();
 }
 
@@ -955,6 +997,8 @@ function loadDashboardPage() {
         });
         yearSelect.value = currentVal || "All";
     }
+    
+    const account = document.getElementById("dash-filter-account")?.value || "All";
 
     const filtered = appState.statements.filter(s => {
         let match = true;
@@ -962,6 +1006,7 @@ function loadDashboardPage() {
         if (month !== "All") match = match && s.date.substring(5, 7) === month;
         if (dateFrom) match = match && s.date >= dateFrom;
         if (dateTo) match = match && s.date <= dateTo;
+        if (account !== "All") match = match && (s.account === account || s.toAccount === account);
         return match;
     });
 
@@ -1040,6 +1085,66 @@ function loadDashboardPage() {
     renderDashboardCharts(filtered);
     renderRecentTransactions(filtered);
     renderMonthTallyWidget();
+    renderDashboardAccountSummary();
+}
+
+function renderDashboardAccountSummary() {
+    const tbody = document.querySelector("#dashboard-account-summary-table tbody");
+    if (!tbody) return;
+    
+    tbody.innerHTML = "";
+    const balances = getAccountBalances();
+    
+    // Calculate debt per account
+    const accountDebts = {};
+    const allAccounts = new Set(appState.accounts);
+    
+    if (appState.creditCards) {
+        appState.creditCards.forEach(cc => {
+            allAccounts.add(cc.name);
+            accountDebts[cc.name] = (cc.outstandingAmount || 0); // Credit cards are always debt
+        });
+    }
+    
+    if (appState.debts) {
+        appState.debts.forEach(d => {
+            if (d.status !== "Settled" && d.account) {
+                allAccounts.add(d.account);
+                const repaid = (d.repayments || []).reduce((sum, r) => sum + r.amount, 0);
+                const outstanding = Math.max(0, d.amount - repaid);
+                
+                if (!accountDebts[d.account]) accountDebts[d.account] = 0;
+                
+                if (d.type === "Borrowed") {
+                    accountDebts[d.account] += outstanding; // We owe them (Positive Debt)
+                } else if (d.type === "Lent") {
+                    accountDebts[d.account] -= outstanding; // They owe us (Negative Debt / Asset)
+                }
+            }
+        });
+    }
+    
+    Array.from(allAccounts).forEach(acc => {
+        const bal = balances[acc] || 0;
+        const debt = accountDebts[acc] || 0;
+        
+        let debtHtml = formatCurr(debt);
+        if (debt > 0) {
+            debtHtml = `<span style="color: var(--danger); font-weight: 500;">${formatCurr(debt)} (You Owe)</span>`;
+        } else if (debt < 0) {
+            debtHtml = `<span style="color: var(--success); font-weight: 500;">${formatCurr(Math.abs(debt))} (Owed to You)</span>`;
+        } else {
+            debtHtml = `<span style="color: var(--text-muted);">₹0</span>`;
+        }
+        
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td><strong>${acc}</strong></td>
+            <td style="text-align: right; ${bal < 0 ? 'color: var(--danger);' : 'color: var(--success); font-weight: 500;'}">${formatCurr(bal)}</td>
+            <td style="text-align: right;">${debtHtml}</td>
+        `;
+        tbody.appendChild(tr);
+    });
 }
 
 window.setDashboardToCurrentMonth = function() {
@@ -1158,8 +1263,9 @@ function renderDueReminders() {
     
     appState.emis.forEach(emi => {
         if (emi.remainingMonths > 0) {
-            let dueDate = new Date(today.getFullYear(), today.getMonth(), 5);
-            if (today.getDate() > 5) {
+            const startDay = emi.startDate ? parseInt(emi.startDate.split('-')[2], 10) : 5;
+            let dueDate = new Date(today.getFullYear(), today.getMonth(), startDay);
+            if (today.getDate() > startDay) {
                 dueDate.setMonth(dueDate.getMonth() + 1);
             }
             const daysLeft = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
@@ -1197,7 +1303,7 @@ function renderDueReminders() {
     reminders.sort((a, b) => a.daysLeft - b.daysLeft);
     
     if (reminders.length === 0) {
-        list.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 13px; padding: 20px;">No pending bill dues or reminders. All caught up! ðŸŽ‰</div>`;
+        list.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 13px; padding: 20px;">No pending bill dues or reminders. All caught up! 🥳</div>`;
         return;
     }
     
@@ -1345,6 +1451,20 @@ function renderDashboardPnL(statementsToUse) {
     const month = document.getElementById("dash-filter-month")?.value || "All";
     const dateFrom = document.getElementById("dash-date-from")?.value || "";
     const dateTo = document.getElementById("dash-date-to")?.value || "";
+    
+    const titleEl = document.getElementById("pnl-panel-title");
+    if (titleEl) {
+        if (month !== "All" || year !== "All") {
+            let t = "Personal P&L";
+            if (month !== "All") t += ` (${month}`;
+            else t += ` (All Months`;
+            if (year !== "All") t += ` ${year})`;
+            else t += `)`;
+            titleEl.textContent = t;
+        } else {
+            titleEl.textContent = "Personal P&L (All Time)";
+        }
+    }
 
     const aggBudgets = {};
     for (const ym in appState.monthlyBudgets) {
@@ -1487,15 +1607,33 @@ function renderDashboardCharts(statementsToUse = appState.statements) {
     const incomeData = [];
     const expenseData = [];
     
-    const today = new Date();
+    let endYear = new Date().getFullYear();
+    let endMonth = new Date().getMonth();
+    
+    const filterYear = document.getElementById("dash-filter-year")?.value || "All";
+    const filterMonth = document.getElementById("dash-filter-month")?.value || "All";
+    
+    if (filterYear !== "All") {
+        endYear = parseInt(filterYear);
+        if (filterMonth !== "All") {
+            const mNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            endMonth = mNames.indexOf(filterMonth) !== -1 ? mNames.indexOf(filterMonth) : endMonth;
+        } else {
+            endMonth = 11;
+        }
+    }
+    
+    const endDate = new Date(endYear, endMonth, 1);
+    
     for (let i = 5; i >= 0; i--) {
-        const d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+        const d = new Date(endDate.getFullYear(), endDate.getMonth() - i, 1);
         const ym = d.toISOString().slice(0, 7);
-        trendLabels.push(d.toLocaleString('default', { month: 'short' }));
+        trendLabels.push(d.toLocaleString('default', { month: 'short' }) + " '" + d.getFullYear().toString().slice(-2));
         
         let inc = 0;
         let exp = 0;
-        statementsToUse.forEach(s => {
+        // Use full statements for trend, not the filtered ones
+        appState.statements.forEach(s => {
             if (s.date.startsWith(ym)) {
                 if (s.type === "Income") inc += s.amount;
                 else if (s.type === "Expense") exp += Math.abs(s.amount);
@@ -1850,6 +1988,7 @@ function filterExpensesTable() {
     const search = document.getElementById("exp-search").value.toLowerCase();
     const dateFrom = document.getElementById("exp-date-from") ? document.getElementById("exp-date-from").value : "";
     const dateTo = document.getElementById("exp-date-to") ? document.getElementById("exp-date-to").value : "";
+    const account = document.getElementById("exp-filter-account") ? document.getElementById("exp-filter-account").value : "All";
     
     const tbody = document.querySelector("#expenses-table tbody");
     tbody.innerHTML = "";
@@ -1860,7 +1999,8 @@ function filterExpensesTable() {
         const matchesSearch = !search || (t.description || "").toLowerCase().includes(search) || (t.subCategory || "").toLowerCase().includes(search);
         const matchesDateFrom = !dateFrom || t.date >= dateFrom;
         const matchesDateTo = !dateTo || t.date <= dateTo;
-        return matchesType && matchesSubcat && matchesSearch && matchesDateFrom && matchesDateTo;
+        const matchesAccount = account === "All" || t.account === account || t.toAccount === account;
+        return matchesType && matchesSubcat && matchesSearch && matchesDateFrom && matchesDateTo && matchesAccount;
     });
     
     if (filtered.length === 0) {
@@ -2634,9 +2774,8 @@ function loadSettingsPage() {
         `;
         list.appendChild(groupDiv);
     }
-    
     document.getElementById("settings-currency-select").value = appState.settings.currency;
-    document.getElementById("settings-theme-select").value = appState.settings.theme;
+    document.getElementById("settings-theme-select").value = appState.settings.theme || "dark";
 }
 
 function updateSettingsConfig() {
@@ -2847,7 +2986,7 @@ function handleTxTypeChange(prefillLinkedId = null) {
     if (type === "Transfer") {
         toAccountGroup.classList.remove("hidden");
         linkedGroup.classList.add("hidden");
-        select.innerHTML = `<option value="">-- Transfer --</option>`;
+        select.innerHTML = `<option value="Self Transfer">-- Self Transfer --</option>`;
         populateAccountDropdown("tx-to-account");
     } else {
         toAccountGroup.classList.add("hidden");
@@ -3785,11 +3924,11 @@ function closeAllModals() {
 window.addEventListener("DOMContentLoaded", () => {
     initAppState();
     
-    document.documentElement.setAttribute("data-theme", appState.settings.theme);
-    const themeBtn = document.querySelector(".theme-toggle i");
-    if (themeBtn) {
-        themeBtn.className = appState.settings.theme === "dark" ? "ri-sun-line" : "ri-moon-line";
+    // Restore Theme
+    if (!appState.settings.theme) {
+        appState.settings.theme = "dark";
     }
+    document.documentElement.setAttribute("data-theme", appState.settings.theme);
     
     // Restore sidebar collapse state
     if (appState.settings.sidebarCollapsed) {

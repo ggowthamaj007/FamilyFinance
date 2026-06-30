@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,7 +70,7 @@
                 </div>
                 <div class="header-actions">
                     <button class="btn btn-secondary" onclick="openTransactionModal()"><i class="ri-add-line"></i> Quick Add</button>
-                    <button class="theme-toggle" onclick="toggleTheme()"><i class="ri-sun-line"></i></button>
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme"><i class="ri-palette-line"></i></button>
                     <button class="sidebar-toggle" onclick="toggleSidebar()" title="Toggle Sidebar"><i class="ri-menu-line"></i></button>
                 </div>
             </header>
@@ -90,6 +90,9 @@
                         <option value="04">Apr</option><option value="05">May</option><option value="06">Jun</option>
                         <option value="07">Jul</option><option value="08">Aug</option><option value="09">Sep</option>
                         <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
+                    </select>
+                    <select id="dash-filter-account" class="form-control" style="width: 140px;" onchange="loadDashboardPage()">
+                        <option value="All">All Accounts</option>
                     </select>
                     <div style="width: 1px; height: 30px; background-color: var(--border-color); margin: 0 10px;"></div>
                     <label>From:</label>
@@ -112,51 +115,74 @@
                         </div>
                     </div>
                     
-                    <div class="dashboard-grid" style="grid-template-columns: repeat(4, 1fr);">
-                        <!-- Net Worth -->
-                        <div class="summary-card" style="--card-accent: var(--accent);">
-                        <div class="card-header">
-                            <span>NET WORTH</span>
-                            <div class="card-icon"><i class="ri-shield-user-line"></i></div>
+                    <div class="responsive-dashboard-top">
+                        <div class="dashboard-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 0;">
+                            <!-- Net Worth -->
+                            <div class="summary-card" style="--card-accent: var(--accent);">
+                                <div class="card-header">
+                                    <span>NET WORTH</span>
+                                    <div class="card-icon"><i class="ri-shield-user-line"></i></div>
+                                </div>
+                                <div class="card-value" id="dash-net-worth">0</div>
+                                <div class="card-footer normal">Total Assets minus Liabilities</div>
+                            </div>
+                            
+                            <!-- Inflows -->
+                            <div class="summary-card" style="--card-accent: var(--success);">
+                                <div class="card-header">
+                                    <span>MONTHLY INFLOWS</span>
+                                    <div class="card-icon" style="background-color: var(--success-light); color: var(--success);"><i class="ri-arrow-up-circle-line"></i></div>
+                                </div>
+                                <div class="card-value" id="tally-inflows">0</div>
+                                <div class="card-footer normal">Total income & money in</div>
+                            </div>
+                            
+                            <!-- Outflows -->
+                            <div class="summary-card" style="--card-accent: var(--danger);">
+                                <div class="card-header">
+                                    <span>MONTHLY OUTFLOWS</span>
+                                    <div class="card-icon" style="background-color: var(--danger-light); color: var(--danger);"><i class="ri-arrow-down-circle-line"></i></div>
+                                </div>
+                                <div class="card-value" id="tally-outflows">0</div>
+                                <div class="card-footer normal">Total expenses & money out</div>
+                            </div>
+                            
+                            <!-- Net Cash -->
+                            <div class="summary-card" style="--card-accent: var(--warning);">
+                                <div class="card-header">
+                                    <span>MONTHLY SURPLUS</span>
+                                    <div class="card-icon" style="background-color: var(--warning-light); color: var(--warning);"><i class="ri-wallet-3-line"></i></div>
+                                </div>
+                                <div class="card-value" id="tally-net-cash">0</div>
+                                <div class="card-footer normal">Net remaining for month</div>
+                            </div>
                         </div>
-                        <div class="card-value" id="dash-net-worth">0</div>
-                        <div class="card-footer normal">Total Assets minus Liabilities</div>
-                    </div>
-                    
-                    <!-- Inflows -->
-                    <div class="summary-card" style="--card-accent: var(--success);">
-                        <div class="card-header">
-                            <span>MONTHLY INFLOWS</span>
-                            <div class="card-icon" style="background-color: var(--success-light); color: var(--success);"><i class="ri-arrow-up-circle-line"></i></div>
+
+                        <!-- Account Balances Summary -->
+                        <div class="dashboard-panel" style="margin-bottom: 0; display: flex; flex-direction: column;">
+                            <div class="panel-header">
+                                <span class="panel-title">Account Balances & Associated Debt</span>
+                            </div>
+                            <div class="table-wrapper" style="flex: 1; max-height: 250px; overflow-y: auto;">
+                                <table class="custom-table" id="dashboard-account-summary-table" style="font-size: 13px;">
+                                    <thead style="position: sticky; top: 0; background: var(--bg-surface); z-index: 1;">
+                                        <tr>
+                                            <th style="text-align: left;">Account Name</th>
+                                            <th style="text-align: right;">Available Balance</th>
+                                            <th style="text-align: right;">Net Debt</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- JS Injected -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="card-value" id="tally-inflows">0</div>
-                        <div class="card-footer normal">Total income & money in</div>
-                    </div>
-                    
-                    <!-- Outflows -->
-                    <div class="summary-card" style="--card-accent: var(--danger);">
-                        <div class="card-header">
-                            <span>MONTHLY OUTFLOWS</span>
-                            <div class="card-icon" style="background-color: var(--danger-light); color: var(--danger);"><i class="ri-arrow-down-circle-line"></i></div>
-                        </div>
-                        <div class="card-value" id="tally-outflows">0</div>
-                        <div class="card-footer normal">Total expenses & money out</div>
-                    </div>
-                    
-                    <!-- Net Cash -->
-                    <div class="summary-card" style="--card-accent: var(--warning);">
-                        <div class="card-header">
-                            <span>MONTHLY SURPLUS</span>
-                            <div class="card-icon" style="background-color: var(--warning-light); color: var(--warning);"><i class="ri-wallet-3-line"></i></div>
-                        </div>
-                        <div class="card-value" id="tally-net-cash">0</div>
-                        <div class="card-footer normal">Net remaining for month</div>
                     </div>
                 </div>
-            </div>
 
                 <!-- Chart (left) + P&L (right) -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="split-panel-grid">
                     <div class="dashboard-panel">
                         <div class="panel-header">
                             <span class="panel-title">Last 6 Months Income vs Expense Trend</span>
@@ -167,7 +193,7 @@
                     </div>
                     <div class="dashboard-panel">
                         <div class="panel-header">
-                            <span class="panel-title">Personal P&L (Current Month)</span>
+                            <span class="panel-title" id="pnl-panel-title">Personal P&L (Current Month)</span>
                         </div>
                         <div class="table-wrapper" style="max-height: 400px; overflow-y: auto;">
                             <table class="custom-table" id="dashboard-pnl-table" style="font-size: 12px;">
@@ -282,6 +308,9 @@
                         <span class="panel-title">All Statements / Transactions</span>
                         <div class="panel-actions" style="display:flex; gap:10px; flex-wrap:wrap;">
                             <input type="text" id="exp-search" class="form-control" placeholder="Search transactions..." style="width: 200px;" oninput="filterExpensesTable()">
+                            <select id="exp-filter-account" class="form-control" style="width: 140px;" onchange="filterExpensesTable()">
+                                <option value="All">All Accounts</option>
+                            </select>
                             <select id="exp-filter-type" class="form-control" style="width: 140px;" onchange="filterExpensesTable()">
                                 <option value="">All Types</option>
                                 <option value="Expense">Expense</option>
@@ -752,9 +781,7 @@
                                 <select id="settings-theme-select" class="form-control">
                                     <option value="dark">Sleek Dark mode</option>
                                     <option value="light">Crisp Light mode</option>
-                                    <option value="ocean">Ocean (Deep Blue)</option>
-                                    <option value="forest">Forest (Emerald)</option>
-                                    <option value="sunset">Sunset (Warm Dark)</option>
+                                    <option value="fresh">Fresh Sky (Light Blue)</option>
                                 </select>
                             </div>
                             <button class="btn btn-primary" onclick="updateSettingsConfig()">Save Configuration</button>
