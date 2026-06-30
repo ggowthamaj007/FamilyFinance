@@ -70,6 +70,69 @@
     --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
 }
 
+[data-theme="ocean"] {
+    --bg-base: #0f172a;
+    --bg-surface: #1e293b;
+    --bg-card: rgba(30, 41, 59, 0.65);
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --accent: #38bdf8;
+    --accent-hover: #0ea5e9;
+    --accent-light: rgba(56, 189, 248, 0.15);
+    --success: #34d399;
+    --success-light: rgba(52, 211, 153, 0.15);
+    --warning: #fbbf24;
+    --warning-light: rgba(251, 191, 36, 0.15);
+    --danger: #f87171;
+    --danger-light: rgba(248, 113, 113, 0.15);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-bg: rgba(30, 41, 59, 0.45);
+}
+
+[data-theme="forest"] {
+    --bg-base: #064e3b;
+    --bg-surface: #065f46;
+    --bg-card: rgba(6, 95, 70, 0.65);
+    --text-primary: #ecfdf5;
+    --text-secondary: #a7f3d0;
+    --text-muted: #6ee7b7;
+    --accent: #10b981;
+    --accent-hover: #059669;
+    --accent-light: rgba(16, 185, 129, 0.15);
+    --success: #34d399;
+    --success-light: rgba(52, 211, 153, 0.15);
+    --warning: #fbbf24;
+    --warning-light: rgba(251, 191, 36, 0.15);
+    --danger: #f87171;
+    --danger-light: rgba(248, 113, 113, 0.15);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-bg: rgba(6, 95, 70, 0.45);
+}
+
+[data-theme="sunset"] {
+    --bg-base: #451a03;
+    --bg-surface: #78350f;
+    --bg-card: rgba(120, 53, 15, 0.65);
+    --text-primary: #fffbeb;
+    --text-secondary: #fde68a;
+    --text-muted: #fcd34d;
+    --accent: #f59e0b;
+    --accent-hover: #d97706;
+    --accent-light: rgba(245, 158, 11, 0.15);
+    --success: #10b981;
+    --success-light: rgba(16, 185, 129, 0.15);
+    --warning: #fbbf24;
+    --warning-light: rgba(251, 191, 36, 0.15);
+    --danger: #ef4444;
+    --danger-light: rgba(239, 68, 68, 0.15);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-bg: rgba(120, 53, 15, 0.45);
+}
+
 [data-theme="light"] .form-control {
     background-color: #f1f5f9;
     border-color: #cbd5e1;
@@ -267,6 +330,15 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    padding: 20px 30px;
+    margin: -30px -30px 0 -30px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .header-title h1 {

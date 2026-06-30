@@ -36,6 +36,14 @@ function initAppState() {
     
     // Always check for missing keys
     if (!appState.budgets) appState.budgets = {};
+    if (!appState.monthlyBudgets) {
+        appState.monthlyBudgets = {};
+        // Migrate existing global budgets to current month to preserve data
+        const currentYYYYMM = new Date().toISOString().slice(0, 7);
+        if (Object.keys(appState.budgets).length > 0) {
+            appState.monthlyBudgets[currentYYYYMM] = { ...appState.budgets };
+        }
+    }
     if (!appState.creditCards) appState.creditCards = [];
     if (!appState.emis) appState.emis = [];
     if (!appState.chits) appState.chits = [];
@@ -247,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Switch themes
 function toggleTheme() {
     const current = document.documentElement.getAttribute("data-theme") || "dark";
-    const next = current === "dark" ? "light" : "dark";
+    const next = current === "light" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", next);
     appState.settings.theme = next;
     saveState();
@@ -278,11 +286,14 @@ function calculateChitRound(chit, bidNum, bidAmount) {
     let userReceived = 0;
     let hasPayment = false;
     
+    let paymentDate = null;
+    
     stmts.forEach(s => {
         if (s.type === "Savings" || s.type === "Expense") { // Payment
             userPayment = Math.abs(s.amount);
             discount = installment - userPayment;
             hasPayment = true;
+            paymentDate = s.date;
         } else if (s.type === "Income") { // Payout received
             userReceived += Math.abs(s.amount);
         }
@@ -293,13 +304,19 @@ function calculateChitRound(chit, bidNum, bidAmount) {
         discount = 0;
     }
     
+    const chitStart = new Date(chit.startDate);
+    chitStart.setMonth(chitStart.getMonth() + (bidNum - 1) * chit.freqMonths);
+    const scheduledDate = chitStart.toISOString().slice(0, 10);
+    
     return {
         installment,
         discount,
         userPayment,
         userReceived,
         hasPayment,
-        isPaid: hasPayment || userReceived > 0
+        isPaid: hasPayment || userReceived > 0,
+        paymentDate,
+        scheduledDate
     };
 }
 
@@ -1213,6 +1230,7 @@ function triggerCreditCardPayment(cc) {
         subCategory: "Credit Cards",
         amount: cc.outstandingAmount,
         type: "Expense",
+        linkedId: cc.id,
         onSuccess: () => {
             const realCard = appState.creditCards.find(c => c.id === cc.id || (c.name === cc.name && c.account === cc.account));
             if (realCard) realCard.outstandingAmount = 0;
@@ -1226,9 +1244,10 @@ function triggerEMIPayment(emi) {
     openTransactionModal({
         account: emi.account,
         description: `EMI Payment: ${emi.name}`,
-        subCategory: "Other Loans",
+        subCategory: "EMI",
         amount: emi.amount,
         type: "Expense",
+        linkedId: emi.id,
         onSuccess: () => {
             emi.remainingMonths = Math.max(0, emi.remainingMonths - 1);
             saveState();
@@ -1241,9 +1260,10 @@ function triggerChitPayment(chit, roundNum, amount) {
     openTransactionModal({
         account: "Gowtham",
         description: `${chit.name} - Round #${roundNum} Installment`,
-        subCategory: "Chit Fund",
+        subCategory: "Recurring Investments",
         amount: amount,
         type: "Savings",
+        linkedId: chit.id,
         onSuccess: () => {
             if (chit.bids.length < roundNum) {
                 chit.bids.push({ bidNum: roundNum, bidAmount: chit.totalValue });
@@ -1321,7 +1341,27 @@ function renderDashboardPnL(statementsToUse) {
         Savings: {}
     };
     
-    for (const subcat in appState.budgets) {
+    const year = document.getElementById("dash-filter-year")?.value || "All";
+    const month = document.getElementById("dash-filter-month")?.value || "All";
+    const dateFrom = document.getElementById("dash-date-from")?.value || "";
+    const dateTo = document.getElementById("dash-date-to")?.value || "";
+
+    const aggBudgets = {};
+    for (const ym in appState.monthlyBudgets) {
+        let match = true;
+        if (year !== "All") match = match && ym.startsWith(year);
+        if (month !== "All") match = match && ym.substring(5, 7) === month;
+        if (dateFrom && ym < dateFrom.substring(0, 7)) match = false;
+        if (dateTo && ym > dateTo.substring(0, 7)) match = false;
+        
+        if (match) {
+            for (const subcat in appState.monthlyBudgets[ym]) {
+                aggBudgets[subcat] = (aggBudgets[subcat] || 0) + appState.monthlyBudgets[ym][subcat];
+            }
+        }
+    }
+    
+    for (const subcat in aggBudgets) {
         let parentType = null;
         let parentCat = null;
         
@@ -1340,7 +1380,7 @@ function renderDashboardPnL(statementsToUse) {
             if (!pnlData[parentType][parentCat]) {
                 pnlData[parentType][parentCat] = { actual: 0, budget: 0 };
             }
-            pnlData[parentType][parentCat].budget += appState.budgets[subcat];
+            pnlData[parentType][parentCat].budget += aggBudgets[subcat];
         }
     }
     
@@ -1439,7 +1479,7 @@ function renderDashboardPnL(statementsToUse) {
 }
 
 function renderDashboardCharts(statementsToUse = appState.statements) {
-    const isDark = (document.documentElement.getAttribute("data-theme") || "dark") === "dark";
+    const isDark = (document.documentElement.getAttribute("data-theme") || "dark") !== "light";
     const textColors = isDark ? "#9ca3af" : "#475569";
     const gridColors = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)";
     
@@ -1546,6 +1586,15 @@ function loadBudgetPage() {
         }
     });
 
+    const titleEl = document.getElementById("budget-page-title");
+    if (titleEl) {
+        const d = new Date(currentMonth + "-01");
+        titleEl.textContent = "Monthly Budget Planner - " + d.toLocaleString('default', { month: 'long', year: 'numeric' });
+    }
+
+    let globalTotalPlanned = 0;
+    let globalTotalActual = 0;
+
     const groups = Object.keys(appState.categories).sort();
     groups.forEach(type => {
         const cats = Object.keys(appState.categories[type]).sort();
@@ -1555,8 +1604,16 @@ function loadBudgetPage() {
             let catExpected = 0;
             let catActual = 0;
             subs.forEach(subcat => {
-                catExpected += appState.budgets[subcat] || 0;
-                catActual += actuals[subcat] || 0;
+                const monthBudgets = appState.monthlyBudgets[currentMonth] || {};
+                const expected = monthBudgets[subcat] || 0;
+                const actual = actuals[subcat] || 0;
+                catExpected += expected;
+                catActual += actual;
+                
+                if (type === "Expense" || type === "Savings") {
+                    globalTotalPlanned += expected;
+                    globalTotalActual += actual;
+                }
             });
             
             const card = document.createElement("div");
@@ -1609,7 +1666,8 @@ function loadBudgetPage() {
                 if (idx === subs.length - 1) {
                     tr.style.borderBottom = "none";
                 }
-                const expected = appState.budgets[subcat] || 0;
+                const monthBudgets = appState.monthlyBudgets[currentMonth] || {};
+                const expected = monthBudgets[subcat] || 0;
                 const actual = actuals[subcat] || 0;
                 let diff = expected - actual;
                 
@@ -1642,25 +1700,48 @@ function loadBudgetPage() {
             container.appendChild(card);
         });
     });
+    
+    const variance = globalTotalPlanned - globalTotalActual;
+    const varianceEl = document.getElementById("budget-total-variance");
+    
+    if (document.getElementById("budget-total-planned")) {
+        document.getElementById("budget-total-planned").textContent = formatCurr(globalTotalPlanned);
+        document.getElementById("budget-total-actual").textContent = formatCurr(globalTotalActual);
+        varianceEl.textContent = formatCurr(variance);
+        
+        if (variance < 0) {
+            varianceEl.style.color = "var(--danger)";
+        } else {
+            varianceEl.style.color = "var(--success)";
+        }
+    }
 }
 
 function saveBudgetPlanner() {
+    const monthFilter = document.getElementById("budget-month-filter");
+    const currentMonth = monthFilter && monthFilter.value ? monthFilter.value : new Date().toISOString().slice(0, 7);
+    
+    if (!appState.monthlyBudgets[currentMonth]) {
+        appState.monthlyBudgets[currentMonth] = {};
+    }
+    
     const inputs = document.querySelectorAll(".budget-input");
     inputs.forEach(input => {
         const subcat = input.getAttribute("data-subcat");
         const val = parseAmountStr(input.value);
-        appState.budgets[subcat] = val;
+        appState.monthlyBudgets[currentMonth][subcat] = val;
     });
     saveState();
-    alert("Budgets saved successfully!");
+    alert(`Budgets for ${currentMonth} saved successfully!`);
     loadBudgetPage();
 }
 
 window.resetBudgets = function() {
-    if (confirm("Are you sure you want to reset all budgets to zero?")) {
-        for (const subcat in appState.budgets) {
-            appState.budgets[subcat] = 0;
-        }
+    const monthFilter = document.getElementById("budget-month-filter");
+    const currentMonth = monthFilter && monthFilter.value ? monthFilter.value : new Date().toISOString().slice(0, 7);
+    
+    if (confirm(`Are you sure you want to reset all budgets for ${currentMonth} to zero?`)) {
+        appState.monthlyBudgets[currentMonth] = {};
         saveState();
         loadBudgetPage();
     }
@@ -1670,40 +1751,57 @@ window.copyPreviousMonthActuals = function() {
     const picker = document.getElementById("budget-month-filter");
     if (!picker) return;
     
-    // Default to copying from previous calendar month if nothing selected
-    let targetYM = picker.value;
-    if (!targetYM) {
-        const date = new Date();
-        date.setMonth(date.getMonth() - 1);
-        targetYM = date.toISOString().slice(0, 7);
-    }
+    let currentMonth = picker.value || new Date().toISOString().slice(0, 7);
     
-    if (!confirm(`This will overwrite your budgets with your actual expenses from ${targetYM}. Proceed?`)) {
+    const date = new Date(currentMonth + "-01");
+    date.setMonth(date.getMonth() - 1);
+    const prevMonth = date.toISOString().slice(0, 7);
+    
+    if (!confirm(`This will overwrite your ${currentMonth} budgets with your ACTUAL expenses from ${prevMonth}. Proceed?`)) {
         return;
     }
     
-    // Calculate actual expenses for the target month
     const actuals = {};
     appState.statements.forEach(s => {
-        if (s.date.startsWith(targetYM) && s.type === "Expense") {
+        if (s.date.startsWith(prevMonth) && (s.type === "Expense" || s.type === "Income")) {
             const sc = s.subCategory || "Uncategorized";
             actuals[sc] = (actuals[sc] || 0) + Math.abs(s.amount);
         }
     });
     
-    // Also reset categories that had no expenses last month to 0
-    for (const subcat in appState.budgets) {
-        appState.budgets[subcat] = 0;
-    }
-    
-    // Apply actuals as new budget
+    appState.monthlyBudgets[currentMonth] = {};
     for (const subcat in actuals) {
-        appState.budgets[subcat] = actuals[subcat];
+        appState.monthlyBudgets[currentMonth][subcat] = actuals[subcat];
     }
     
     saveState();
     loadBudgetPage();
-    alert("Budgets updated to match " + targetYM + " actuals!");
+    alert(`Budgets for ${currentMonth} updated to match ${prevMonth} actuals!`);
+};
+
+window.copyPreviousMonthBudget = function() {
+    const picker = document.getElementById("budget-month-filter");
+    if (!picker) return;
+    
+    let currentMonth = picker.value || new Date().toISOString().slice(0, 7);
+    
+    const date = new Date(currentMonth + "-01");
+    date.setMonth(date.getMonth() - 1);
+    const prevMonth = date.toISOString().slice(0, 7);
+    
+    if (!confirm(`This will copy your BUDGET TARGETS from ${prevMonth} into ${currentMonth}. Proceed?`)) {
+        return;
+    }
+    
+    if (appState.monthlyBudgets[prevMonth]) {
+        appState.monthlyBudgets[currentMonth] = { ...appState.monthlyBudgets[prevMonth] };
+    } else {
+        appState.monthlyBudgets[currentMonth] = {};
+    }
+    
+    saveState();
+    loadBudgetPage();
+    alert(`Budgets copied from ${prevMonth} to ${currentMonth}!`);
 };
 
 function exportTransactionsCSV() {
@@ -1925,8 +2023,8 @@ function renderDebtsTable() {
                 <td>${formatCurr(d.amount)}</td>
                 <td><span class="badge" style="background-color: var(--success-light); color: var(--success);">Settled</span></td>
                 <td style="text-align: right; display: flex; gap: 4px; justify-content: flex-end;">
-                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="promptEditDebt('${d.id}')"><i class="ri-pencil-line"></i></button>
-                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="deleteDebtItem('${d.id}')"><i class="ri-delete-bin-line"></i></button>
+                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="promptEditDebt('${d.id}')" title="Edit"><i class="ri-pencil-line"></i></button>
+                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="undoDebtSettlement('${d.id}')" title="Undo Settlement"><i class="ri-arrow-go-back-line" style="color: var(--warning);"></i></button>
                 </td>
             `;
             settledTbody.appendChild(tr);
@@ -2002,6 +2100,24 @@ function deleteDebtItem(id) {
     }
 }
 
+window.undoDebtSettlement = function(id) {
+    if (confirm("Are you sure you want to undo the settlement? This will remove the most recent repayment and move the loan back to Active status.")) {
+        const debt = appState.debts.find(d => d.id === id);
+        if (debt && debt.repayments.length > 0) {
+            const lastRepayment = debt.repayments.pop(); // Remove the last pushed repayment
+            
+            // Delete the corresponding transaction statement
+            appState.statements = appState.statements.filter(s => 
+                s.id !== lastRepayment.id && 
+                s.id !== "s_" + lastRepayment.id
+            );
+            
+            saveState();
+            loadDebtsPage();
+        }
+    }
+};
+
 function openRepaymentModal(debtId) {
     const debt = appState.debts.find(d => d.id === debtId);
     if (!debt) return;
@@ -2037,8 +2153,9 @@ function saveRepaymentEntry() {
         return;
     }
     
+    const txId = "s_rep_" + Date.now();
     debt.repayments.push({
-        id: "rep_" + Date.now(),
+        id: txId,
         date: date,
         amount: amount,
         account: account
@@ -2046,13 +2163,14 @@ function saveRepaymentEntry() {
     
     const isLent = debt.type === "Lent";
     appState.statements.unshift({
-        id: "s_rep_" + Date.now(),
+        id: txId,
         account: account,
         date: date,
         description: `Repayment from ${debt.person}: ${debt.remarks}`,
         subCategory: isLent ? "Lent Repayment" : "Borrow Repayment",
         amount: isLent ? amount : -amount,
-        type: isLent ? "Income" : "Expense"
+        type: isLent ? "Income" : "Expense",
+        linkedId: debtId
     });
     
     saveState();
@@ -2199,8 +2317,10 @@ function openChitLedgerModal(chitId) {
     tbody.innerHTML = "";
     
     calcs.rounds.forEach(r => {
+        const dateStr = (r.isPaid && r.paymentDate) ? formatDateDisplay(r.paymentDate) : `Due: ${formatDateDisplay(r.scheduledDate)}`;
         const tr = document.createElement("tr");
         tr.innerHTML = `
+            <td><span style="font-size: 11px; color: var(--text-muted);">${dateStr}</span></td>
             <td>Round ${r.bidNum}</td>
             <td>${formatCurr(r.installment)}</td>
             <td>${formatCurr(r.discount)}</td>
@@ -3442,11 +3562,21 @@ function getTradingPositions() {
     return positions;
 }
 
+window.clearTradingFilters = function() {
+    if (document.getElementById("trade-filter-type")) document.getElementById("trade-filter-type").value = "All";
+    if (document.getElementById("trade-filter-status")) document.getElementById("trade-filter-status").value = "All";
+    if (document.getElementById("trade-filter-symbol")) document.getElementById("trade-filter-symbol").value = "";
+    if (document.getElementById("trade-filter-date")) document.getElementById("trade-filter-date").value = "";
+    loadTradingPage();
+};
+
 function loadTradingPage() {
     if (!appState.trades) appState.trades = [];
     
     const filterType = document.getElementById("trade-filter-type") ? document.getElementById("trade-filter-type").value : "All";
     const filterStatus = document.getElementById("trade-filter-status") ? document.getElementById("trade-filter-status").value : "All";
+    const filterSymbol = document.getElementById("trade-filter-symbol") ? document.getElementById("trade-filter-symbol").value.toLowerCase() : "";
+    const filterDate = document.getElementById("trade-filter-date") ? document.getElementById("trade-filter-date").value : "";
     
     let positions = getTradingPositions();
     
@@ -3454,7 +3584,9 @@ function loadTradingPage() {
     let filtered = positions.filter(p => {
         let typeMatch = filterType === "All" || p.type === filterType;
         let statusMatch = filterStatus === "All" || p.status === filterStatus;
-        return typeMatch && statusMatch;
+        let symbolMatch = filterSymbol === "" || p.symbol.toLowerCase().includes(filterSymbol);
+        let dateMatch = filterDate === "" || (p.entryDate && p.entryDate.startsWith(filterDate)) || (p.exitDate && p.exitDate.startsWith(filterDate));
+        return typeMatch && statusMatch && symbolMatch && dateMatch;
     });
     
     // Calculate Summary Metrics
@@ -3463,11 +3595,17 @@ function loadTradingPage() {
     let winCount = 0;
     let lossCount = 0;
     let totalPnl = 0;
+    let currentHolding = 0;
     
     filtered.forEach(p => {
         totalTrades++;
         if (p.status === "Open") {
             openPositions++;
+            if (p.buyPrice > 0) {
+                currentHolding += (p.qty * p.buyPrice);
+            } else if (p.sellPrice > 0) {
+                currentHolding += (p.qty * p.sellPrice);
+            }
         } else if (p.status === "Closed") {
             totalPnl += p.pnl;
             if (p.pnl >= 0) winCount++;
@@ -3481,6 +3619,7 @@ function loadTradingPage() {
     // Update DOM
     if (document.getElementById("trade-total-count")) document.getElementById("trade-total-count").textContent = totalTrades;
     if (document.getElementById("trade-open-count")) document.getElementById("trade-open-count").textContent = openPositions;
+    if (document.getElementById("trade-current-holding")) document.getElementById("trade-current-holding").textContent = formatCurr(currentHolding);
     if (document.getElementById("trade-win-rate")) document.getElementById("trade-win-rate").textContent = winRate + "%";
     
     let returnCard = document.getElementById("trade-return-card");
