@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Family Finance Dashboard</title>
     <meta name="description" content="Manage and monitor family expenses, lends, borrows, EMIs, credit cards, savings, chits, and investments.">
+    <!-- PWA Setup -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#121212">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
     <!-- Iconography -->
+    <link href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" rel="icon" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -785,6 +790,40 @@
                                 <input type="file" id="backup-file-picker" style="display:none;" accept=".json" onchange="triggerBackupRestore(event)">
                             </div>
                         </div>
+                    </div>
+                </div>
+                
+                <!-- Cloud Sync Panel -->
+                <div class="dashboard-panel" style="margin-bottom: 20px;">
+                    <div class="panel-header">
+                        <span class="panel-title">GitHub Cloud Sync</span>
+                    </div>
+                    <div style="padding: 20px;">
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">Sync your data seamlessly across devices using a private GitHub repository.</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label">GitHub Username</label>
+                            <input type="text" id="github-username" class="form-input" placeholder="e.g. ggowthamaj007">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Repository Name</label>
+                            <input type="text" id="github-repo" class="form-input" placeholder="e.g. FamilyFinance">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Personal Access Token (Classic)</label>
+                            <input type="password" id="github-token" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+                            <small style="color: var(--text-muted); font-size: 11px;">Must have 'repo' scope. Stored securely only on this device.</small>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Data File Path (Optional)</label>
+                            <input type="text" id="github-path" class="form-input" placeholder="appState.json" value="appState.json">
+                        </div>
+                        
+                        <div style="display:flex; gap:12px; margin-top: 20px;">
+                            <button class="btn btn-primary" onclick="saveGithubSyncSettings()"><i class="ri-save-3-line"></i> Save Sync Configuration</button>
+                            <button class="btn btn-secondary" onclick="forceGithubSync()" id="btn-force-sync" style="display:none;"><i class="ri-refresh-line"></i> Sync Now</button>
+                        </div>
+                        <div id="sync-status-msg" style="margin-top: 12px; font-size: 13px;"></div>
                     </div>
                 </div>
                 

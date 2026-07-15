@@ -201,7 +201,137 @@ function saveState() {
         });
     }
     
+    // GitHub Sync state
+    if (!appState.githubSync) appState.githubSync = { username: "", repo: "", token: "", path: "appState.json" };
+    
     localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
+    
+    // Auto-sync to GitHub if configured
+    if (appState.githubSync && appState.githubSync.token && appState.githubSync.username && appState.githubSync.repo) {
+        pushToGithub();
+    }
+}
+
+// ==========================================
+// GITHUB API SYNC LOGIC
+// ==========================================
+let isSyncing = false;
+let githubFileSha = null;
+
+async function pushToGithub() {
+    if (isSyncing) return;
+    const { username, repo, token, path } = appState.githubSync;
+    
+    try {
+        isSyncing = true;
+        // 1. Get current SHA
+        let sha = githubFileSha;
+        if (!sha) {
+            const getRes = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
+                headers: { "Authorization": `token ${token}` }
+            });
+            if (getRes.ok) {
+                const data = await getRes.json();
+                sha = data.sha;
+            }
+        }
+        
+        // 2. Prepare payload
+        // Create a copy without the token to avoid storing the token in the github repo file itself
+        const safeState = JSON.parse(JSON.stringify(appState));
+        safeState.githubSync.token = ""; 
+        
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(safeState))));
+        const body = {
+            message: `Auto-sync: ${new Date().toISOString()}`,
+            content: content
+        };
+        if (sha) body.sha = sha;
+        
+        // 3. Put to Github
+        const putRes = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
+            method: "PUT",
+            headers: { 
+                "Authorization": `token ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        });
+        
+        if (putRes.ok) {
+            const putData = await putRes.json();
+            githubFileSha = putData.content.sha;
+            console.log("GitHub Sync Successful");
+        }
+    } catch (e) {
+        console.error("GitHub Sync Failed", e);
+    } finally {
+        isSyncing = false;
+    }
+}
+
+async function forceGithubSync() {
+    const btn = document.getElementById("btn-force-sync");
+    const msg = document.getElementById("sync-status-msg");
+    const { username, repo, token, path } = appState.githubSync;
+    
+    if (!token) {
+        msg.innerHTML = '<span style="color:var(--danger)">Please configure and save settings first.</span>';
+        return;
+    }
+    
+    btn.disabled = true;
+    btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Syncing...';
+    msg.innerHTML = '';
+    
+    try {
+        const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
+            headers: { "Authorization": `token ${token}` }
+        });
+        
+        if (res.status === 404) {
+            // File doesn't exist yet, push current local state
+            await pushToGithub();
+            msg.innerHTML = '<span style="color:var(--success)">Created new file on GitHub!</span>';
+        } else if (res.ok) {
+            // Pull existing data
+            const data = await res.json();
+            githubFileSha = data.sha;
+            
+            const decoded = decodeURIComponent(escape(atob(data.content)));
+            const remoteState = JSON.parse(decoded);
+            
+            // Restore local token before replacing appState
+            const localToken = appState.githubSync.token;
+            appState = remoteState;
+            if(!appState.githubSync) appState.githubSync = {};
+            appState.githubSync.token = localToken;
+            
+            localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
+            msg.innerHTML = '<span style="color:var(--success)">Data successfully pulled from GitHub! Reloading...</span>';
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            throw new Error(`API returned ${res.status}`);
+        }
+    } catch (e) {
+        msg.innerHTML = `<span style="color:var(--danger)">Sync failed: ${e.message}. Check console.</span>`;
+        console.error(e);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="ri-refresh-line"></i> Sync Now';
+    }
+}
+
+function saveGithubSyncSettings() {
+    appState.githubSync.username = document.getElementById("github-username").value.trim();
+    appState.githubSync.repo = document.getElementById("github-repo").value.trim();
+    const t = document.getElementById("github-token").value.trim();
+    if (t) appState.githubSync.token = t;
+    appState.githubSync.path = document.getElementById("github-path").value.trim() || "appState.json";
+    
+    saveState();
+    document.getElementById("sync-status-msg").innerHTML = '<span style="color:var(--success)">Configuration saved to local browser!</span>';
+    document.getElementById("btn-force-sync").style.display = "inline-flex";
 }
 
 function formatCurr(amount) {
@@ -3313,6 +3443,18 @@ window.deleteAccount = function(acc) {
 // -------------------------------------------------------------
 function loadSettingsPage() {
     renderAccountsSettings();
+
+    // Populate GitHub Sync Fields
+    if (appState.githubSync) {
+        if (document.getElementById("github-username")) document.getElementById("github-username").value = appState.githubSync.username || "";
+        if (document.getElementById("github-repo")) document.getElementById("github-repo").value = appState.githubSync.repo || "";
+        if (document.getElementById("github-token")) document.getElementById("github-token").value = appState.githubSync.token || "";
+        if (document.getElementById("github-path")) document.getElementById("github-path").value = appState.githubSync.path || "appState.json";
+        
+        if (appState.githubSync.token) {
+            document.getElementById("btn-force-sync").style.display = "inline-flex";
+        }
+    }
 
     const list = document.getElementById("settings-categories-list");
     list.innerHTML = "";
