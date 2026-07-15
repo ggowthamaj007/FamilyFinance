@@ -134,6 +134,47 @@ function initAppState() {
     
     // Run one-time data migration to fix swapped fields
     migrateSwappedFields();
+    
+    // Check for remote updates silently
+    silentGithubPull();
+}
+
+async function silentGithubPull() {
+    if (!appState || !appState.githubSync || !appState.githubSync.token) return;
+    const { username, repo, token, path, lastSha } = appState.githubSync;
+    
+    try {
+        const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
+            headers: { "Authorization": `token ${token}` }
+        });
+        if (res.ok) {
+            const data = await res.json();
+            githubFileSha = data.sha;
+            
+            // If the SHA on GitHub is different from our last known SHA, an update happened elsewhere
+            if (lastSha && lastSha !== data.sha) {
+                console.log("Remote changes detected! Syncing...");
+                const decoded = decodeURIComponent(escape(atob(data.content)));
+                const remoteState = JSON.parse(decoded);
+                
+                const localToken = appState.githubSync.token;
+                appState = remoteState;
+                if(!appState.githubSync) appState.githubSync = {};
+                appState.githubSync.token = localToken;
+                appState.githubSync.lastSha = data.sha;
+                
+                localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
+                // Reload to reflect new data
+                location.reload();
+            } else if (!lastSha) {
+                // First time load on this device, save the SHA to prevent future unneeded reloads
+                appState.githubSync.lastSha = data.sha;
+                localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
+            }
+        }
+    } catch (e) {
+        console.warn("Silent sync failed", e);
+    }
 }
 
 function populateAccountFilters() {
@@ -261,6 +302,8 @@ async function pushToGithub() {
         if (putRes.ok) {
             const putData = await putRes.json();
             githubFileSha = putData.content.sha;
+            appState.githubSync.lastSha = putData.content.sha;
+            localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
             console.log("GitHub Sync Successful");
         }
     } catch (e) {
@@ -306,6 +349,7 @@ async function forceGithubSync() {
             appState = remoteState;
             if(!appState.githubSync) appState.githubSync = {};
             appState.githubSync.token = localToken;
+            appState.githubSync.lastSha = data.sha;
             
             localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
             msg.innerHTML = '<span style="color:var(--success)">Data successfully pulled from GitHub! Reloading...</span>';
