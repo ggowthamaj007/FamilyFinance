@@ -154,7 +154,8 @@ async function silentGithubPull() {
             // If the SHA on GitHub is different from our last known SHA, an update happened elsewhere
             if (lastSha && lastSha !== data.sha) {
                 console.log("Remote changes detected! Syncing...");
-                const decoded = decodeURIComponent(escape(atob(data.content)));
+                const cleanContent = data.content.replace(/\n/g, '');
+                const decoded = decodeURIComponent(escape(atob(cleanContent)));
                 const remoteState = JSON.parse(decoded);
                 
                 const localToken = appState.githubSync.token;
@@ -341,7 +342,8 @@ async function forceGithubSync() {
             const data = await res.json();
             githubFileSha = data.sha;
             
-            const decoded = decodeURIComponent(escape(atob(data.content)));
+            const cleanContent = data.content.replace(/\n/g, '');
+            const decoded = decodeURIComponent(escape(atob(cleanContent)));
             const remoteState = JSON.parse(decoded);
             
             // Restore local token before replacing appState
