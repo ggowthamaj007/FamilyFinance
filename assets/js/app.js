@@ -372,7 +372,8 @@ function saveGithubSyncSettings() {
     if (t) appState.githubSync.token = t;
     appState.githubSync.path = document.getElementById("github-path").value.trim() || "appState.json";
     
-    saveState();
+    // Save directly to localStorage without triggering auto-push to GitHub
+    localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
     document.getElementById("sync-status-msg").innerHTML = '<span style="color:var(--success)">Configuration saved to local browser!</span>';
     document.getElementById("btn-force-sync").style.display = "inline-flex";
 }
