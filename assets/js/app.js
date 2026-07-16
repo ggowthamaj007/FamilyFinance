@@ -1188,6 +1188,7 @@ function restoreBackupFile(file, onCompleteCallback) {
 // -------------------------------------------------------------
 function handleHashRouter() {
     const hash = window.location.hash || "#dashboard";
+    document.body.style.overflow = ''; // Failsafe to unlock scrolling
     
     document.querySelectorAll(".menu-item").forEach(item => item.classList.remove("active"));
     document.querySelectorAll(".mobile-bottom-nav .nav-item").forEach(item => item.classList.remove("active"));

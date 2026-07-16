@@ -1139,6 +1139,7 @@ select.form-control option {
     
     .main-content {
         margin-left: 0 !important;
+        padding: 15px !important;
         /* Add padding at the bottom so content doesn't hide behind nav */
         padding-bottom: 90px !important;
     }
