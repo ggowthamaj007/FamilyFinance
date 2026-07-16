@@ -1,4 +1,4 @@
-const CACHE_NAME = 'family-finance-v5';
+const CACHE_NAME = 'family-finance-v6';
 const urlsToCache = [
   './',
   './index.html',
@@ -13,8 +13,10 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        return cache.addAll(urlsToCache);
+        const requests = urlsToCache.map(url => new Request(url, { cache: 'no-cache' }));
+        return cache.addAll(requests);
       })
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -28,7 +30,7 @@ self.addEventListener('activate', event => {
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
 });
 
