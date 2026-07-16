@@ -152,8 +152,9 @@ async function silentGithubPull() {
             githubFileSha = data.sha;
             
             // If the SHA on GitHub is different from our last known SHA, an update happened elsewhere
-            if (lastSha && lastSha !== data.sha) {
-                console.log("Remote changes detected! Syncing...");
+            // If the SHA on GitHub is different from our last known SHA, or if we have no lastSha (first time on this device), an update happened elsewhere
+            if (!lastSha || lastSha !== data.sha) {
+                console.log("Remote changes detected or first-time sync! Syncing...");
                 const cleanContent = data.content.replace(/\n/g, '');
                 const decoded = decodeURIComponent(escape(atob(cleanContent)));
                 const remoteState = JSON.parse(decoded);
@@ -167,10 +168,6 @@ async function silentGithubPull() {
                 localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
                 // Reload to reflect new data
                 location.reload();
-            } else if (!lastSha) {
-                // First time load on this device, save the SHA to prevent future unneeded reloads
-                appState.githubSync.lastSha = data.sha;
-                localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
             }
         }
     } catch (e) {
@@ -378,6 +375,42 @@ function saveGithubSyncSettings() {
     saveState();
     document.getElementById("sync-status-msg").innerHTML = '<span style="color:var(--success)">Configuration saved to local browser!</span>';
     document.getElementById("btn-force-sync").style.display = "inline-flex";
+}
+
+async function verifyGithubConnection() {
+    const btn = document.getElementById("btn-verify-sync");
+    const msg = document.getElementById("sync-status-msg");
+    const { username, repo, token, path } = appState.githubSync;
+    
+    if (!token || !username || !repo) {
+        msg.innerHTML = '<span style="color:var(--danger)">Please fill all fields and save first.</span>';
+        return;
+    }
+    
+    btn.disabled = true;
+    btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Verifying...';
+    msg.innerHTML = '';
+    
+    try {
+        const res = await fetch(`https://api.github.com/repos/${username}/${repo}`, {
+            headers: { "Authorization": `token ${token}` }
+        });
+        
+        if (res.ok) {
+            msg.innerHTML = '<span style="color:var(--success)"><i class="ri-shield-check-fill"></i> Verified! Connection is working perfectly!</span>';
+        } else if (res.status === 401) {
+            msg.innerHTML = '<span style="color:var(--danger)"><i class="ri-error-warning-fill"></i> Invalid Token or Token Expired!</span>';
+        } else if (res.status === 404) {
+            msg.innerHTML = '<span style="color:var(--danger)"><i class="ri-error-warning-fill"></i> Repository not found! Check username and repo name.</span>';
+        } else {
+            msg.innerHTML = `<span style="color:var(--danger)"><i class="ri-error-warning-fill"></i> API Error: ${res.status}</span>`;
+        }
+    } catch (e) {
+        msg.innerHTML = `<span style="color:var(--danger)"><i class="ri-error-warning-fill"></i> Network Error: ${e.message}</span>`;
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="ri-check-double-line"></i> Verify Connection';
+    }
 }
 
 function formatCurr(amount) {

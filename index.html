@@ -844,6 +844,7 @@
                         
                         <div style="display:flex; gap:12px; align-items: center; padding-top: 16px; border-top: 1px solid var(--border-color);">
                             <button class="btn btn-primary" onclick="saveGithubSyncSettings()"><i class="ri-save-3-line"></i> Save Configuration</button>
+                            <button class="btn btn-secondary" onclick="verifyGithubConnection()" id="btn-verify-sync"><i class="ri-check-double-line"></i> Verify Connection</button>
                             <button class="btn btn-secondary" onclick="forceGithubSync()" id="btn-force-sync" style="display:none;"><i class="ri-refresh-line"></i> Sync Now</button>
                             <div id="sync-status-msg" style="font-size: 13px; margin-left: 10px;"></div>
                         </div>
