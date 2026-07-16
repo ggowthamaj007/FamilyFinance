@@ -1144,7 +1144,7 @@ select.form-control option {
     }
     
     /* Mobile Top Header (Header needs to lose the hamburger icon if sidebar is gone) */
-    .header-left .mobile-menu-btn {
+    .header-actions .sidebar-toggle {
         display: none !important;
     }
 
@@ -1167,7 +1167,7 @@ select.form-control option {
         padding-bottom: env(safe-area-inset-bottom);
     }
     
-    body.dark-mode .mobile-bottom-nav {
+    [data-theme="dark"] .mobile-bottom-nav {
         background: rgba(26, 28, 35, 0.9);
     }
 
