@@ -303,6 +303,8 @@ body {
     flex-direction: column;
     gap: 30px;
     transition: margin 0.3s ease;
+    min-width: 0;
+    max-width: 100vw;
 }
 
 /* Header Styling */
@@ -495,6 +497,8 @@ body {
     align-items: center;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .panel-title {
@@ -768,6 +772,8 @@ body {
     flex-direction: column;
     gap: 30px;
     animation: fadeIn 0.3s ease;
+    min-width: 0;
+    max-width: 100%;
 }
 
 @keyframes fadeIn {
