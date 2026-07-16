@@ -1197,6 +1197,58 @@ select.form-control option {
     
     .budget-card-table td { flex-direction: column; align-items: flex-start !important; min-width: 0; }
     .budget-card-table td input { min-width: 0 !important; width: 100% !important; }
+    
+    /* Generic Mobile List Table (Vertical Key-Value Cards) */
+    .mobile-list-table thead { display: none; }
+    .mobile-list-table, .mobile-list-table tbody { display: block; width: 100%; }
+    .mobile-list-table tr {
+        display: block; padding: 12px; border: 1px solid var(--border-color);
+        border-radius: 8px; margin-bottom: 12px; background: var(--bg-surface);
+    }
+    .mobile-list-table td {
+        display: flex !important; justify-content: space-between !important; align-items: center !important;
+        padding: 6px 0 !important; border: none !important; border-bottom: 1px dashed var(--border-color) !important;
+        text-align: right !important; white-space: normal !important; min-width: 0;
+    }
+    .mobile-list-table td:last-child { border-bottom: none !important; }
+    .mobile-list-table td::before {
+        font-size: 11px; color: var(--text-muted); text-transform: uppercase;
+        font-weight: 600; text-align: left; margin-right: 15px; flex-shrink: 0;
+    }
+
+    /* List Table Labels */
+    #debts-table td:nth-child(1)::before, #settled-debts-table td:nth-child(1)::before { content: "Date"; }
+    #debts-table td:nth-child(2)::before, #settled-debts-table td:nth-child(2)::before { content: "Account"; }
+    #debts-table td:nth-child(3)::before, #settled-debts-table td:nth-child(3)::before { content: "Type"; }
+    #debts-table td:nth-child(4)::before, #settled-debts-table td:nth-child(4)::before { content: "Person"; }
+    #debts-table td:nth-child(5)::before, #settled-debts-table td:nth-child(5)::before { content: "Remarks"; }
+    #debts-table td:nth-child(6)::before, #settled-debts-table td:nth-child(6)::before { content: "Principal"; }
+    #debts-table td:nth-child(7)::before, #settled-debts-table td:nth-child(7)::before { content: "Repaid"; }
+    #debts-table td:nth-child(8)::before, #settled-debts-table td:nth-child(8)::before { content: "Balance"; }
+    #debts-table td:nth-child(9)::before, #settled-debts-table td:nth-child(9)::before { content: "Action"; }
+
+    #emis-table td:nth-child(1)::before, #completed-emis-table td:nth-child(1)::before { content: "Loan Name"; }
+    #emis-table td:nth-child(2)::before, #completed-emis-table td:nth-child(2)::before { content: "Acc Owner"; }
+    #emis-table td:nth-child(3)::before, #completed-emis-table td:nth-child(3)::before { content: "Bank"; }
+    #emis-table td:nth-child(4)::before, #completed-emis-table td:nth-child(4)::before { content: "Monthly Pmt"; }
+    #emis-table td:nth-child(5)::before, #completed-emis-table td:nth-child(5)::before { content: "Rate"; }
+    #emis-table td:nth-child(6)::before, #completed-emis-table td:nth-child(6)::before { content: "Progress"; }
+    #emis-table td:nth-child(7)::before, #completed-emis-table td:nth-child(7)::before { content: "Action"; }
+    
+    #trading-table td:nth-child(1)::before { content: "Symbol"; }
+    #trading-table td:nth-child(2)::before { content: "Type"; }
+    #trading-table td:nth-child(3)::before { content: "Entry Date"; }
+    #trading-table td:nth-child(4)::before { content: "Buy Price"; }
+    #trading-table td:nth-child(5)::before { content: "Qty"; }
+    #trading-table td:nth-child(6)::before { content: "Status"; }
+    #trading-table td:nth-child(7)::before { content: "Action"; }
+
+    #chit-ledger-table td:nth-child(1)::before { content: "Date"; }
+    #chit-ledger-table td:nth-child(2)::before { content: "Round"; }
+    #chit-ledger-table td:nth-child(3)::before { content: "Installment"; }
+    #chit-ledger-table td:nth-child(4)::before { content: "Discount"; }
+    #chit-ledger-table td:nth-child(5)::before { content: "Receive"; }
+    #chit-ledger-table td:nth-child(6)::before { content: "Status"; }
     .budget-card-table td:nth-child(1) { grid-area: subcat; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
     .budget-card-table td:nth-child(2) { grid-area: expected; }
     .budget-card-table td:nth-child(3) { grid-area: actual; align-items: center !important;}
@@ -1220,6 +1272,9 @@ select.form-control option {
         display: none !important;
     }
     
+    .col-md-6 {
+        min-width: 100% !important;
+    }
     .main-content {
         margin-left: 0 !important;
         padding: 15px !important;

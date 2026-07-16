@@ -11,9 +11,9 @@
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
     <!-- Iconography -->
     <link href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" rel="icon" type="image/png">
-    <link rel="stylesheet" href="assets/css/style.css?v=7">
+    <link rel="stylesheet" href="assets/css/style.css?v=8">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <script src="assets/js/app.js?v=7" defer></script>
+    <script src="assets/js/app.js?v=8" defer></script>
 </head>
 <body>
     <div class="app-container">
@@ -398,7 +398,7 @@
                         </div>
                     </div>
                     <div class="table-wrapper">
-                        <table class="custom-table" id="debts-table">
+                        <table class="custom-table mobile-list-table" id="debts-table">
                             <thead>
                                 <tr>
                                     <th>Date Created</th>
@@ -424,7 +424,7 @@
                         <span class="panel-title">Settled Loans (Past Records)</span>
                     </div>
                     <div class="table-wrapper">
-                        <table class="custom-table" id="settled-debts-table">
+                        <table class="custom-table mobile-list-table" id="settled-debts-table">
                             <thead>
                                 <tr>
                                     <th>Date Created</th>
@@ -522,7 +522,7 @@
                             </div>
                         </div>
                         <div class="table-wrapper">
-                            <table class="custom-table" id="emis-table">
+                            <table class="custom-table mobile-list-table" id="emis-table">
                                 <thead>
                                     <tr>
                                         <th>EMI Loan Name</th>
@@ -546,7 +546,7 @@
                             <span class="panel-title">Completed EMIs</span>
                         </div>
                         <div class="table-wrapper">
-                            <table class="custom-table" id="completed-emis-table">
+                            <table class="custom-table mobile-list-table" id="completed-emis-table">
                                 <thead>
                                     <tr>
                                         <th>EMI Loan Name</th>
@@ -668,7 +668,7 @@
                         <span class="panel-title">Trade Statement</span>
                     </div>
                     <div class="table-wrapper">
-                        <table class="custom-table" id="trading-table">
+                        <table class="custom-table mobile-list-table" id="trading-table">
                             <thead>
                                 <tr>
                                     <th>SYMBOL</th>
@@ -751,6 +751,41 @@
             </section>
 
             <!-- ========================================== -->
+            <!-- MORE TAB (MOBILE ONLY) -->
+            <section id="more" class="tab-content">
+                <div class="dashboard-header">
+                    <h2 style="font-size: 20px; color: var(--text-primary); margin: 0; font-family: var(--font-heading);">More Tools</h2>
+                </div>
+                <div class="dashboard-panel">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <button class="btn btn-secondary" onclick="document.querySelector('a[href=\'#debts\']').click()" style="display: flex; flex-direction: column; align-items: center; padding: 20px 10px; gap: 10px;">
+                            <i class="ri-refund-2-line" style="font-size: 24px;"></i>
+                            <span>Lends & Borrows</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="document.querySelector('a[href=\'#chits\']').click()" style="display: flex; flex-direction: column; align-items: center; padding: 20px 10px; gap: 10px;">
+                            <i class="ri-copper-coin-line" style="font-size: 24px;"></i>
+                            <span>Recurring Investments</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="document.querySelector('a[href=\'#emis\']').click()" style="display: flex; flex-direction: column; align-items: center; padding: 20px 10px; gap: 10px;">
+                            <i class="ri-bank-card-line" style="font-size: 24px;"></i>
+                            <span>EMIs & CCs</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="document.querySelector('a[href=\'#trading\']').click()" style="display: flex; flex-direction: column; align-items: center; padding: 20px 10px; gap: 10px;">
+                            <i class="ri-stock-line" style="font-size: 24px;"></i>
+                            <span>Trading Journal</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="document.querySelector('a[href=\'#import\']').click()" style="display: flex; flex-direction: column; align-items: center; padding: 20px 10px; gap: 10px;">
+                            <i class="ri-file-excel-line" style="font-size: 24px;"></i>
+                            <span>Excel Wizard</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="document.querySelector('a[href=\'#settings\']').click()" style="display: flex; flex-direction: column; align-items: center; padding: 20px 10px; gap: 10px;">
+                            <i class="ri-settings-4-line" style="font-size: 24px;"></i>
+                            <span>Settings</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
             <!-- SETTINGS TAB -->
             <!-- ========================================== -->
             <section id="settings" class="tab-content">
@@ -885,7 +920,7 @@
                 <i class="ri-pie-chart-2-line"></i>
                 <span>Budget</span>
             </a>
-            <a href="#settings" class="nav-item">
+            <a href="#more" class="nav-item">
                 <i class="ri-menu-line"></i>
                 <span>More</span>
             </a>
@@ -1072,7 +1107,7 @@
             <div class="modal-body" style="padding:0;">
                 <input type="hidden" id="ledger-chit-id">
                 <div class="table-wrapper" style="max-height: 400px; overflow-y:auto;">
-                    <table class="custom-table" id="chit-ledger-table">
+                    <table class="custom-table mobile-list-table" id="chit-ledger-table">
                         <thead>
                             <tr>
                                 <th>Date</th>
