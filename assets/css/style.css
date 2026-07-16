@@ -1117,18 +1117,94 @@ select.form-control option {
 }
 
 /* ========================================== */
-/* RESPONSIVE MOBILE SIDEBAR */
+/* RESPONSIVE MOBILE SIDEBAR & BOTTOM NAV */
 /* ========================================== */
+/* Hide bottom nav on desktop */
+.mobile-bottom-nav {
+    display: none;
+}
+.mobile-only-links {
+    display: none !important;
+}
+
 @media (max-width: 768px) {
+    .mobile-only-links {
+        display: block !important;
+    }
+    
+    /* Hide the sidebar completely on mobile, don't even allow slide-in */
     .sidebar {
-        transform: translateX(-100%);
+        display: none !important;
     }
-    .sidebar.mobile-open {
-        transform: translateX(0);
-        z-index: 200;
-    }
+    
     .main-content {
         margin-left: 0 !important;
+        /* Add padding at the bottom so content doesn't hide behind nav */
+        padding-bottom: 90px !important;
+    }
+    
+    /* Mobile Top Header (Header needs to lose the hamburger icon if sidebar is gone) */
+    .header-left .mobile-menu-btn {
+        display: none !important;
+    }
+
+    /* Bottom Navigation Styles */
+    .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid var(--border-color);
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+        z-index: 1000;
+        justify-content: space-around;
+        align-items: center;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    body.dark-mode .mobile-bottom-nav {
+        background: rgba(26, 28, 35, 0.9);
+    }
+
+    .mobile-bottom-nav .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        text-decoration: none;
+        gap: 4px;
+        flex: 1;
+        height: 100%;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-bottom-nav .nav-item i {
+        font-size: 22px;
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-bottom-nav .nav-item span {
+        font-size: 11px;
+        font-weight: 500;
+        transition: font-weight 0.3s ease;
+    }
+
+    .mobile-bottom-nav .nav-item.active {
+        color: var(--accent);
+    }
+
+    .mobile-bottom-nav .nav-item.active i {
+        transform: translateY(-2px);
+    }
+    
+    .mobile-bottom-nav .nav-item.active span {
+        font-weight: 700;
     }
 }
 

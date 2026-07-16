@@ -1157,11 +1157,25 @@ function handleHashRouter() {
     const hash = window.location.hash || "#dashboard";
     
     document.querySelectorAll(".menu-item").forEach(item => item.classList.remove("active"));
+    document.querySelectorAll(".mobile-bottom-nav .nav-item").forEach(item => item.classList.remove("active"));
     document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
     
     const targetLink = document.querySelector(`.menu-item a[href="${hash}"]`);
     if (targetLink) {
         targetLink.parentElement.classList.add("active");
+    }
+    
+    // Also highlight bottom nav if it exists
+    const bottomNavMap = {
+        "#dashboard": "#dashboard",
+        "#expenses": "#expenses",
+        "#budget": "#budget"
+    };
+    // Map everything else to settings/more
+    const bottomNavTarget = bottomNavMap[hash] || "#settings";
+    const targetBottomLink = document.querySelector(`.mobile-bottom-nav .nav-item[href="${bottomNavTarget}"]`);
+    if (targetBottomLink) {
+        targetBottomLink.classList.add("active");
     }
     
     const targetTab = document.querySelector(hash);

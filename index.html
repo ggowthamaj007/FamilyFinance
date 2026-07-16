@@ -754,6 +754,17 @@
             <!-- SETTINGS TAB -->
             <!-- ========================================== -->
             <section id="settings" class="tab-content">
+                <!-- Mobile Only: Quick Links to hidden sidebar items -->
+                <div class="dashboard-panel mobile-only-links" style="margin-bottom: 20px;">
+                    <div class="panel-header">
+                        <span class="panel-title">Advanced Modules</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 10px;">
+                        <a href="#debts" class="btn" style="background: var(--surface-2); color: var(--text-primary); text-decoration: none; text-align: center; border: 1px solid var(--border-color);"><i class="ri-refund-2-line"></i> Lends & Borrows</a>
+                        <a href="#chits" class="btn" style="background: var(--surface-2); color: var(--text-primary); text-decoration: none; text-align: center; border: 1px solid var(--border-color);"><i class="ri-copper-coin-line"></i> Recurring Inv.</a>
+                        <a href="#emis" class="btn" style="background: var(--surface-2); color: var(--text-primary); text-decoration: none; text-align: center; border: 1px solid var(--border-color);"><i class="ri-bank-card-line"></i> EMIs & CCs</a>
+                    </div>
+                </div>
                 <div class="dashboard-panel">
                     <div class="panel-header">
                         <span class="panel-title">System Settings & Data Backups</span>
@@ -858,6 +869,26 @@
                 </div>
             </section>
         </main>
+        
+        <!-- Mobile Bottom Navigation -->
+        <nav class="mobile-bottom-nav">
+            <a href="#dashboard" class="nav-item active">
+                <i class="ri-dashboard-3-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#expenses" class="nav-item">
+                <i class="ri-wallet-3-line"></i>
+                <span>Transactions</span>
+            </a>
+            <a href="#budget" class="nav-item">
+                <i class="ri-pie-chart-2-line"></i>
+                <span>Budget</span>
+            </a>
+            <a href="#settings" class="nav-item">
+                <i class="ri-menu-line"></i>
+                <span>More</span>
+            </a>
+        </nav>
     </div>
 
     <!-- ========================================== -->
