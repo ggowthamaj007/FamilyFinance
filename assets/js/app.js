@@ -2325,7 +2325,7 @@ function loadBudgetPage() {
             header.style.backgroundColor = "var(--surface-2)";
             header.style.borderBottom = "1px solid var(--border)";
             header.innerHTML = `
-                <div style="display:flex; justify-content:space-between; width: 100%; align-items:center;">
+                <div style="display:flex; justify-content:space-between; width: 100%; align-items:center; flex-wrap:wrap; gap:8px;">
                     <span class="panel-title" style="font-size: 15px; margin: 0;">${cat} <span style="font-size: 11px; color: var(--text-muted); font-weight: normal; margin-left: 5px;">${type}</span></span>
                     <div style="font-size: 13px;">
                         <span style="color: var(--text-muted); margin-right: 12px;">Budget: <span style="color:var(--text-primary); font-weight:600;">${formatCurr(catExpected)}</span></span>
