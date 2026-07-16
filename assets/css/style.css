@@ -1139,6 +1139,58 @@ select.form-control option {
         display: block !important;
     }
     
+    /* MOBILE TABLE CARDS */
+    .mobile-card-table thead {
+        display: none;
+    }
+    .mobile-card-table, .mobile-card-table tbody {
+        display: block;
+        width: 100%;
+    }
+    .mobile-card-table tr {
+        display: block;
+        margin-bottom: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px;
+        background: var(--bg-surface);
+    }
+    .mobile-card-table td {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        border-bottom: 1px dashed var(--border-color) !important;
+        padding: 8px 0 !important;
+        text-align: right !important;
+        white-space: normal !important;
+    }
+    .mobile-card-table td:last-child {
+        border-bottom: none !important;
+    }
+    .mobile-card-table td::before {
+        font-weight: 600;
+        color: var(--text-muted);
+        font-size: 11px;
+        text-transform: uppercase;
+        margin-right: 15px;
+        text-align: left;
+    }
+    
+    /* Expenses Table Labels */
+    #expenses-table td:nth-child(1)::before { content: "Date"; }
+    #expenses-table td:nth-child(2)::before { content: "Account"; }
+    #expenses-table td:nth-child(3)::before { content: "Description"; }
+    #expenses-table td:nth-child(4)::before { content: "Sub-Category"; }
+    #expenses-table td:nth-child(5)::before { content: "Type"; }
+    #expenses-table td:nth-child(6)::before { content: "Amount"; }
+    #expenses-table td:nth-child(7)::before { content: "Action"; }
+
+    /* Budget Table Labels */
+    .budget-card-table td:nth-child(1)::before { content: "Sub-Category"; }
+    .budget-card-table td:nth-child(2)::before { content: "Expected"; }
+    .budget-card-table td:nth-child(3)::before { content: "Actual"; }
+    .budget-card-table td:nth-child(4)::before { content: "Diff"; }
+    
     /* Hide the sidebar completely on mobile, don't even allow slide-in */
     .sidebar {
         display: none !important;

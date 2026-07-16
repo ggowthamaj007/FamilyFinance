@@ -2338,7 +2338,7 @@ function loadBudgetPage() {
             tableWrapper.style.overflowX = "auto";
 
             const table = document.createElement("table");
-            table.className = "custom-table";
+            table.className = "custom-table mobile-card-table budget-card-table";
             table.style.margin = "0";
             table.style.border = "none";
             table.style.fontSize = "13px";
