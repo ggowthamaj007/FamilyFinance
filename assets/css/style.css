@@ -1139,54 +1139,77 @@ select.form-control option {
         display: block !important;
     }
     
-    /* MOBILE TABLE CARDS */
+    /* MOBILE TABLE COMPACT LAYOUT */
     .mobile-card-table thead {
         display: none;
     }
     .mobile-card-table, .mobile-card-table tbody {
-        display: block;
-        width: 100%;
+        display: block; width: 100%;
     }
     .mobile-card-table tr {
-        display: block;
-        margin-bottom: 12px;
+        display: grid;
+        padding: 12px;
+        gap: 8px;
         border: 1px solid var(--border-color);
+        margin-bottom: 12px;
         border-radius: 8px;
-        padding: 10px;
         background: var(--bg-surface);
     }
     .mobile-card-table td {
         display: flex !important;
-        justify-content: space-between !important;
         align-items: center !important;
-        border-bottom: 1px dashed var(--border-color) !important;
-        padding: 8px 0 !important;
-        text-align: right !important;
+        border: none !important;
+        padding: 0 !important;
+        text-align: left !important;
         white-space: normal !important;
     }
-    .mobile-card-table td:last-child {
-        border-bottom: none !important;
-    }
     .mobile-card-table td::before {
-        font-weight: 600;
-        color: var(--text-muted);
-        font-size: 11px;
-        text-transform: uppercase;
-        margin-right: 15px;
-        text-align: left;
+        display: none !important;
     }
     
-    /* Expenses Table Labels */
-    #expenses-table td:nth-child(1)::before { content: "Date"; }
-    #expenses-table td:nth-child(2)::before { content: "Account"; }
-    #expenses-table td:nth-child(3)::before { content: "Description"; }
-    #expenses-table td:nth-child(4)::before { content: "Sub-Category"; }
-    #expenses-table td:nth-child(5)::before { content: "Type"; }
-    #expenses-table td:nth-child(6)::before { content: "Amount"; }
-    #expenses-table td:nth-child(7)::before { content: "Action"; }
+    /* Expenses Table Grid - 3 Rows */
+    #expenses-table tr {
+        grid-template-columns: 1fr auto;
+        grid-template-areas: 
+            "desc amount"
+            "date type"
+            "subcat action";
+    }
+    #expenses-table td:nth-child(1) { grid-area: date; font-size: 12px; color: var(--text-muted); }
+    #expenses-table td:nth-child(2) { display: none !important; } /* Hide Account to save space */
+    #expenses-table td:nth-child(3) { grid-area: desc; font-weight: 600; font-size: 14px; }
+    #expenses-table td:nth-child(4) { grid-area: subcat; }
+    #expenses-table td:nth-child(5) { grid-area: type; justify-content: flex-end; }
+    #expenses-table td:nth-child(6) { grid-area: amount; font-size: 15px; justify-content: flex-end; }
+    #expenses-table td:nth-child(7) { grid-area: action; justify-content: flex-end; }
 
-    /* Budget Table Labels */
-    .budget-card-table td:nth-child(1)::before { content: "Sub-Category"; }
+    /* Budget Table Grid - 2 Rows */
+    .budget-card-table tr {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: 
+            "subcat subcat subcat"
+            "expected actual diff";
+        border-bottom: 1px dashed var(--border-color) !important;
+        border: none; margin-bottom:0; padding-left: 0; padding-right: 0;
+        border-radius: 0; background: transparent;
+    }
+    .budget-card-table tr:last-child { border-bottom: none !important; }
+    
+    .budget-card-table td { flex-direction: column; align-items: flex-start !important; }
+    .budget-card-table td:nth-child(1) { grid-area: subcat; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+    .budget-card-table td:nth-child(2) { grid-area: expected; }
+    .budget-card-table td:nth-child(3) { grid-area: actual; align-items: center !important;}
+    .budget-card-table td:nth-child(4) { grid-area: diff; align-items: flex-end !important;}
+    
+    .budget-card-table td:nth-child(2)::before,
+    .budget-card-table td:nth-child(3)::before,
+    .budget-card-table td:nth-child(4)::before {
+        display: block !important;
+        font-size: 10px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        margin-bottom: 2px;
+    }
     .budget-card-table td:nth-child(2)::before { content: "Expected"; }
     .budget-card-table td:nth-child(3)::before { content: "Actual"; }
     .budget-card-table td:nth-child(4)::before { content: "Diff"; }
