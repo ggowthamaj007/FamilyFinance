@@ -792,6 +792,7 @@ body {
     animation: fadeIn 0.3s ease;
     min-width: 0;
     max-width: 100%;
+    overflow-x: hidden;
 }
 
 @keyframes fadeIn {
@@ -1209,6 +1210,13 @@ select.form-control option {
     #expenses-table td:nth-child(7) { grid-area: action; justify-content: flex-end; }
 
     /* Budget Table Grid - 2 Rows */
+    #budget-cards-container {
+        grid-template-columns: 1fr !important;
+    }
+    #budget-cards-container .dashboard-panel {
+        max-width: 100vw !important;
+        overflow: hidden !important;
+    }
     .budget-card-table tr {
         grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
         grid-template-areas: 

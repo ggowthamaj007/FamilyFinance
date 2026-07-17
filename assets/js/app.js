@@ -368,6 +368,47 @@ async function forceGithubSync() {
     }
 }
 
+async function autoSyncFromGithub() {
+    const { username, repo, token, path } = appState.githubSync;
+    if (!token || !username || !repo) return;
+    
+    try {
+        const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
+            headers: { "Authorization": `token ${token}` },
+            cache: "no-store"
+        });
+        
+        if (res.ok) {
+            const data = await res.json();
+            
+            // Only pull if the SHA is different from what we last synced
+            if (data.sha !== appState.githubSync.lastSha) {
+                console.log("Auto-sync: Remote data is newer, pulling...");
+                githubFileSha = data.sha;
+                
+                const cleanContent = data.content.replace(/\n/g, '');
+                const decoded = decodeURIComponent(escape(atob(cleanContent)));
+                const remoteState = JSON.parse(decoded);
+                
+                // Preserve local token
+                const localToken = appState.githubSync.token;
+                appState = remoteState;
+                if(!appState.githubSync) appState.githubSync = {};
+                appState.githubSync.token = localToken;
+                appState.githubSync.lastSha = data.sha;
+                
+                localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
+                console.log("Auto-sync: Data updated. Reloading...");
+                location.reload();
+            } else {
+                console.log("Auto-sync: Local data is up to date.");
+            }
+        }
+    } catch (e) {
+        console.error("Auto-sync failed (non-critical):", e);
+    }
+}
+
 function saveGithubSyncSettings() {
     appState.githubSync.username = document.getElementById("github-username").value.trim();
     appState.githubSync.repo = document.getElementById("github-repo").value.trim();
@@ -2321,6 +2362,8 @@ function loadBudgetPage() {
             card.style.overflow = "hidden";
             card.style.display = "flex";
             card.style.flexDirection = "column";
+            card.style.maxWidth = "100%";
+            card.style.minWidth = "0";
 
             const header = document.createElement("div");
             header.className = "panel-header";
@@ -4947,6 +4990,11 @@ window.addEventListener("DOMContentLoaded", () => {
     
     window.addEventListener("hashchange", handleHashRouter);
     handleHashRouter();
+    
+    // Auto-pull from GitHub on startup if configured
+    if (appState.githubSync && appState.githubSync.token && appState.githubSync.username && appState.githubSync.repo) {
+        autoSyncFromGithub();
+    }
 });
 
 
