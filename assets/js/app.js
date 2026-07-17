@@ -305,6 +305,34 @@ async function pushToGithub() {
             appState.githubSync.lastSha = putData.content.sha;
             localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
             console.log("GitHub Sync Successful");
+        } else if (putRes.status === 409) {
+            // SHA conflict — another device pushed first. Refetch and retry once.
+            console.warn("GitHub Sync: SHA conflict. Refetching and retrying...");
+            const refetch = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
+                headers: { "Authorization": `token ${token}` },
+                cache: "no-store"
+            });
+            if (refetch.ok) {
+                const refData = await refetch.json();
+                githubFileSha = refData.sha;
+                const retryBody = { message: `Auto-sync retry: ${new Date().toISOString()}`, content: content, sha: refData.sha };
+                const retryRes = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
+                    method: "PUT",
+                    headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
+                    body: JSON.stringify(retryBody)
+                });
+                if (retryRes.ok) {
+                    const retryData = await retryRes.json();
+                    githubFileSha = retryData.content.sha;
+                    appState.githubSync.lastSha = retryData.content.sha;
+                    localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
+                    console.log("GitHub Sync Retry Successful");
+                } else {
+                    console.error("GitHub Sync Retry Failed:", retryRes.status);
+                }
+            }
+        } else {
+            console.error("GitHub Sync Failed with status:", putRes.status);
         }
     } catch (e) {
         console.error("GitHub Sync Failed", e);

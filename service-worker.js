@@ -1,4 +1,4 @@
-const CACHE_NAME = 'family-finance-v16';
+const CACHE_NAME = 'family-finance-v17';
 const urlsToCache = [
   './',
   './index.html',
@@ -20,6 +20,13 @@ self.addEventListener('install', event => {
   );
 });
 
+// Listen for skip waiting messages from the page
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -34,14 +41,29 @@ self.addEventListener('activate', event => {
   );
 });
 
+// NETWORK-FIRST strategy: Always try the network first.
+// Only fall back to cache if the network is unavailable (offline).
 self.addEventListener('fetch', event => {
+  // Skip non-GET requests and cross-origin requests (e.g. GitHub API)
+  if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) {
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
+    fetch(event.request)
+      .then(networkResponse => {
+        // Got a fresh response from network — update the cache
+        if (networkResponse && networkResponse.status === 200) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseClone);
+          });
         }
-        return fetch(event.request);
+        return networkResponse;
+      })
+      .catch(() => {
+        // Network failed (offline) — serve from cache
+        return caches.match(event.request);
       })
   );
 });
