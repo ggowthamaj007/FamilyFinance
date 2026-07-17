@@ -145,7 +145,8 @@ async function silentGithubPull() {
     
     try {
         const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
-            headers: { "Authorization": `token ${token}` }
+            headers: { "Authorization": `token ${token}` },
+            cache: "no-store"
         });
         if (res.ok) {
             const data = await res.json();
@@ -267,7 +268,8 @@ async function pushToGithub() {
         let sha = githubFileSha;
         if (!sha) {
             const getRes = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
-                headers: { "Authorization": `token ${token}` }
+                headers: { "Authorization": `token ${token}` },
+                cache: "no-store"
             });
             if (getRes.ok) {
                 const data = await getRes.json();
@@ -327,7 +329,8 @@ async function forceGithubSync() {
     
     try {
         const res = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
-            headers: { "Authorization": `token ${token}` }
+            headers: { "Authorization": `token ${token}` },
+            cache: "no-store"
         });
         
         if (res.status === 404) {
@@ -2382,10 +2385,10 @@ function loadBudgetPage() {
                 }
                 
                 tr.innerHTML = `
-                    <td style="padding: 10px 15px; font-weight: 500;">${subcat}${cautionIcon}</td>
-                    <td style="padding: 6px 10px;"><input type="text" inputmode="decimal" class="form-control budget-input" data-subcat="${subcat.replace(/"/g, '&quot;')}" value="${formatCurr(expected)}" onblur="this.value = formatCurr(parseAmountStr(this.value))" style="padding: 4px 8px; height: 30px; font-size: 13px;"></td>
-                    <td style="padding: 10px 10px; text-align: right; color: var(--accent); cursor: pointer; text-decoration: underline;" data-subcat="${subcat.replace(/"/g, '&quot;')}" onclick="showBudgetTransactions(this.getAttribute('data-subcat'), '${currentMonth}')" title="View Transactions">${formatCurr(actual)}</td>
-                    <td style="padding: 10px 15px; text-align: right; ${diffStyle}">${formatCurr(diff)}</td>
+                    <td style="font-weight: 500;">${subcat}${cautionIcon}</td>
+                    <td><input type="text" inputmode="decimal" class="form-control budget-input" data-subcat="${subcat.replace(/"/g, '&quot;')}" value="${formatCurr(expected)}" onblur="this.value = formatCurr(parseAmountStr(this.value))" style="padding: 4px 8px; height: 30px; font-size: 13px;"></td>
+                    <td style="text-align: right; color: var(--accent); cursor: pointer; text-decoration: underline;" data-subcat="${subcat.replace(/"/g, '&quot;')}" onclick="showBudgetTransactions(this.getAttribute('data-subcat'), '${currentMonth}')" title="View Transactions">${formatCurr(actual)}</td>
+                    <td style="text-align: right; ${diffStyle}">${formatCurr(diff)}</td>
                 `;
                 tbody.appendChild(tr);
             });

@@ -11,9 +11,9 @@
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
     <!-- Iconography -->
     <link href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" rel="icon" type="image/png">
-    <link rel="stylesheet" href="assets/css/style.css?v=8">
+    <link rel="stylesheet" href="assets/css/style.css?v=9">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <script src="assets/js/app.js?v=8" defer></script>
+    <script src="assets/js/app.js?v=9" defer></script>
 </head>
 <body>
     <div class="app-container">
@@ -84,7 +84,7 @@
             <!-- DASHBOARD TAB -->
             <!-- ========================================== -->
             <section id="dashboard" class="tab-content active">
-                <div class="filter-row" style="background-color: var(--bg-surface); padding: 15px; border-radius: 12px; display: flex; flex-wrap: wrap; gap: 15px; align-items: center; border: 1px solid var(--border-color);">
+                <div class="filter-row dash-filter-container">
                     <div style="font-weight: 600; margin-right: 10px;">Dashboard Filter:</div>
                     <select id="dash-filter-year" class="form-control" style="width: 100px;" onchange="loadDashboardPage()">
                         <option value="All">All Years</option>
@@ -294,7 +294,7 @@
                             <button class="btn btn-primary" onclick="openTransactionModal()"><i class="ri-add-line"></i> Add Entry</button>
                         </div>
                     </div>
-                    <div class="filter-row" style="margin-bottom: -10px;">
+                    <div class="filter-row">
                         <label>From:</label>
                         <input type="date" id="exp-date-from" class="form-control" onchange="filterExpensesTable()">
                         <label>To:</label>
@@ -582,7 +582,7 @@
             <!-- TRADING JOURNAL TAB -->
             <!-- ========================================== -->
             <section id="trading" class="tab-content">
-                <div class="filter-row" style="background-color: var(--bg-surface); padding: 15px; border-radius: 12px; display: flex; flex-wrap: wrap; gap: 15px; align-items: center; border: 1px solid var(--border-color); margin-bottom: 20px;">
+                <div class="filter-row dash-filter-container">
                     <div style="font-weight: 600; margin-right: 10px;">Trade Filter:</div>
                     <select id="trade-filter-type" class="form-control" style="width: 140px;" onchange="loadTradingPage()">
                         <option value="All">All Types</option>

@@ -472,8 +472,21 @@ body {
 }
 
 @media (max-width: 768px) {
+    /* Mobile Filter Row Layout */
+    .filter-row {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px !important;
+        align-items: end;
+    }
+    .filter-row > div:first-child { grid-column: 1 / -1; margin: 0 !important; }
+    .filter-row select, .filter-row input { width: 100% !important; margin: 0 !important; }
+    .filter-row > button { grid-column: 1 / -1; }
+    .filter-row > div[style*="width: 1px"] { display: none; }
+    .filter-row > label { margin: 0; font-size: 11px; }
+
     .dashboard-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr 1fr !important;
     }
 }
 
@@ -1085,6 +1098,13 @@ select.form-control option {
     gap: 10px;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+.dash-filter-container {
+    background-color: var(--bg-surface);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
 }
 
 .filter-row label {
@@ -1169,7 +1189,7 @@ select.form-control option {
     
     /* Expenses Table Grid - 3 Rows */
     #expenses-table tr {
-        grid-template-columns: 1fr auto;
+        grid-template-columns: minmax(0, 1fr) auto;
         grid-template-areas: 
             "desc amount"
             "date type"
@@ -1185,7 +1205,7 @@ select.form-control option {
 
     /* Budget Table Grid - 2 Rows */
     .budget-card-table tr {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
         grid-template-areas: 
             "subcat subcat subcat"
             "expected actual diff";
@@ -1271,9 +1291,11 @@ select.form-control option {
     .sidebar {
         display: none !important;
     }
-    
     .col-md-6 {
-        min-width: 100% !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
     }
     .main-content {
         margin-left: 0 !important;
