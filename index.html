@@ -11,9 +11,9 @@
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
     <!-- Iconography -->
     <link href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" rel="icon" type="image/png">
-    <link rel="stylesheet" href="assets/css/style.css?v=10">
+    <link rel="stylesheet" href="assets/css/style.css?v=11">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <script src="assets/js/app.js?v=10" defer></script>
+    <script src="assets/js/app.js?v=11" defer></script>
 </head>
 <body>
     <div class="app-container">
@@ -804,8 +804,8 @@
                     <div class="panel-header">
                         <span class="panel-title">System Settings & Data Backups</span>
                     </div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; padding-top:10px;">
-                        <div style="display:flex; flex-direction:column; gap:16px;">
+                    <div style="display:flex; flex-wrap: wrap; gap:24px; padding-top:10px;">
+                        <div style="display:flex; flex-direction:column; gap:16px; flex: 1 1 300px;">
                             <div class="form-group">
                                 <label class="form-label">Preferred Currency Symbol</label>
                                 <select id="settings-currency-select" class="form-control">
@@ -826,10 +826,10 @@
                             <button class="btn btn-primary" onclick="updateSettingsConfig()">Save Configuration</button>
                         </div>
                         
-                        <div style="background:rgba(255,255,255,0.01); border:1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; display:flex; flex-direction:column; gap:16px;">
+                        <div style="background:rgba(255,255,255,0.01); border:1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; display:flex; flex-direction:column; gap:16px; flex: 1 1 300px;">
                             <strong style="font-size:14px; font-family:var(--font-heading);">Backup & Recovery Operations</strong>
                             <p style="font-size:12px; color:var(--text-secondary); line-height:1.5;">Export your complete local database state to a JSON file to serve as a backup, or restore from a previously exported database.</p>
-                            <div style="display:flex; gap:12px;">
+                            <div style="display:flex; flex-wrap: wrap; gap:12px;">
                                 <button class="btn btn-secondary" onclick="downloadBackupFile()"><i class="ri-download-cloud-line"></i> Download Backup</button>
                                 <button class="btn btn-secondary" onclick="document.getElementById('backup-file-picker').click()"><i class="ri-upload-cloud-line"></i> Upload Backup</button>
                                 <button class="btn btn-danger" onclick="eraseAllData()"><i class="ri-delete-bin-2-line"></i> Erase All Data</button>
@@ -1326,7 +1326,27 @@
     </div>
 
     <!-- Scripts -->
-    <script src="assets/js/importEngine.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => {
+                        console.log('ServiceWorker registered with scope:', reg.scope);
+                        reg.onupdatefound = () => {
+                            const installingWorker = reg.installing;
+                            if (installingWorker == null) return;
+                            installingWorker.onstatechange = () => {
+                                if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    alert("A new version of the app is available! Please refresh to update.");
+                                    window.location.reload();
+                                }
+                            };
+                        };
+                    })
+                    .catch(err => console.log('ServiceWorker registration failed: ', err));
+            });
+        }
+    </script>
     <!-- Core Application Logic -->
     <script src="assets/js/app.js"></script>
 </body>
