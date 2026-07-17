@@ -11,9 +11,9 @@
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
     <!-- Iconography -->
     <link href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" rel="icon" type="image/png">
-    <link rel="stylesheet" href="assets/css/style.css?v=9">
+    <link rel="stylesheet" href="assets/css/style.css?v=10">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
-    <script src="assets/js/app.js?v=9" defer></script>
+    <script src="assets/js/app.js?v=10" defer></script>
 </head>
 <body>
     <div class="app-container">
@@ -877,7 +877,7 @@
                             <input type="text" id="github-path" class="form-control" placeholder="appState.json" value="appState.json" style="max-width: 250px;">
                         </div>
                         
-                        <div style="display:flex; gap:12px; align-items: center; padding-top: 16px; border-top: 1px solid var(--border-color);">
+                        <div style="display:flex; gap:12px; align-items: center; padding-top: 16px; border-top: 1px solid var(--border-color); flex-wrap: wrap;">
                             <button class="btn btn-primary" onclick="saveGithubSyncSettings()"><i class="ri-save-3-line"></i> Save Configuration</button>
                             <button class="btn btn-secondary" onclick="verifyGithubConnection()" id="btn-verify-sync"><i class="ri-check-double-line"></i> Verify Connection</button>
                             <button class="btn btn-secondary" onclick="forceGithubSync()" id="btn-force-sync" style="display:none;"><i class="ri-refresh-line"></i> Sync Now</button>

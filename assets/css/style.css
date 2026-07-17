@@ -474,19 +474,23 @@ body {
 @media (max-width: 768px) {
     /* Mobile Filter Row Layout */
     .filter-row {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr;
+        display: flex !important;
+        flex-wrap: wrap !important;
         gap: 10px !important;
-        align-items: end;
     }
-    .filter-row > div:first-child { grid-column: 1 / -1; margin: 0 !important; }
-    .filter-row select, .filter-row input { width: 100% !important; margin: 0 !important; }
-    .filter-row > button { grid-column: 1 / -1; }
+    .filter-row > div:first-child { flex: 1 1 100% !important; margin-bottom: 5px !important; }
+    .filter-row select, .filter-row input { flex: 1 1 calc(50% - 10px) !important; margin: 0 !important; width: auto !important; }
+    .filter-row > button { flex: 1 1 100% !important; margin-top: 5px !important; }
     .filter-row > div[style*="width: 1px"] { display: none; }
-    .filter-row > label { margin: 0; font-size: 11px; }
+    .filter-row > label { display: none; }
 
     .dashboard-grid {
-        grid-template-columns: 1fr 1fr !important;
+        grid-template-columns: 1fr !important;
+    }
+    
+    .dashboard-panel {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 }
 
@@ -525,6 +529,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
 }
 
 /* Buttons */
@@ -1216,7 +1221,7 @@ select.form-control option {
     .budget-card-table tr:last-child { border-bottom: none !important; }
     
     .budget-card-table td { flex-direction: column; align-items: flex-start !important; min-width: 0; }
-    .budget-card-table td input { min-width: 0 !important; width: 100% !important; }
+    .budget-card-table td input { min-width: 0 !important; width: 100% !important; max-width: 80px !important; }
     
     /* Generic Mobile List Table (Vertical Key-Value Cards) */
     .mobile-list-table thead { display: none; }
