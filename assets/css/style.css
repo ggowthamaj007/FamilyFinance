@@ -438,7 +438,15 @@ body {
     .filter-row > label { display: none; }
 
     .dashboard-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px;
+    }
+    .dashboard-grid > *:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+    }
+    
+    .card-value {
+        font-size: 20px !important;
     }
     
     .dashboard-panel {
@@ -644,7 +652,7 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
-    z-index: 100;
+    z-index: 2000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1148,17 +1156,17 @@ select.form-control option {
     
     /* Expenses Table Grid - 3 Rows */
     #expenses-table tr {
-        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-columns: auto minmax(0, 1fr) auto;
         grid-template-areas: 
-            "desc amount"
-            "date type"
-            "subcat action";
+            "desc desc amount"
+            "date account account"
+            "type subcat action";
     }
     #expenses-table td:nth-child(1) { grid-area: date; font-size: 12px; color: var(--text-muted); }
-    #expenses-table td:nth-child(2) { display: none !important; } /* Hide Account to save space */
+    #expenses-table td:nth-child(2) { grid-area: account; display: flex !important; justify-content: flex-end; font-size: 12px; color: var(--text-muted); font-weight: 600; }
     #expenses-table td:nth-child(3) { grid-area: desc; font-weight: 600; font-size: 14px; }
-    #expenses-table td:nth-child(4) { grid-area: subcat; }
-    #expenses-table td:nth-child(5) { grid-area: type; justify-content: flex-end; }
+    #expenses-table td:nth-child(4) { grid-area: subcat; padding-left: 6px !important; }
+    #expenses-table td:nth-child(5) { grid-area: type; }
     #expenses-table td:nth-child(6) { grid-area: amount; font-size: 15px; justify-content: flex-end; }
     #expenses-table td:nth-child(7) { grid-area: action; justify-content: flex-end; }
 

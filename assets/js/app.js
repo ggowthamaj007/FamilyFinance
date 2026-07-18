@@ -12,12 +12,12 @@ const PROTECTED_CATEGORIES = [
 // Initial Database State with Extracted Placeholder Data
 const DEMO_DATA = {
     accounts: ["Gowtham", "Renuka"],
-    categories: {"Expense":{"Entertainment":["Activities","Media/Cinema","Sports","Gadgets","Vacation/Travel"],"Miscellaneous":["Other"],"Home Expenses":["Mortgage/Rent","Electricity","Water","Home Supplies"],"Transfer (Out)":["Lent to Others","Borrow Repayment"],"Bills/Subscriptions":["OTT\u0027s","Memberships","Mobile/Wifi"],"Daily Living":["Groceries","Personal Supplies","Clothing","Eating Out","Grooming"],"Health":["Hospital","Medicine/Drugs"],"Charity/Gifts":["Gifts Given","Donations"],"Transportation":["Fuel","Bus/Taxi/Train Fare","Repair/ Maintenance"],"Obligations":["To Home_G","To Home_R","Credit Cards","Other Loans"]},"Income":{"Carryforward":["Previous Balance"],"Variable":["Other Income"],"Transfer (In)":["Lent Repayment","Borrowed From"],"Fixed":["Salary_G","Salary_R"]},"Savings":{"Savings":["Emergency Fund","Investments"]}},
+    categories: {"Expense":{"Entertainment":["Activities","Media/ Cinema","Sports","Gadgets","Vacation/ Travel"],"Miscellaneous":["Other"],"Home Expenses":["Mortgage/ Rent","Electricity","Water","Home Supplies"],"Transfer (Out)":["Lent to Others","Borrow Repayment"],"Bills/ Subscriptions":["OTT\u0027s","Memberships","Mobile/ Wifi"],"Daily Living":["Groceries","Personal Supplies","Clothing","Eating Out","Grooming"],"Health":["Hospital","Medicine/ Drugs"],"Charity/ Gifts":["Gifts Given","Donations"],"Transportation":["Fuel","Bus/ Taxi/ Train Fare","Repair/ Maintenance"],"Obligations":["To Home_G","To Home_R","Credit Cards","Other Loans"]},"Income":{"Carryforward":["Previous Balance"],"Variable":["Other Income"],"Transfer (In)":["Lent Repayment","Borrowed From"],"Fixed":["Salary_G","Salary_R"]},"Savings":{"Savings":["Emergency Fund","Investments"]}},
     statements: [],
     debts: [],
     trades: [],
     descriptionMap: {"29-May-26":"IRCTC Wallet","08-Apr-26":"From Accenture","14-Feb-26":"Parker Pen","26-Feb-26":"Ghee, Paneer","13-May-26":"Eating Out","21-Nov-25":"Dinner @Shanthi Nagar","02-Apr-26":"From Ilanjiyam","29-Nov-25":"Pizza","23-Apr-26":"Bus","23-Dec-25":"Tea","04-Apr-26":"Chilli Chicken","29-Dec-25":"Curd","13-Mar-26":"Chicken","07-Dec-25":"Puliyur Ticket","05-Mar-26":"Internet Bill claim","14-Apr-26":"Marriage Reg. for Vasanth","01-Mar-26":"Juice","12-Dec-25":"Petrol","26-Apr-26":"Redbus to BG","18-Dec-25":"Grocerries","09-Mar-26":"Research 360","26-Nov-25":"Cone","18-Apr-26":"You tube Movie","17-Dec-25":"KFC","10-Dec-25":"Water Bill","17-Jan-26":"Fish","27-Dec-25":"Market, Yelahanka","17-May-26":"Tea","21-Apr-26":"Grocerries","23-Nov-25":"Aadhar Registration","08-Feb-26":"Puliyur EB Bill","05-Feb-26":"Bakery","16-Apr-26":"Swiggy Instamart","08-Jan-26":"Zepto-Weight Machine","07-Feb-26":"Dairy Milk","09-Feb-26":"To Home","09-Apr-26":"Milk","16-Mar-26":"Paani Poori","14-Jan-26":"Tea","06-May-26":"THE BIG MARKET","01-May-26":"Thangamayil","24-Dec-25":"Arav Farm","01-Jun-26":"Thangamayil","22-Dec-25":"Biriyani","21-Dec-25":"IRCTC Turicorin to BG","21-May-26":"BMTC","14-May-26":"Milk","25-Feb-26":"Chicken Roll","27-Mar-26":"Bus to Salem","19-Mar-26":"Curd","13-Dec-25":"Flower","14-Nov-25":"Grocerries-Untill 14-Nov","06-Jan-26":"Milk","19-Dec-25":"Grocerries","31-Dec-25":"Tea","15-Mar-26":"RKM Bus","25-Jan-26":"Perambalur Shopping","18-Jan-26":"Fruits Marapannor","22-May-26":"Chicken","28-Apr-26":"Shawarma","25-Dec-25":"Onion","09-Dec-25":"Annual Maintenance Fee","22-Nov-25":"Medicals","20-Mar-26":"Milk","12-May-26":"Number Plate","03-Mar-26":"Electricity","24-Jan-26":"Tea Snacks","03-Apr-26":"To Vaibhav","21-Jan-26":"SCAM","08-Dec-25":"Zepto","05-Apr-26":"Threading","10-Apr-26":"Zudio","15-Apr-26":"Popeyes","10-Jan-26":"Home Rent","28-Mar-26":"Fruits \u0026 Fuel, Goodalur","06-Apr-26":"Selvarani Current bill","27-Apr-26":"Thangamayil","28-Jan-26":"Zepto","24-May-26":"Bike Repair","11-Mar-26":"Parking @ marudhamalai","24-Mar-26":"Eating Out","13-Feb-26":"Kaviraj Marriage Train tickets","09-Nov-25":"Snacks","24-Apr-26":"Chicken Rice","13-Nov-25":"KPN Fresh","07-Apr-26":"Gift to Gowtham","05-Jan-26":"Cold tablet","02-Feb-26":"Electricity","17-Apr-26":"Snacks","12-Jan-26":"Paani Poori","03-May-26":"Perambalur Shopping","19-Jan-26":"Milk","03-Nov-25":"DINOY GE","16-May-26":"Swiggy Instamart","21-Feb-26":"Auto to SMVT","06-Mar-26":"KFC","03-Jan-26":"Tea","02-Mar-26":"Thangamayil","14-Dec-25":"Thangamayil - Diamond Bracelet","17-Mar-26":"Milk \u0026 Snacks","16-Nov-25":"Tea","23-May-26":"Tea","30-Dec-25":"Dress Alteration","13-Jan-26":"Ajio, Jacket","25-Mar-26":"Parotta","20-May-26":"Milk","19-Feb-26":"Sherif Bhai Biriyani-Zomato","19-May-26":"Capacitor","10-Feb-26":"Jimiki","16-Jan-26":"Murugan Stores","27-Jan-26":"Paani Poori","15-Feb-26":"Milk","23-Mar-26":"Bus to Perambalur","12-Apr-26":"Milk \u0026 Curd","12-Mar-26":"Milk","24-Nov-25":"Vela Bakery","15-Dec-25":"From Selvarani","26-Dec-25":"Tomato","22-Feb-26":"Local Bus","04-May-26":"Redbus Perambalur to BG","30-Nov-25":"Zepto-Rice","20-Jan-26":"Chicken","26-Jan-26":"Domino\u0027s","02-May-26":"From Elanjiyam","07-Mar-26":"Selvarani EMI","17-Feb-26":"Ointment for Neck","30-Apr-26":"Skate Shoes","29-Mar-26":"Flower","16-Dec-25":"Cab, Santhi Nagar to Home","22-Apr-26":"Cab","02-Nov-25":"SANTHIYA M","28-Dec-25":"Ithihaas","07-May-26":"Milk \u0026 Snacks","01-Dec-25":"Thalasery Hotel","02-Dec-25":"KPN Fresh","20-Apr-26":"Grocerries","05-Nov-25":"CHRG-ATM TXN DECLINE FEE","20-Feb-26":"Zepto - Cake","13-Apr-26":"Water Wash","08-Nov-25":"Sagar Dress","19-Apr-26":"Dress","09-Jan-26":"Wifi-Selvarani","23-Feb-26":"Cab from Majestic to Home","25-Nov-25":"Oil, KPN","11-Feb-26":"To Renu Thatha","11-Nov-25":"SETC","15-Jan-26":"EB Bill","11-Apr-26":"Muskan Fashion","29-Apr-26":"Thangamayil","05-May-26":"Airtel Wifi","01-Nov-25":"Selvarani","18-Nov-25":"Gocerries","17-Nov-25":"Zepto","01-Jan-26":"Chicken","07-Jan-26":"IRCTC Turicorin to BG-Cancelled","22-Mar-26":"Zepto","01-Apr-26":"To Savings Box","25-May-26":"Milk","11-Jan-26":"Mall Parking","21-Mar-26":"Zepto","31-Mar-26":"Thangamayil","09-May-26":"PVR INOX","10-Mar-26":"Juice","03-Dec-25":"Arav Farm","26-May-26":"EB Bill Parimala","15-May-26":"Speedometer Repair","27-Nov-25":"Thangamayil","04-Jan-26":"Malabar Foods","01-Feb-26":"Allowances","28-Nov-25":"Ajio","04-Nov-25":"Parimala Jio","18-Mar-26":"Milk \u0026 Snacks","12-Nov-25":"Monitor Cable","05-Dec-25":"Netflix","28-May-26":"Swiggy","04-Mar-26":"Zepto","06-Nov-25":"RAMACHAN","18-May-26":"Milk/Curd","14-Mar-26":"Bus Ticket","02-Jan-26":"Fruits","08-Mar-26":"Chicken","16-Feb-26":"Zepto-Potato, Milk","20-Dec-25":"Prawn","23-Jan-26":"Tea Snacks","29-Jan-26":"Dinner","18-Feb-26":"Chilli Chicken","03-Feb-26":"Zip Tag","10-May-26":"THE BIG MARKET"},
-    budgets: {"Investments":12000,"Lent Repayment":8000,"Salary_R":48500,"OTT\u0027s":299,"Electricity":800,"To Home_G":5000,"Home Supplies":1000,"Credit Cards":5000,"Groceries":6000,"Water":250,"Clothing":2000,"Repair/ Maintenance":200,"Gifts Given":2760,"Mortgage/Rent":16250,"Fuel":600,"Media/Cinema":1000,"Mobile/Wifi":2000,"Borrowed From":10000,"Borrow Repayment":6875,"Salary_G":56200,"Eating Out":4000,"Grooming":300,"Medicine/Drugs":329,"Personal Supplies":1000,"To Home_R":4621,"Hospital":2000,"Activities":4500,"Bus/Taxi/Train Fare":2000,"Memberships":602},
+    budgets: {"Investments":12000,"Lent Repayment":8000,"Salary_R":48500,"OTT\u0027s":299,"Electricity":800,"To Home_G":5000,"Home Supplies":1000,"Credit Cards":5000,"Groceries":6000,"Water":250,"Clothing":2000,"Repair/ Maintenance":200,"Gifts Given":2760,"Mortgage/ Rent":16250,"Fuel":600,"Media/ Cinema":1000,"Mobile/ Wifi":2000,"Borrowed From":10000,"Borrow Repayment":6875,"Salary_G":56200,"Eating Out":4000,"Grooming":300,"Medicine/ Drugs":329,"Personal Supplies":1000,"To Home_R":4621,"Hospital":2000,"Activities":4500,"Bus/ Taxi/ Train Fare":2000,"Memberships":602},
     settings: {
         currency: "₹"
     }
@@ -64,43 +64,45 @@ function initAppState() {
         if (!appState.settings.deactivatedCategories) appState.settings.deactivatedCategories = [];
     if (!appState.accounts || appState.accounts.length === 0) appState.accounts = ["Main Account"];
     
-    // Migrate "Repairs/Maintenance" and "Repair/Maintenance" to "Repair/ Maintenance" for better text wrapping
-    if (appState.categories["Expense"] && appState.categories["Expense"]["Transportation"]) {
-        const transCats = appState.categories["Expense"]["Transportation"];
-        const oldIndex1 = transCats.indexOf("Repairs/Maintenance");
-        if (oldIndex1 !== -1) transCats[oldIndex1] = "Repair/ Maintenance";
-        const oldIndex2 = transCats.indexOf("Repair/Maintenance");
-        if (oldIndex2 !== -1) transCats[oldIndex2] = "Repair/ Maintenance";
-    }
-    
-    // Update existing budgets and monthly budgets
-    if (appState.budgets && appState.budgets["Repairs/Maintenance"] !== undefined) {
-        appState.budgets["Repair/ Maintenance"] = appState.budgets["Repairs/Maintenance"];
-        delete appState.budgets["Repairs/Maintenance"];
-    }
-    if (appState.budgets && appState.budgets["Repair/Maintenance"] !== undefined) {
-        appState.budgets["Repair/ Maintenance"] = appState.budgets["Repair/Maintenance"];
-        delete appState.budgets["Repair/Maintenance"];
-    }
-    
-    for (let month in appState.monthlyBudgets) {
-        if (appState.monthlyBudgets[month]["Repairs/Maintenance"] !== undefined) {
-            appState.monthlyBudgets[month]["Repair/ Maintenance"] = appState.monthlyBudgets[month]["Repairs/Maintenance"];
-            delete appState.monthlyBudgets[month]["Repairs/Maintenance"];
+    // Migrate categories with slashes to have spaces for text wrapping
+    const migrateCat = (obj, oldKey, newKey) => {
+        if (obj && obj[oldKey] !== undefined) {
+            obj[newKey] = obj[oldKey];
+            delete obj[oldKey];
         }
-        if (appState.monthlyBudgets[month]["Repair/Maintenance"] !== undefined) {
-            appState.monthlyBudgets[month]["Repair/ Maintenance"] = appState.monthlyBudgets[month]["Repair/Maintenance"];
-            delete appState.monthlyBudgets[month]["Repair/Maintenance"];
-        }
+    };
+    
+    if (appState.categories && appState.categories["Expense"]) {
+        migrateCat(appState.categories["Expense"], "Bills/Subscriptions", "Bills/ Subscriptions");
+        migrateCat(appState.categories["Expense"], "Charity/Gifts", "Charity/ Gifts");
     }
     
-    // Update statements
+    const categoryReplacements = {
+        "Media/Cinema": "Media/ Cinema",
+        "Vacation/Travel": "Vacation/ Travel",
+        "Mortgage/Rent": "Mortgage/ Rent",
+        "Mobile/Wifi": "Mobile/ Wifi",
+        "Medicine/Drugs": "Medicine/ Drugs",
+        "Bus/Taxi/Train Fare": "Bus/ Taxi/ Train Fare",
+        "Repairs/Maintenance": "Repair/ Maintenance",
+        "Repair/Maintenance": "Repair/ Maintenance"
+    };
+
     if (appState.statements) {
         appState.statements.forEach(stmt => {
-            if (stmt.subCategory === "Repairs/Maintenance" || stmt.subCategory === "Repair/Maintenance") {
-                stmt.subCategory = "Repair/ Maintenance";
+            if (categoryReplacements[stmt.subCategory]) {
+                stmt.subCategory = categoryReplacements[stmt.subCategory];
             }
+            if (stmt.category === "Bills/Subscriptions") stmt.category = "Bills/ Subscriptions";
+            if (stmt.category === "Charity/Gifts") stmt.category = "Charity/ Gifts";
         });
+    }
+
+    if (appState.budgets) {
+        Object.keys(categoryReplacements).forEach(old => migrateCat(appState.budgets, old, categoryReplacements[old]));
+    }
+    for (let month in appState.monthlyBudgets) {
+        Object.keys(categoryReplacements).forEach(old => migrateCat(appState.monthlyBudgets[month], old, categoryReplacements[old]));
     }
     
     // Auto-inject missing specific categories safely
@@ -1236,7 +1238,7 @@ function downloadExcelTemplate() {
     const statementData = [
         statementCols,
         [1, "Gowtham", "2026-06-01", "Sample Salary", "Salary_G", "", 50000],
-        [2, "Gowtham", "2026-06-02", "Sample Rent", "Mortgage/Rent", 15000, ""]
+        [2, "Gowtham", "2026-06-02", "Sample Rent", "Mortgage/ Rent", 15000, ""]
     ];
     const statementWs = XLSX.utils.aoa_to_sheet(statementData);
     XLSX.utils.book_append_sheet(wb, statementWs, "STATEMENT");
@@ -5143,5 +5145,7 @@ window.deleteTrade = deleteTrade;
 window.openTradeModal = openTradeModal;
 window.saveTradeEntry = saveTradeEntry;
 window.closeAllModals = closeAllModals;
+
+
 
 
