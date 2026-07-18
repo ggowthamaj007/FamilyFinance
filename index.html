@@ -340,18 +340,30 @@
                             <button class="btn btn-primary" onclick="saveBudgetPlanner()"><i class="ri-save-line"></i> Save Budgets</button>
                         </div>
                     </div>
-                    <div id="budget-summary-container" style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
-                        <div class="stat-card" style="flex: 1 1 140px; padding: 16px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--border-color); border-radius: var(--radius-md);">
-                            <h3 style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">Total Budget</h3>
-                            <div class="stat-value" id="budget-total-planned" style="font-size: 22px; font-weight: 700; font-family: var(--font-heading); color: var(--text-primary); margin-top: 8px;">₹0</div>
+                    <div id="budget-summary-container" class="dashboard-grid" style="margin-top: 20px;">
+                        <div class="summary-card">
+                            <div class="card-header">
+                                <span>TOTAL BUDGET</span>
+                                <div class="card-icon" style="background-color: var(--primary-light); color: var(--primary);"><i class="ri-wallet-3-line"></i></div>
+                            </div>
+                            <div class="card-value" id="budget-total-planned">₹0</div>
+                            <div class="card-footer normal">Total planned allocation</div>
                         </div>
-                        <div class="stat-card" style="flex: 1 1 140px; padding: 16px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--border-color); border-radius: var(--radius-md);">
-                            <h3 style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">Total Actual</h3>
-                            <div class="stat-value" id="budget-total-actual" style="font-size: 22px; font-weight: 700; font-family: var(--font-heading); color: var(--text-primary); margin-top: 8px;">₹0</div>
+                        <div class="summary-card">
+                            <div class="card-header">
+                                <span>TOTAL ACTUAL</span>
+                                <div class="card-icon" style="background-color: var(--warning-light); color: var(--warning);"><i class="ri-shopping-cart-2-line"></i></div>
+                            </div>
+                            <div class="card-value" id="budget-total-actual">₹0</div>
+                            <div class="card-footer normal">Total actual expenditure</div>
                         </div>
-                        <div class="stat-card" style="flex: 1 1 100%; padding: 16px; background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--border-color); border-radius: var(--radius-md);">
-                            <h3 style="font-size: 13px; color: var(--text-secondary); font-weight: 500;">Variance (Saved)</h3>
-                            <div class="stat-value" id="budget-total-variance" style="font-size: 22px; font-weight: 700; font-family: var(--font-heading); color: var(--success); margin-top: 8px;">₹0</div>
+                        <div class="summary-card" style="--card-accent: var(--success);">
+                            <div class="card-header">
+                                <span>VARIANCE (SAVED)</span>
+                                <div class="card-icon" style="background-color: var(--success-light); color: var(--success);"><i class="ri-save-3-line"></i></div>
+                            </div>
+                            <div class="card-value" id="budget-total-variance" style="color: var(--success);">₹0</div>
+                            <div class="card-footer up">Amount saved under budget</div>
                         </div>
                     </div>
                     

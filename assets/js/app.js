@@ -2688,7 +2688,7 @@ function clearAllFilters() {
     if (searchEl) searchEl.value = "";
     if (accountEl) accountEl.value = "All";
     if (typeEl) typeEl.value = "";
-    if (subcatEl) subcatEl.value = "All";
+    if (subcatEl) subcatEl.value = "";
     
     filterExpensesTable();
 }
@@ -5145,6 +5145,7 @@ window.deleteTrade = deleteTrade;
 window.openTradeModal = openTradeModal;
 window.saveTradeEntry = saveTradeEntry;
 window.closeAllModals = closeAllModals;
+
 
 
 
