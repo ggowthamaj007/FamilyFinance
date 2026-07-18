@@ -610,9 +610,7 @@ function toggleSidebar() {
 // Switch themes
 function toggleTheme() {
     const current = document.documentElement.getAttribute("data-theme") || "dark";
-    let next = "dark";
-    if (current === "dark") next = "light";
-    else if (current === "light") next = "fresh";
+    const next = current === "dark" ? "light" : "dark";
     
     document.documentElement.setAttribute("data-theme", next);
     appState.settings.theme = next;
@@ -1219,42 +1217,7 @@ function downloadExcelTemplate() {
     XLSX.writeFile(wb, "financial_tracker_template.xlsx");
 }
 
-// -------------------------------------------------------------
-// BACKUP EXPORT & RESTORE
-// -------------------------------------------------------------
-function downloadBackupFile() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
-    const dlAnchorElem = document.createElement('a');
-    dlAnchorElem.setAttribute("href", dataStr);
-    const now = new Date();
-    const dateStr = now.getFullYear() + "-" + 
-                   String(now.getMonth() + 1).padStart(2, '0') + "-" + 
-                   String(now.getDate()).padStart(2, '0') + "_" + 
-                   String(now.getHours()).padStart(2, '0') + "-" + 
-                   String(now.getMinutes()).padStart(2, '0') + "-" + 
-                   String(now.getSeconds()).padStart(2, '0');
-    dlAnchorElem.setAttribute("download", `family_finance_backup_${dateStr}.json`);
-    dlAnchorElem.click();
-}
-
-function restoreBackupFile(file, onCompleteCallback) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const restored = JSON.parse(e.target.result);
-            if (restored.statements && restored.categories && restored.accounts) {
-                appState = restored;
-                saveState();
-                onCompleteCallback(true);
-            } else {
-                onCompleteCallback(false, "Invalid backup schema. Required nodes missing.");
-            }
-        } catch (err) {
-            onCompleteCallback(false, err.message);
-        }
-    };
-    reader.readAsText(file);
-}
+// ------------------------------------------------------// Backup logic moved to core/backup.js
 
 // -------------------------------------------------------------
 // UI ROUTING & RENDERING ENGINE
@@ -4056,7 +4019,12 @@ function saveTransactionEntry() {
     }
     
     if (!desc || !date || isNaN(rawAmt) || rawAmt <= 0) {
-        alert("Please fill description, date, and amount fields.");
+        alert("Please fill description, date, and amount fields with valid numbers.");
+        return;
+    }
+    
+    if (type !== "Transfer" && !subcat) {
+        alert("Please select a category.");
         return;
     }
     
@@ -5025,4 +4993,114 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+
+
+
+// ==========================================
+// GLOBAL EXPORTS FOR ES MODULE COMPATIBILITY
+// ==========================================
+window.initAppState = initAppState;
+window.silentGithubPull = silentGithubPull;
+window.populateAccountFilters = populateAccountFilters;
+window.saveState = saveState;
+window.pushToGithub = pushToGithub;
+window.forceGithubSync = forceGithubSync;
+window.autoSyncFromGithub = autoSyncFromGithub;
+window.saveGithubSyncSettings = saveGithubSyncSettings;
+window.verifyGithubConnection = verifyGithubConnection;
+window.formatCurr = formatCurr;
+window.parseAmountStr = parseAmountStr;
+window.formatDateDisplay = formatDateDisplay;
+window.migrateSwappedFields = migrateSwappedFields;
+window.toggleSidebar = toggleSidebar;
+window.toggleTheme = toggleTheme;
+window.calculateChitRound = calculateChitRound;
+window.getChitCalculations = getChitCalculations;
+window.getDebtOutstanding = getDebtOutstanding;
+window.getDebtSummary = getDebtSummary;
+window.getContactSummary = getContactSummary;
+window.getMonthlyReconciliation = getMonthlyReconciliation;
+window.importExcelFile = importExcelFile;
+window.findSubcategoryMatch = findSubcategoryMatch;
+window.buildCategoryOptgroupOptions = buildCategoryOptgroupOptions;
+window.downloadExcelTemplate = downloadExcelTemplate;
+window.downloadBackupFile = downloadBackupFile;
+window.restoreBackupFile = restoreBackupFile;
+window.handleHashRouter = handleHashRouter;
+window.loadDashboardPage = loadDashboardPage;
+window.renderDashboardAccountSummary = renderDashboardAccountSummary;
+window.renderBudgetAlerts = renderBudgetAlerts;
+window.renderDueReminders = renderDueReminders;
+window.triggerCreditCardPayment = triggerCreditCardPayment;
+window.triggerEMIPayment = triggerEMIPayment;
+window.triggerChitPayment = triggerChitPayment;
+window.renderRecentTransactions = renderRecentTransactions;
+window.renderMonthTallyWidget = renderMonthTallyWidget;
+window.renderDashboardPnL = renderDashboardPnL;
+window.renderDashboardCharts = renderDashboardCharts;
+window.renderCategoryBars = renderCategoryBars;
+window.saveSIPGoal = saveSIPGoal;
+window.loadExpensesPage = loadExpensesPage;
+window.loadBudgetPage = loadBudgetPage;
+window.saveBudgetPlanner = saveBudgetPlanner;
+window.exportTransactionsCSV = exportTransactionsCSV;
+window.filterExpensesTable = filterExpensesTable;
+window.clearAllFilters = clearAllFilters;
+window.editStatementItem = editStatementItem;
+window.deleteStatementItem = deleteStatementItem;
+window.loadDebtsPage = loadDebtsPage;
+window.renderDebtsTable = renderDebtsTable;
+window.renderFamilyDebtPosition = renderFamilyDebtPosition;
+window.deleteDebtItem = deleteDebtItem;
+window.openRepaymentModal = openRepaymentModal;
+window.saveRepaymentEntry = saveRepaymentEntry;
+window.loadChitsPage = loadChitsPage;
+window.deleteChitItem = deleteChitItem;
+window.openChitLedgerModal = openChitLedgerModal;
+window.loadEMIsPage = loadEMIsPage;
+window.deleteEMIItem = deleteEMIItem;
+window.deleteCCItem = deleteCCItem;
+window.loadImportPage = loadImportPage;
+window.handleExcelUpload = handleExcelUpload;
+window.renderStagingTable = renderStagingTable;
+window.updateStagingRowCategory = updateStagingRowCategory;
+window.removeStagingRow = removeStagingRow;
+window.commitStagingTransactions = commitStagingTransactions;
+window.executeImportCommit = executeImportCommit;
+window.renderAccountsSettings = renderAccountsSettings;
+window.loadSettingsPage = loadSettingsPage;
+window.updateSettingsConfig = updateSettingsConfig;
+window.toggleCategoryActivation = toggleCategoryActivation;
+window.deleteSubcategorySetting = deleteSubcategorySetting;
+window.promptAddSubcategory = promptAddSubcategory;
+window.promptAddCategory = promptAddCategory;
+window.getAccountBalances = getAccountBalances;
+window.populateAccountDropdown = populateAccountDropdown;
+window.openTransactionModal = openTransactionModal;
+window.handleTxTypeChange = handleTxTypeChange;
+window.getCategoryType = getCategoryType;
+window.updateLinkedItemDropdown = updateLinkedItemDropdown;
+window.saveTransactionEntry = saveTransactionEntry;
+window.promptEditDebt = promptEditDebt;
+window.openDebtModal = openDebtModal;
+window.saveDebtEntry = saveDebtEntry;
+window.promptEditChit = promptEditChit;
+window.openChitAddModal = openChitAddModal;
+window.toggleChitType = toggleChitType;
+window.saveChitEntry = saveChitEntry;
+window.promptEditEMI = promptEditEMI;
+window.openEMIAddModal = openEMIAddModal;
+window.saveEMIEntry = saveEMIEntry;
+window.promptEditCreditCard = promptEditCreditCard;
+window.openCCAddModal = openCCAddModal;
+window.saveCCEntry = saveCCEntry;
+window.triggerBackupRestore = triggerBackupRestore;
+window.eraseAllData = eraseAllData;
+window.getTradingPositions = getTradingPositions;
+window.loadTradingPage = loadTradingPage;
+window.updateTradeField = updateTradeField;
+window.deleteTrade = deleteTrade;
+window.openTradeModal = openTradeModal;
+window.saveTradeEntry = saveTradeEntry;
+window.closeAllModals = closeAllModals;
 

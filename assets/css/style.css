@@ -83,53 +83,6 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-[data-theme="fresh"] {
-    /* Color Palette - Fresh Sky & Slate */
-    --bg-base: #f1f5f9;
-    --bg-surface: #ffffff;
-    --bg-card: rgba(255, 255, 255, 0.85);
-    
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #94a3b8;
-    
-    --accent: #0ea5e9;
-    --accent-hover: #0284c7;
-    --accent-light: rgba(14, 165, 233, 0.12);
-    
-    --success: #10b981;
-    --success-light: rgba(16, 185, 129, 0.12);
-    --warning: #f59e0b;
-    --warning-light: rgba(245, 158, 11, 0.12);
-    --danger: #f43f5e;
-    --danger-light: rgba(244, 63, 94, 0.12);
-    --info: #8b5cf6;
-    --info-light: rgba(139, 92, 246, 0.12);
-    
-    --border-color: #e2e8f0;
-    --glass-border: rgba(255, 255, 255, 0.6);
-    --glass-bg: rgba(255, 255, 255, 0.65);
-    --glass-blur: 24px;
-    
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
-    --shadow-glass: 0 8px 32px 0 rgba(15, 23, 42, 0.04);
-}
-
-[data-theme="fresh"] .form-control {
-    background-color: #f8fafc;
-    border-color: #e2e8f0;
-    color: #0f172a;
-}
-[data-theme="fresh"] .form-control:focus {
-    background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
-}
-[data-theme="fresh"] .dashboard-panel {
-    background: #ffffff;
-    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
-}
 
 /* Global Reset */
 * {
