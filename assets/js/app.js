@@ -2376,17 +2376,17 @@ function loadBudgetPage() {
             tableWrapper.style.overflowX = "auto";
 
             const table = document.createElement("table");
-            table.className = "custom-table mobile-card-table budget-card-table";
+            table.className = "custom-table budget-card-table";
             table.style.margin = "0";
             table.style.border = "none";
             table.style.fontSize = "13px";
             table.innerHTML = `
                 <thead>
                     <tr>
-                        <th style="padding: 10px 15px; background: transparent; border-bottom: 1px solid var(--border);">Sub-Category</th>
-                        <th style="padding: 10px 10px; width: 100px; background: transparent; border-bottom: 1px solid var(--border);">Expected</th>
-                        <th style="padding: 10px 10px; text-align: right; background: transparent; border-bottom: 1px solid var(--border);">Actual</th>
-                        <th style="padding: 10px 15px; text-align: right; background: transparent; border-bottom: 1px solid var(--border);">Diff</th>
+                        <th style="padding: 8px 10px; background: transparent; border-bottom: 1px solid var(--border);">Sub-Category</th>
+                        <th style="padding: 8px 5px; background: transparent; border-bottom: 1px solid var(--border);">Expected</th>
+                        <th style="padding: 8px 5px; text-align: right; background: transparent; border-bottom: 1px solid var(--border);">Actual</th>
+                        <th style="padding: 8px 10px; text-align: right; background: transparent; border-bottom: 1px solid var(--border);">Diff</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

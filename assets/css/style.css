@@ -1170,20 +1170,7 @@ select.form-control option {
         max-width: 100vw !important;
         overflow: hidden !important;
     }
-    .budget-card-table tr {
-        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
-        grid-template-areas: 
-            "subcat subcat subcat"
-            "expected actual diff";
-        border-bottom: 1px dashed var(--border-color) !important;
-        border: none; margin-bottom:0; padding-left: 0; padding-right: 0;
-        border-radius: 0; background: transparent;
-    }
-    .budget-card-table tr:last-child { border-bottom: none !important; }
-    
-    .budget-card-table td { flex-direction: column; align-items: flex-start !important; min-width: 0; }
-    .budget-card-table td input { min-width: 0 !important; width: 100% !important; max-width: 80px !important; }
-    
+    /* Removed custom budget-card-table layout to allow horizontal scrolling on mobile */
     /* Generic Mobile List Table (Vertical Key-Value Cards) */
     .mobile-list-table thead { display: none; }
     .mobile-list-table, .mobile-list-table tbody { display: block; width: 100%; }
@@ -1235,23 +1222,7 @@ select.form-control option {
     #chit-ledger-table td:nth-child(4)::before { content: "Discount"; }
     #chit-ledger-table td:nth-child(5)::before { content: "Receive"; }
     #chit-ledger-table td:nth-child(6)::before { content: "Status"; }
-    .budget-card-table td:nth-child(1) { grid-area: subcat; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-    .budget-card-table td:nth-child(2) { grid-area: expected; }
-    .budget-card-table td:nth-child(3) { grid-area: actual; align-items: center !important;}
-    .budget-card-table td:nth-child(4) { grid-area: diff; align-items: flex-end !important;}
-    
-    .budget-card-table td:nth-child(2)::before,
-    .budget-card-table td:nth-child(3)::before,
-    .budget-card-table td:nth-child(4)::before {
-        display: block !important;
-        font-size: 10px;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        margin-bottom: 2px;
-    }
-    .budget-card-table td:nth-child(2)::before { content: "Expected"; }
-    .budget-card-table td:nth-child(3)::before { content: "Actual"; }
-    .budget-card-table td:nth-child(4)::before { content: "Diff"; }
+
     
     /* Hide the sidebar completely on mobile, don't even allow slide-in */
     .sidebar {
