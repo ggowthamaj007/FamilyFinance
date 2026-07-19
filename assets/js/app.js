@@ -1521,6 +1521,7 @@ function loadDashboardPage() {
     renderDashboardAccountSummary();
     renderCategoryBars(filtered);
     renderSavingsTracker();
+    renderSpendingHeatmap();
 }
 
 function renderDashboardAccountSummary() {
@@ -5025,6 +5026,13 @@ function closeAllModals() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+    // App Lock Check
+    if (requiredPin) {
+        document.getElementById("main-app-container").style.display = "none";
+        document.getElementById("app-lock-screen").style.display = "flex";
+        document.getElementById("btn-remove-pin").style.display = "inline-flex";
+    }
+
     initAppState();
     autoSyncFromGithub();
     
@@ -5186,6 +5194,164 @@ window.openTradeModal = openTradeModal;
 window.saveTradeEntry = saveTradeEntry;
 window.closeAllModals = closeAllModals;
 
+/* ========================================== */
+/* APP LOCK SCREEN LOGIC */
+/* ========================================== */
+let currentPinInput = "";
+let requiredPin = localStorage.getItem("app_pin");
+
+window.enterPinDigit = function(digit) {
+    const errorMsg = document.getElementById("lock-error-msg");
+    if (errorMsg) errorMsg.textContent = "";
+    
+    if (currentPinInput.length < 4) {
+        currentPinInput += digit;
+        updatePinIndicators();
+    }
+    
+    if (currentPinInput.length === 4) {
+        setTimeout(verifyPin, 100);
+    }
+};
+
+window.deletePinDigit = function() {
+    if (currentPinInput.length > 0) {
+        currentPinInput = currentPinInput.slice(0, -1);
+        updatePinIndicators();
+    }
+};
+
+window.clearPin = function() {
+    currentPinInput = "";
+    updatePinIndicators();
+};
+
+function updatePinIndicators() {
+    const dots = document.querySelectorAll(".pin-dot");
+    dots.forEach((dot, index) => {
+        dot.classList.remove("error");
+        if (index < currentPinInput.length) {
+            dot.classList.add("filled");
+        } else {
+            dot.classList.remove("filled");
+        }
+    });
+}
+
+function verifyPin() {
+    if (currentPinInput === requiredPin) {
+        // Unlock
+        document.getElementById("app-lock-screen").style.display = "none";
+        document.getElementById("main-app-container").style.display = "flex";
+        currentPinInput = "";
+    } else {
+        // Error
+        const dots = document.querySelectorAll(".pin-dot");
+        dots.forEach(dot => dot.classList.add("error"));
+        const errorMsg = document.getElementById("lock-error-msg");
+        if (errorMsg) errorMsg.textContent = "Incorrect PIN. Try again.";
+        currentPinInput = "";
+        setTimeout(updatePinIndicators, 500);
+    }
+}
+
+window.saveAppPin = function() {
+    const input = document.getElementById("settings-pin-input").value;
+    const msg = document.getElementById("pin-status-msg");
+    if (!input || input.length !== 4 || isNaN(input)) {
+        msg.textContent = "Please enter a valid 4-digit PIN.";
+        msg.style.color = "var(--danger)";
+        return;
+    }
+    localStorage.setItem("app_pin", input);
+    requiredPin = input;
+    msg.textContent = "PIN saved successfully! App is now locked.";
+    msg.style.color = "var(--success)";
+    document.getElementById("btn-remove-pin").style.display = "inline-flex";
+    document.getElementById("settings-pin-input").value = "";
+    setTimeout(() => { msg.textContent = ""; }, 3000);
+};
+
+window.removeAppPin = function() {
+    if (confirm("Are you sure you want to remove the App Lock PIN?")) {
+        localStorage.removeItem("app_pin");
+        requiredPin = null;
+        document.getElementById("btn-remove-pin").style.display = "none";
+        const msg = document.getElementById("pin-status-msg");
+        msg.textContent = "PIN removed.";
+        msg.style.color = "var(--text-secondary)";
+        setTimeout(() => { msg.textContent = ""; }, 3000);
+    }
+};
+
+/* ========================================== */
+/* SPENDING HEATMAP LOGIC */
+/* ========================================== */
+window.renderSpendingHeatmap = function() {
+    const container = document.getElementById("spending-heatmap-grid");
+    if (!container) return;
+    
+    // Get last 30 days
+    const today = new Date();
+    const days = [];
+    for (let i = 29; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        days.push(d.toISOString().slice(0, 10)); // YYYY-MM-DD
+    }
+    
+    // Aggregate spending per day
+    const spendingMap = {};
+    appState.statements.forEach(t => {
+        if (t.type === "Expense" && days.includes(t.date)) {
+            spendingMap[t.date] = (spendingMap[t.date] || 0) + Math.abs(t.amount);
+        }
+    });
+    
+    // Find max spend to scale colors
+    let maxSpend = 0;
+    Object.values(spendingMap).forEach(v => {
+        if (v > maxSpend) maxSpend = v;
+    });
+    
+    // Generate Grid (7 rows x ~4-5 cols to simulate GitHub's layout)
+    // Actually, simple horizontal scroll of columns of 7 days is easiest.
+    let html = "";
+    for (let c = 0; c < Math.ceil(30/7); c++) {
+        html += `<div class="heat-column">`;
+        for (let r = 0; r < 7; r++) {
+            const index = c * 7 + r;
+            if (index >= 30) break;
+            
+            const dateStr = days[index];
+            const amount = spendingMap[dateStr] || 0;
+            
+            // Determine heat level (0 to 4)
+            let heatLevel = 0;
+            if (amount > 0) {
+                if (maxSpend === 0) heatLevel = 1;
+                else {
+                    const ratio = amount / maxSpend;
+                    if (ratio <= 0.25) heatLevel = 1;
+                    else if (ratio <= 0.5) heatLevel = 2;
+                    else if (ratio <= 0.75) heatLevel = 3;
+                    else heatLevel = 4;
+                }
+            }
+            
+            const displayDate = new Date(dateStr).toLocaleDateString("en-GB", {day:'2-digit', month:'short'});
+            
+            html += `
+                <div class="heat-cell heat-${heatLevel}">
+                    <div class="tooltip-content">${displayDate}: ${formatCurr(amount)}</div>
+                </div>
+            `;
+        }
+        html += `</div>`;
+    }
+    
+    container.innerHTML = html;
+};
 
 
 
