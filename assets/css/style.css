@@ -1346,7 +1346,7 @@ select option {
 
 /* Dashboard Filter Actions */
 .dash-filter-actions {
-    display: flex;
+    display: none;
     gap: 10px;
     width: auto;
 }
@@ -1365,6 +1365,7 @@ select option {
 
 @media (max-width: 768px) {
     .dash-filter-actions {
+        display: flex;
         width: 100%;
     }
     .dash-filter-actions > button {
