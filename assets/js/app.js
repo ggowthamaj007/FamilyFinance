@@ -2405,12 +2405,14 @@ function loadBudgetPage() {
             header.style.backgroundColor = "var(--surface-2)";
             header.style.borderBottom = "1px solid var(--border)";
             header.innerHTML = `
-                <div style="display:flex; justify-content:space-between; width: 100%; align-items:flex-start; gap:8px;">
-                    <span class="panel-title" style="font-size: 15px; margin: 0;">${cat}</span>
-                    <div style="display: flex; flex-direction: column; align-items: flex-end; font-size: 12px; gap: 4px;">
+                <div style="display:flex; flex-direction:column; width: 100%; gap:8px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; width: 100%;">
+                        <span class="panel-title" style="font-size: 15px; margin: 0;">${cat}</span>
                         <span style="font-size: 11px; color: var(--text-muted);">${type}</span>
-                        <span style="color: var(--text-muted);">Budget: <span style="color:var(--text-primary); font-weight:600;">${formatCurr(catExpected)}</span></span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; width: 100%; font-size: 12px;">
                         <span style="color: var(--text-muted);">Actual: <span style="color:var(--text-primary); font-weight:600;">${formatCurr(catActual)}</span></span>
+                        <span style="color: var(--text-muted);">Budget: <span style="color:var(--text-primary); font-weight:600;">${formatCurr(catExpected)}</span></span>
                     </div>
                 </div>
             `;
