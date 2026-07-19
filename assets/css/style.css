@@ -1370,4 +1370,17 @@ select option {
     .dash-filter-actions > button {
         flex: 1;
     }
+    .cc-card-container {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+    }
+    .cc-action-buttons-container {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .cc-action-buttons-container > button.btn-success,
+    .cc-action-buttons-container > button.btn-primary {
+        flex: 1;
+    }
 }
