@@ -985,6 +985,22 @@
                 <div id="settings-categories-list">
                     <!-- Injected dynamically -->
                 </div>
+
+                <!-- Debug/Recovery Panel -->
+                <div class="dashboard-panel" style="margin-top: 20px;">
+                    <div class="panel-header">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="ri-tools-fill" style="font-size: 18px; color: var(--accent);"></i>
+                            <span class="panel-title">Troubleshooting & Update</span>
+                        </div>
+                    </div>
+                    <div style="padding: 24px;">
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">
+                            If the app is stuck on an old version or behaving strangely, click the button below to force clear the offline cache and fetch the latest code from the server.
+                        </p>
+                        <button class="btn btn-primary" onclick="forceAppUpdate()">Force App Update & Reload</button>
+                    </div>
+                </div>
             </section>
         </main>
         
@@ -1437,7 +1453,7 @@
     </script>
     <!-- Core Scripts -->
     <script src="assets/js/core/backup.js?v=1.2"></script>
-    <script src="assets/js/app.js?v=2.4"></script>
+    <script src="assets/js/app.js?v=2.5"></script>
 </body>
 </html>
 

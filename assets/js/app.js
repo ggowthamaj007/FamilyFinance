@@ -5301,6 +5301,21 @@ window.lockAppNow = function() {
     }
 };
 
+window.forceAppUpdate = function() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for(let registration of registrations) {
+                registration.unregister();
+            }
+            alert("Offline cache cleared. The app will now reload to fetch the latest version.");
+            window.location.reload(true);
+        });
+    } else {
+        alert("No offline cache found. Reloading app.");
+        window.location.reload(true);
+    }
+};
+
 window.removeAppPin = function() {
     if (confirm("Are you sure you want to remove the App Lock PIN?")) {
         localStorage.removeItem("app_pin");
@@ -5327,7 +5342,10 @@ window.renderSpendingHeatmap = function() {
     for (let i = 29; i >= 0; i--) {
         const d = new Date(today);
         d.setDate(today.getDate() - i);
-        days.push(d.toISOString().slice(0, 10)); // YYYY-MM-DD
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        days.push(`${yyyy}-${mm}-${dd}`);
     }
     
     // Aggregate spending per day
