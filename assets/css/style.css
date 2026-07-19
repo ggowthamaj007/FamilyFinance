@@ -324,6 +324,13 @@ body {
     gap: 20px;
 }
 
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
 .summary-card {
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
@@ -443,6 +450,9 @@ body {
     }
     .dashboard-grid > *:last-child:nth-child(odd) {
         grid-column: 1 / -1;
+    }
+    .charts-grid {
+        grid-template-columns: 1fr !important;
     }
     
     .card-value {

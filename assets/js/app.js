@@ -3283,23 +3283,25 @@ function loadEMIsPage() {
                 item.className = "reminder-item normal";
                 item.innerHTML = `
                     <div class="reminder-info">
-                        <div class="reminder-title" style="font-weight:700; display:flex; align-items:center; gap:12px;">
-                            <span>${cc.name} (${cc.account})</span>
-                            <span style="font-size:10px; color:var(--text-primary); cursor:pointer; padding:2px 8px; border:1px solid var(--border-color); border-radius:12px; background:rgba(255,255,255,0.05);" onclick="viewCCTransactions('${cc.id}')"><i class="ri-history-line"></i> View Stmt</span>
+                        <div class="reminder-title" style="font-weight:700; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                            <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${cc.name}</span>
+                            <span style="font-size:10px; color:var(--text-primary); cursor:pointer; padding:4px 8px; border:1px solid var(--border-color); border-radius:12px; background:rgba(255,255,255,0.05); white-space:nowrap; flex-shrink:0;" onclick="viewCCTransactions('${cc.id}')"><i class="ri-history-line"></i> View Stmt</span>
                         </div>
-                        <div class="reminder-desc">Available Limit: <strong>${formatCurr(availableLimit)}</strong></div>
-                        <div class="reminder-desc" style="font-size:11px; color:var(--text-muted);">
-                            Limit: ${formatCurr(cc.limit)} | Outstanding: ${formatCurr(outstanding)} | EMI Locked: ${formatCurr(lockedByEmi)}
+                        <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:11px; color:var(--text-color);">
+                            <span>Avail: <strong style="color:var(--success)">${formatCurr(availableLimit)}</strong></span>
+                            <span style="color:var(--text-muted)">Limit: ${formatCurr(cc.limit)}</span>
                         </div>
-                        <div class="reminder-desc" style="font-size:10px; color:var(--text-muted);">Stmt Day: ${cc.statementDate}th | Due Day: ${cc.dueDate}th</div>
+                        <div style="display:flex; justify-content:space-between; margin-top:4px; font-size:11px; color:var(--text-muted);">
+                            <span>Outst: ${formatCurr(outstanding)}</span>
+                            <span>EMI: ${formatCurr(lockedByEmi)}</span>
+                        </div>
+                        <div class="reminder-desc" style="font-size:10px; color:var(--text-muted); margin-top:6px; text-align:center;">Stmt: ${cc.statementDate}th | Due: ${cc.dueDate}th</div>
                     </div>
-                    <div style="display:flex; gap:8px; align-items:center; margin-top:12px; width:100%;">
-                        ${outstanding > 0 ? `<button class="btn btn-success" style="flex:1; padding: 6px; font-size: 11px;" onclick="triggerCreditCardPayment({id: '${cc.id}', name: '${cc.name}', account: '${cc.account}', outstandingAmount: ${outstanding}})"><i class="ri-check-line"></i> Pay</button>` : ""}
-                        <button class="btn btn-primary" style="flex:1; padding: 6px; font-size: 11px;" onclick="generateCCBill('${cc.id}')"><i class="ri-receipt-line"></i> Bill</button>
-                        <div style="display:flex; gap:4px;">
-                            <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px;" onclick="promptEditCreditCard('${cc.id}')"><i class="ri-pencil-line"></i></button>
-                            <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px; color: var(--danger);" onclick="deleteCCItem('${cc.id}')"><i class="ri-delete-bin-line"></i></button>
-                        </div>
+                    <div style="display:flex; gap:6px; align-items:center; margin-top:12px; width:100%;">
+                        ${outstanding > 0 ? `<button class="btn btn-success" style="flex:1; padding: 6px; font-size: 11px; white-space:nowrap;" onclick="triggerCreditCardPayment({id: '${cc.id}', name: '${cc.name}', account: '${cc.account}', outstandingAmount: ${outstanding}})"><i class="ri-check-line"></i> Pay</button>` : ""}
+                        <button class="btn btn-primary" style="flex:1; padding: 6px; font-size: 11px; white-space:nowrap;" onclick="generateCCBill('${cc.id}')"><i class="ri-receipt-line"></i> Bill</button>
+                        <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px; flex-shrink:0;" onclick="promptEditCreditCard('${cc.id}')"><i class="ri-pencil-line"></i></button>
+                        <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px; color: var(--danger); flex-shrink:0;" onclick="deleteCCItem('${cc.id}')"><i class="ri-delete-bin-line"></i></button>
                     </div>
                 `;
                 ccList.appendChild(item);

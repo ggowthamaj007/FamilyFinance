@@ -103,7 +103,7 @@
                     <input type="date" id="dash-date-from" class="form-control" onchange="loadDashboardPage()">
                     <label>To:</label>
                     <input type="date" id="dash-date-to" class="form-control" onchange="loadDashboardPage()">
-                    <div style="display: flex; gap: 10px; width: 100%; max-width: 300px;">
+                    <div style="display: flex; gap: 10px; width: 100%;">
                         <button class="btn btn-secondary" id="btn-current-month" style="padding:6px 12px; font-size:11px; flex: 1;" onclick="setDashboardToCurrentMonth()">Current Month</button>
                         <button class="btn btn-secondary" style="padding:6px 12px; font-size:11px; flex: 1;" onclick="clearDashboardFilter()">Clear Custom Dates</button>
                     </div>
@@ -187,7 +187,7 @@
                 </div>
 
                 <!-- Charts Grid -->
-                <div class="dashboard-grid">
+                <div class="charts-grid">
                     <!-- 6 Month Trend Line -->
                     <div class="dashboard-panel">
                         <div class="panel-header">
@@ -615,14 +615,14 @@
                         <input type="text" id="trade-filter-symbol" class="form-control" style="flex:1; min-width:120px;" placeholder="Symbol..." oninput="loadTradingPage()">
                         <input type="date" id="trade-filter-date" class="form-control" style="flex:1; min-width:120px;" title="Filter by exact Date" onchange="loadTradingPage()">
                     </div>
-                    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-                        <button class="btn btn-secondary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px;" onclick="clearTradingFilters()" title="Clear Filters">
+                    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; width: 100%;">
+                        <button class="btn btn-secondary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap;" onclick="clearTradingFilters()" title="Clear Filters">
                             <i class="ri-filter-off-line"></i> Clear
                         </button>
-                        <button class="btn btn-secondary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px;" onclick="exportTradesCSV()">
+                        <button class="btn btn-secondary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap;" onclick="exportTradesCSV()">
                             <i class="ri-download-line"></i> Export
                         </button>
-                        <button class="btn btn-primary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px;" onclick="openTradeModal()">
+                        <button class="btn btn-primary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap;" onclick="openTradeModal()">
                             <i class="ri-add-line"></i> Add Trade
                         </button>
                     </div>
