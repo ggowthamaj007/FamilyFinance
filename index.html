@@ -891,7 +891,8 @@
                         <div style="display:flex; gap:12px; align-items: center; padding-top: 16px; border-top: 1px solid var(--border-color); flex-wrap: wrap;">
                             <button class="btn btn-primary" onclick="saveGithubSyncSettings()"><i class="ri-save-3-line"></i> Save Configuration</button>
                             <button class="btn btn-secondary" onclick="verifyGithubConnection()" id="btn-verify-sync"><i class="ri-check-double-line"></i> Verify Connection</button>
-                            <button class="btn btn-secondary" onclick="forceGithubSync()" id="btn-force-sync" style="display:none;"><i class="ri-refresh-line"></i> Sync Now</button>
+                            <button class="btn btn-primary" onclick="forcePushToGithub()" id="btn-force-push" style="display:none; background:var(--warning);"><i class="ri-upload-cloud-2-line"></i> Force Push</button>
+                            <button class="btn btn-secondary" onclick="forcePullFromGithub()" id="btn-force-pull" style="display:none;"><i class="ri-download-cloud-2-line"></i> Force Pull</button>
                             <div id="sync-status-msg" style="font-size: 13px; margin-left: 10px;"></div>
                         </div>
                     </div>
@@ -1366,7 +1367,7 @@
     </script>
     <!-- Core Scripts -->
     <script src="assets/js/core/backup.js?v=1.2"></script>
-    <script src="assets/js/app.js?v=1.4"></script>
+    <script src="assets/js/app.js?v=1.5"></script>
 </body>
 </html>
 

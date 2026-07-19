@@ -383,8 +383,8 @@ async function pushToGithub() {
     }
 }
 
-async function forceGithubSync() {
-    const btn = document.getElementById("btn-force-sync");
+async function forcePullFromGithub() {
+    const btn = document.getElementById("btn-force-pull");
     const msg = document.getElementById("sync-status-msg");
     const { username, repo, token, path } = appState.githubSync;
     
@@ -394,7 +394,7 @@ async function forceGithubSync() {
     }
     
     btn.disabled = true;
-    btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Syncing...';
+    btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Pulling...';
     msg.innerHTML = '';
     
     try {
@@ -404,11 +404,8 @@ async function forceGithubSync() {
         });
         
         if (res.status === 404) {
-            // File doesn't exist yet, push current local state
-            await pushToGithub();
-            msg.innerHTML = '<span style="color:var(--success)">Created new file on GitHub!</span>';
+            msg.innerHTML = '<span style="color:var(--danger)">No data found on GitHub to pull!</span>';
         } else if (res.ok) {
-            // Pull existing data
             const data = await res.json();
             githubFileSha = data.sha;
             
@@ -416,7 +413,6 @@ async function forceGithubSync() {
             const decoded = decodeURIComponent(escape(atob(cleanContent)));
             const remoteState = JSON.parse(decoded);
             
-            // Restore local token before replacing appState
             const localToken = appState.githubSync.token;
             appState = remoteState;
             if(!appState.githubSync) appState.githubSync = {};
@@ -424,17 +420,40 @@ async function forceGithubSync() {
             appState.githubSync.lastSha = data.sha;
             
             localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
-            msg.innerHTML = '<span style="color:var(--success)">Data successfully pulled from GitHub! Reloading...</span>';
+            msg.innerHTML = '<span style="color:var(--success)">Data successfully pulled! Reloading...</span>';
             setTimeout(() => location.reload(), 1500);
         } else {
             throw new Error(`API returned ${res.status}`);
         }
     } catch (e) {
-        msg.innerHTML = `<span style="color:var(--danger)">Sync failed: ${e.message}. Check console.</span>`;
+        msg.innerHTML = `<span style="color:var(--danger)">Pull failed: ${e.message}. Check console.</span>`;
         console.error(e);
     } finally {
         btn.disabled = false;
-        btn.innerHTML = '<i class="ri-refresh-line"></i> Sync Now';
+        btn.innerHTML = '<i class="ri-download-cloud-2-line"></i> Force Pull';
+    }
+}
+
+async function forcePushToGithub() {
+    const btn = document.getElementById("btn-force-push");
+    const msg = document.getElementById("sync-status-msg");
+    if (!appState.githubSync.token) {
+        msg.innerHTML = '<span style="color:var(--danger)">Configure settings first.</span>';
+        return;
+    }
+    
+    btn.disabled = true;
+    btn.innerHTML = '<i class="ri-loader-4-line ri-spin"></i> Pushing...';
+    msg.innerHTML = '';
+    
+    try {
+        await pushToGithub();
+        msg.innerHTML = '<span style="color:var(--success)">Data successfully pushed to GitHub!</span>';
+    } catch (e) {
+        msg.innerHTML = `<span style="color:var(--danger)">Push failed.</span>`;
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="ri-upload-cloud-2-line"></i> Force Push';
     }
 }
 
@@ -489,7 +508,8 @@ function saveGithubSyncSettings() {
     // Save directly to localStorage without triggering auto-push to GitHub
     localStorage.setItem("family_finance_state_v3", JSON.stringify(appState));
     document.getElementById("sync-status-msg").innerHTML = '<span style="color:var(--success)">Configuration saved to local browser!</span>';
-    document.getElementById("btn-force-sync").style.display = "inline-flex";
+    document.getElementById("btn-force-push").style.display = "inline-flex";
+    document.getElementById("btn-force-pull").style.display = "inline-flex";
 }
 
 async function verifyGithubConnection() {
