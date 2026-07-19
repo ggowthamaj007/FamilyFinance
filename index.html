@@ -11,40 +11,11 @@
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/9902/9902047.png">
     <!-- Iconography -->
     <link href="https://cdn-icons-png.flaticon.com/512/9902/9902047.png" rel="icon" type="image/png">
-    <link rel="stylesheet" href="assets/css/style.css?v=21">
+    <link rel="stylesheet" href="assets/css/style.css?v=18">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
-    <!-- App Lock Screen -->
-    <div id="app-lock-screen" style="display: none;">
-        <div class="lock-container">
-            <div class="lock-icon"><i class="ri-lock-2-line"></i></div>
-            <h2 class="lock-title">Enter PIN</h2>
-            <div class="pin-indicators" id="pin-indicators">
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
-                <div class="pin-dot"></div>
-            </div>
-            <p id="lock-error-msg" style="color: var(--danger); font-size: 12px; height: 16px; margin: 10px 0;"></p>
-            <div class="keypad">
-                <button class="keypad-btn" onclick="enterPinDigit(1)">1</button>
-                <button class="keypad-btn" onclick="enterPinDigit(2)">2</button>
-                <button class="keypad-btn" onclick="enterPinDigit(3)">3</button>
-                <button class="keypad-btn" onclick="enterPinDigit(4)">4</button>
-                <button class="keypad-btn" onclick="enterPinDigit(5)">5</button>
-                <button class="keypad-btn" onclick="enterPinDigit(6)">6</button>
-                <button class="keypad-btn" onclick="enterPinDigit(7)">7</button>
-                <button class="keypad-btn" onclick="enterPinDigit(8)">8</button>
-                <button class="keypad-btn" onclick="enterPinDigit(9)">9</button>
-                <button class="keypad-btn keypad-action" onclick="clearPin()">C</button>
-                <button class="keypad-btn" onclick="enterPinDigit(0)">0</button>
-                <button class="keypad-btn keypad-action" onclick="deletePinDigit()"><i class="ri-delete-back-2-line"></i></button>
-            </div>
-        </div>
-    </div>
-
-    <div class="app-container" id="main-app-container">
+    <div class="app-container">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="sidebar-brand">
@@ -274,26 +245,6 @@
                     </div>
                 </div>
 
-                <!-- Spending Heatmap Panel -->
-                <div class="dashboard-panel" style="margin-top: 24px;">
-                    <div class="panel-header">
-                        <span class="panel-title">Spending Heatmap (Last 30 Days)</span>
-                    </div>
-                    <div style="padding: 10px 0; overflow-x: auto;">
-                        <div id="spending-heatmap-grid" class="heatmap-container">
-                            <!-- JS Injected Heatmap Cells -->
-                        </div>
-                        <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; font-size: 11px; color: var(--text-muted); margin-top: 12px; padding-right: 16px;">
-                            <span>Less</span>
-                            <div class="heat-cell heat-0" style="width: 12px; height: 12px; border-radius: 2px;"></div>
-                            <div class="heat-cell heat-1" style="width: 12px; height: 12px; border-radius: 2px;"></div>
-                            <div class="heat-cell heat-2" style="width: 12px; height: 12px; border-radius: 2px;"></div>
-                            <div class="heat-cell heat-3" style="width: 12px; height: 12px; border-radius: 2px;"></div>
-                            <div class="heat-cell heat-4" style="width: 12px; height: 12px; border-radius: 2px;"></div>
-                            <span>More</span>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Bottom Panel -->
                 <div class="charts-grid">
@@ -899,27 +850,6 @@
                     </div>
                 </div>
                 
-                <!-- Security Settings Panel -->
-                <div class="dashboard-panel" style="margin-bottom: 20px;">
-                    <div class="panel-header">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <i class="ri-lock-password-line" style="font-size: 18px; color: var(--accent);"></i>
-                            <span class="panel-title">App Lock (Biometric / PIN)</span>
-                        </div>
-                    </div>
-                    <div style="padding: 24px;">
-                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">
-                            Protect your financial data from casual snooping. Set a 4-digit PIN that will be required whenever you open the app.
-                        </p>
-                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                            <input type="password" id="settings-pin-input" class="form-control" placeholder="Enter 4-digit PIN" maxlength="4" style="max-width: 150px; text-align: center; letter-spacing: 4px; font-size: 18px;">
-                            <button class="btn btn-primary" onclick="saveAppPin()">Set PIN</button>
-                            <button class="btn btn-secondary" onclick="removeAppPin()" id="btn-remove-pin" style="display: none;">Remove PIN</button>
-                            <button class="btn btn-secondary" onclick="lockAppNow()" id="btn-lock-now" style="display: none;">Lock Now</button>
-                        </div>
-                        <p id="pin-status-msg" style="font-size: 12px; font-weight: 600;"></p>
-                    </div>
-                </div>
                 <!-- Cloud Sync Panel -->
                 <div class="dashboard-panel" style="margin-bottom: 20px;">
                     <div class="panel-header">
@@ -984,22 +914,6 @@
                 <!-- Category Customization Panel -->
                 <div id="settings-categories-list">
                     <!-- Injected dynamically -->
-                </div>
-
-                <!-- Debug/Recovery Panel -->
-                <div class="dashboard-panel" style="margin-top: 20px;">
-                    <div class="panel-header">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <i class="ri-tools-fill" style="font-size: 18px; color: var(--accent);"></i>
-                            <span class="panel-title">Troubleshooting & Update</span>
-                        </div>
-                    </div>
-                    <div style="padding: 24px;">
-                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px;">
-                            If the app is stuck on an old version or behaving strangely, click the button below to force clear the offline cache and fetch the latest code from the server.
-                        </p>
-                        <button class="btn btn-primary" onclick="forceAppUpdate()">Force App Update & Reload</button>
-                    </div>
                 </div>
             </section>
         </main>
@@ -1453,8 +1367,6 @@
     </script>
     <!-- Core Scripts -->
     <script src="assets/js/core/backup.js?v=1.2"></script>
-    <script src="assets/js/app.js?v=2.6"></script>
+    <script src="assets/js/app.js?v=2.7"></script>
 </body>
 </html>
-
-
