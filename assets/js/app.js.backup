@@ -98,17 +98,6 @@ function initAppState() {
         });
     }
 
-    // Migrate the subcategory strings inside the dropdown config
-    if (appState.categories) {
-        Object.keys(appState.categories).forEach(type => {
-            Object.keys(appState.categories[type]).forEach(cat => {
-                appState.categories[type][cat] = appState.categories[type][cat].map(sub => 
-                    categoryReplacements[sub] ? categoryReplacements[sub] : sub
-                );
-            });
-        });
-    }
-
     if (appState.budgets) {
         Object.keys(categoryReplacements).forEach(old => migrateCat(appState.budgets, old, categoryReplacements[old]));
     }
