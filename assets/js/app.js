@@ -1521,7 +1521,11 @@ function loadDashboardPage() {
     renderDashboardAccountSummary();
     renderCategoryBars(filtered);
     renderSavingsTracker();
-    renderSpendingHeatmap();
+    try {
+        renderSpendingHeatmap();
+    } catch (e) {
+        console.error("Heatmap render failed:", e);
+    }
 }
 
 function renderDashboardAccountSummary() {
@@ -5026,14 +5030,22 @@ function closeAllModals() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    // App Lock Check
-    if (requiredPin) {
-        document.getElementById("main-app-container").style.display = "none";
-        document.getElementById("app-lock-screen").style.display = "flex";
-        document.getElementById("btn-remove-pin").style.display = "inline-flex";
+    try {
+        // App Lock Check
+        if (typeof requiredPin !== 'undefined' && requiredPin) {
+            document.getElementById("main-app-container").style.display = "none";
+            document.getElementById("app-lock-screen").style.display = "flex";
+            document.getElementById("btn-remove-pin").style.display = "inline-flex";
+        }
+    } catch (e) {
+        console.error("App Lock init failed:", e);
     }
 
-    initAppState();
+    try {
+        initAppState();
+    } catch (e) {
+        console.error("initAppState failed:", e);
+    }
     
     // Add click outside to close all modals
     document.querySelectorAll(".modal-overlay").forEach(m => {
@@ -5073,12 +5085,20 @@ window.addEventListener("DOMContentLoaded", () => {
     yearSelect.value = currentYearStr;
     document.getElementById("dash-filter-month").value = (today.getMonth() + 1).toString().padStart(2, '0');
     
-    window.addEventListener("hashchange", handleHashRouter);
-    handleHashRouter();
+    try {
+        window.addEventListener("hashchange", handleHashRouter);
+        handleHashRouter();
+    } catch (e) {
+        console.error("Hash router init failed:", e);
+    }
     
     // Auto-pull from GitHub on startup if configured
-    if (appState.githubSync && appState.githubSync.token && appState.githubSync.username && appState.githubSync.repo) {
-        autoSyncFromGithub();
+    try {
+        if (appState.githubSync && appState.githubSync.token && appState.githubSync.username && appState.githubSync.repo) {
+            autoSyncFromGithub();
+        }
+    } catch (e) {
+        console.error("Auto sync init failed:", e);
     }
 });
 
