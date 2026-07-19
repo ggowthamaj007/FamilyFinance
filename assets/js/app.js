@@ -3322,9 +3322,9 @@ function loadEMIsPage() {
                         </div>
                         <div class="reminder-desc" style="font-size:10px; color:var(--text-muted); margin-top:6px; text-align:center;">Stmt: ${cc.statementDate}th | Due: ${cc.dueDate}th</div>
                     </div>
-                    <div style="display:flex; gap:6px; align-items:center; margin-top:12px; width:100%;">
-                        ${outstanding > 0 ? `<button class="btn btn-success" style="flex:1; padding: 6px; font-size: 11px; white-space:nowrap;" onclick="triggerCreditCardPayment({id: '${cc.id}', name: '${cc.name}', account: '${cc.account}', outstandingAmount: ${outstanding}})"><i class="ri-check-line"></i> Pay</button>` : ""}
-                        <button class="btn btn-primary" style="flex:1; padding: 6px; font-size: 11px; white-space:nowrap;" onclick="generateCCBill('${cc.id}')"><i class="ri-receipt-line"></i> Bill</button>
+                    <div class="cc-action-buttons">
+                        ${outstanding > 0 ? `<button class="btn btn-success" style="padding: 6px; font-size: 11px; white-space:nowrap;" onclick="triggerCreditCardPayment({id: '${cc.id}', name: '${cc.name}', account: '${cc.account}', outstandingAmount: ${outstanding}})"><i class="ri-check-line"></i> Pay</button>` : ""}
+                        <button class="btn btn-primary" style="padding: 6px; font-size: 11px; white-space:nowrap;" onclick="generateCCBill('${cc.id}')"><i class="ri-receipt-line"></i> Bill</button>
                         <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px; flex-shrink:0;" onclick="promptEditCreditCard('${cc.id}')"><i class="ri-pencil-line"></i></button>
                         <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px; color: var(--danger); flex-shrink:0;" onclick="deleteCCItem('${cc.id}')"><i class="ri-delete-bin-line"></i></button>
                     </div>

@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/9902/9902047.png">
     <!-- Iconography -->
     <link href="https://cdn-icons-png.flaticon.com/512/9902/9902047.png" rel="icon" type="image/png">
-    <link rel="stylesheet" href="assets/css/style.css?v=13">
+    <link rel="stylesheet" href="assets/css/style.css?v=14">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
@@ -103,9 +103,9 @@
                     <input type="date" id="dash-date-from" class="form-control" onchange="loadDashboardPage()">
                     <label>To:</label>
                     <input type="date" id="dash-date-to" class="form-control" onchange="loadDashboardPage()">
-                    <div style="display: flex; gap: 10px; width: 100%;">
-                        <button class="btn btn-secondary" id="btn-current-month" style="padding:6px 12px; font-size:11px; flex: 1;" onclick="setDashboardToCurrentMonth()">Current Month</button>
-                        <button class="btn btn-secondary" style="padding:6px 12px; font-size:11px; flex: 1;" onclick="clearDashboardFilter()">Clear Custom Dates</button>
+                    <div class="dash-filter-actions">
+                        <button class="btn btn-secondary" id="btn-current-month" style="padding:6px 12px; font-size:11px;" onclick="setDashboardToCurrentMonth()">Current Month</button>
+                        <button class="btn btn-secondary" style="padding:6px 12px; font-size:11px;" onclick="clearDashboardFilter()">Clear Custom Dates</button>
                     </div>
                 </div>
                 
@@ -1367,7 +1367,7 @@
     </script>
     <!-- Core Scripts -->
     <script src="assets/js/core/backup.js?v=1.2"></script>
-    <script src="assets/js/app.js?v=1.5"></script>
+    <script src="assets/js/app.js?v=1.6"></script>
 </body>
 </html>
 
