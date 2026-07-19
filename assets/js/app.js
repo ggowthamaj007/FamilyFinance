@@ -3281,6 +3281,8 @@ function loadEMIsPage() {
                 
                 const item = document.createElement("div");
                 item.className = "reminder-item normal";
+                item.style.flexDirection = "column";
+                item.style.alignItems = "stretch";
                 item.innerHTML = `
                     <div class="reminder-info">
                         <div class="reminder-title" style="font-weight:700; display:flex; align-items:center; justify-content:space-between; gap:10px;">
