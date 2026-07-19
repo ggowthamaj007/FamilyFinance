@@ -1384,4 +1384,21 @@ select option {
     .cc-action-buttons-container > button.btn-primary {
         flex: 1;
     }
+    .trading-action-buttons {
+        width: 100%;
+    }
+    .trading-action-buttons > button {
+        flex: 1;
+    }
+}
+
+/* Trading Journal Actions */
+.trading-action-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: auto;
+}
+.trading-action-buttons > button {
+    flex: 0 1 auto;
 }

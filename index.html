@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/9902/9902047.png">
     <!-- Iconography -->
     <link href="https://cdn-icons-png.flaticon.com/512/9902/9902047.png" rel="icon" type="image/png">
-    <link rel="stylesheet" href="assets/css/style.css?v=17">
+    <link rel="stylesheet" href="assets/css/style.css?v=18">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
@@ -615,14 +615,14 @@
                         <input type="text" id="trade-filter-symbol" class="form-control" style="flex:1; min-width:120px;" placeholder="Symbol..." oninput="loadTradingPage()">
                         <input type="date" id="trade-filter-date" class="form-control" style="flex:1; min-width:120px;" title="Filter by exact Date" onchange="loadTradingPage()">
                     </div>
-                    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; width: 100%;">
-                        <button class="btn btn-secondary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap;" onclick="clearTradingFilters()" title="Clear Filters">
+                    <div class="trading-action-buttons">
+                        <button class="btn btn-secondary" style="display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap;" onclick="clearTradingFilters()" title="Clear Filters">
                             <i class="ri-filter-off-line"></i> Clear
                         </button>
-                        <button class="btn btn-secondary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap;" onclick="exportTradesCSV()">
+                        <button class="btn btn-secondary" style="display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap;" onclick="exportTradesCSV()">
                             <i class="ri-download-line"></i> Export
                         </button>
-                        <button class="btn btn-primary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap;" onclick="openTradeModal()">
+                        <button class="btn btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap;" onclick="openTradeModal()">
                             <i class="ri-add-line"></i> Add Trade
                         </button>
                     </div>
