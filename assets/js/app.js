@@ -4996,6 +4996,7 @@ function closeAllModals() {
 
 window.addEventListener("DOMContentLoaded", () => {
     initAppState();
+    autoPullFromGithub();
     
     // Add click outside to close all modals
     document.querySelectorAll(".modal-overlay").forEach(m => {
