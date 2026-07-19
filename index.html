@@ -103,8 +103,10 @@
                     <input type="date" id="dash-date-from" class="form-control" onchange="loadDashboardPage()">
                     <label>To:</label>
                     <input type="date" id="dash-date-to" class="form-control" onchange="loadDashboardPage()">
-                    <button class="btn btn-secondary" id="btn-current-month" style="padding:6px 12px; font-size:11px;" onclick="setDashboardToCurrentMonth()">Current Month</button>
-                    <button class="btn btn-secondary" style="padding:6px 12px; font-size:11px;" onclick="clearDashboardFilter()">Clear Custom Dates</button>
+                    <div style="display: flex; gap: 10px; width: 100%; max-width: 300px;">
+                        <button class="btn btn-secondary" id="btn-current-month" style="padding:6px 12px; font-size:11px; flex: 1;" onclick="setDashboardToCurrentMonth()">Current Month</button>
+                        <button class="btn btn-secondary" style="padding:6px 12px; font-size:11px; flex: 1;" onclick="clearDashboardFilter()">Clear Custom Dates</button>
+                    </div>
                 </div>
                 
                 <div id="dash-account-warnings" style="display: none;"></div>
@@ -185,7 +187,7 @@
                 </div>
 
                 <!-- Charts Grid -->
-                <div class="dashboard-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="dashboard-grid">
                     <!-- 6 Month Trend Line -->
                     <div class="dashboard-panel">
                         <div class="panel-header">
@@ -599,31 +601,35 @@
             <section id="trading" class="tab-content">
                 <div class="filter-row dash-filter-container">
                     <div style="font-weight: 600; margin-right: 10px;">Trade Filter:</div>
-                    <select id="trade-filter-type" class="form-control" style="width: 140px;" onchange="loadTradingPage()">
-                        <option value="All">All Types</option>
-                        <option value="Intraday">Intraday</option>
-                        <option value="Positional">Positional</option>
-                    </select>
-                    <select id="trade-filter-status" class="form-control" style="width: 140px;" onchange="loadTradingPage()">
-                        <option value="All">All Statuses</option>
-                        <option value="Closed">Closed Trades</option>
-                        <option value="Open">Open Trades</option>
-                    </select>
-                    <input type="text" id="trade-filter-symbol" class="form-control" style="width: 140px;" placeholder="Symbol..." oninput="loadTradingPage()">
-                    <input type="date" id="trade-filter-date" class="form-control" style="width: 140px;" title="Filter by exact Date" onchange="loadTradingPage()">
-                    <label style="display:flex; align-items:center; gap:5px; margin-left: 10px; font-size:12px; cursor:pointer;" title="Include Open Trading positions in Dashboard Total Networth">
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; flex:1;">
+                        <select id="trade-filter-type" class="form-control" style="flex:1; min-width:120px;" onchange="loadTradingPage()">
+                            <option value="All">All Types</option>
+                            <option value="Intraday">Intraday</option>
+                            <option value="Positional">Positional</option>
+                        </select>
+                        <select id="trade-filter-status" class="form-control" style="flex:1; min-width:120px;" onchange="loadTradingPage()">
+                            <option value="All">All Statuses</option>
+                            <option value="Closed">Closed Trades</option>
+                            <option value="Open">Open Trades</option>
+                        </select>
+                        <input type="text" id="trade-filter-symbol" class="form-control" style="flex:1; min-width:120px;" placeholder="Symbol..." oninput="loadTradingPage()">
+                        <input type="date" id="trade-filter-date" class="form-control" style="flex:1; min-width:120px;" title="Filter by exact Date" onchange="loadTradingPage()">
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                        <button class="btn btn-secondary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px;" onclick="clearTradingFilters()" title="Clear Filters">
+                            <i class="ri-filter-off-line"></i> Clear
+                        </button>
+                        <button class="btn btn-secondary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px;" onclick="exportTradesCSV()">
+                            <i class="ri-download-line"></i> Export
+                        </button>
+                        <button class="btn btn-primary" style="flex:1; display: flex; align-items: center; justify-content: center; gap: 5px;" onclick="openTradeModal()">
+                            <i class="ri-add-line"></i> Add Trade
+                        </button>
+                    </div>
+                    <label style="display:flex; align-items:center; gap:5px; font-size:12px; cursor:pointer; width:100%; margin-top: 5px;" title="Include Open Trading positions in Dashboard Total Networth">
                         <input type="checkbox" id="trade-networth-toggle" onchange="toggleTradingNetworth()" checked>
                         <span>Add to Dashboard Networth</span>
                     </label>
-                    <button class="btn btn-secondary" style="margin-left: auto; display: flex; align-items: center; gap: 5px;" onclick="clearTradingFilters()" title="Clear Filters">
-                        <i class="ri-filter-off-line"></i> Clear
-                    </button>
-                    <button class="btn btn-secondary" style="display: flex; align-items: center; gap: 5px;" onclick="exportTradesCSV()">
-                        <i class="ri-download-line"></i> Export
-                    </button>
-                    <button class="btn btn-primary" style="display: flex; align-items: center; gap: 5px;" onclick="openTradeModal()">
-                        <i class="ri-add-line"></i> Add Trade
-                    </button>
                 </div>
                 
                 <div class="dashboard-grid" style="grid-template-columns: repeat(5, 1fr);">

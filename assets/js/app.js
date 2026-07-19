@@ -3293,11 +3293,13 @@ function loadEMIsPage() {
                         </div>
                         <div class="reminder-desc" style="font-size:10px; color:var(--text-muted);">Stmt Day: ${cc.statementDate}th | Due Day: ${cc.dueDate}th</div>
                     </div>
-                    <div style="display:flex; gap:4px; align-items:center; flex-wrap:wrap; margin-top:8px;">
-                        ${outstanding > 0 ? `<button class="btn btn-success" style="padding: 6px 10px; font-size: 11px;" onclick="triggerCreditCardPayment({id: '${cc.id}', name: '${cc.name}', account: '${cc.account}', outstandingAmount: ${outstanding}})"><i class="ri-check-line"></i> Pay Card</button>` : ""}
-                        <button class="btn btn-primary" style="padding: 6px 10px; font-size: 11px;" onclick="generateCCBill('${cc.id}')"><i class="ri-receipt-line"></i> Bill EMIs</button>
-                        <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px;" onclick="promptEditCreditCard('${cc.id}')"><i class="ri-pencil-line"></i></button>
-                        <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px;" onclick="deleteCCItem('${cc.id}')"><i class="ri-delete-bin-line"></i></button>
+                    <div style="display:flex; gap:8px; align-items:center; margin-top:12px; width:100%;">
+                        ${outstanding > 0 ? `<button class="btn btn-success" style="flex:1; padding: 6px; font-size: 11px;" onclick="triggerCreditCardPayment({id: '${cc.id}', name: '${cc.name}', account: '${cc.account}', outstandingAmount: ${outstanding}})"><i class="ri-check-line"></i> Pay</button>` : ""}
+                        <button class="btn btn-primary" style="flex:1; padding: 6px; font-size: 11px;" onclick="generateCCBill('${cc.id}')"><i class="ri-receipt-line"></i> Bill</button>
+                        <div style="display:flex; gap:4px;">
+                            <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px;" onclick="promptEditCreditCard('${cc.id}')"><i class="ri-pencil-line"></i></button>
+                            <button class="btn btn-secondary" style="padding: 6px 10px; font-size: 11px; color: var(--danger);" onclick="deleteCCItem('${cc.id}')"><i class="ri-delete-bin-line"></i></button>
+                        </div>
                     </div>
                 `;
                 ccList.appendChild(item);
