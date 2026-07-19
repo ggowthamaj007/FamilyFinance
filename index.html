@@ -915,6 +915,7 @@
                             <input type="password" id="settings-pin-input" class="form-control" placeholder="Enter 4-digit PIN" maxlength="4" style="max-width: 150px; text-align: center; letter-spacing: 4px; font-size: 18px;">
                             <button class="btn btn-primary" onclick="saveAppPin()">Set PIN</button>
                             <button class="btn btn-secondary" onclick="removeAppPin()" id="btn-remove-pin" style="display: none;">Remove PIN</button>
+                            <button class="btn btn-secondary" onclick="lockAppNow()" id="btn-lock-now" style="display: none;">Lock Now</button>
                         </div>
                         <p id="pin-status-msg" style="font-size: 12px; font-weight: 600;"></p>
                     </div>
@@ -1436,7 +1437,7 @@
     </script>
     <!-- Core Scripts -->
     <script src="assets/js/core/backup.js?v=1.2"></script>
-    <script src="assets/js/app.js?v=2.3"></script>
+    <script src="assets/js/app.js?v=2.4"></script>
 </body>
 </html>
 

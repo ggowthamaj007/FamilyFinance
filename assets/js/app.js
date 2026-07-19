@@ -5287,8 +5287,18 @@ window.saveAppPin = function() {
     msg.textContent = "PIN saved successfully! App is now locked.";
     msg.style.color = "var(--success)";
     document.getElementById("btn-remove-pin").style.display = "inline-flex";
+    document.getElementById("btn-lock-now").style.display = "inline-flex";
     document.getElementById("settings-pin-input").value = "";
     setTimeout(() => { msg.textContent = ""; }, 3000);
+};
+
+window.lockAppNow = function() {
+    if (requiredPin) {
+        document.getElementById("main-app-container").style.display = "none";
+        document.getElementById("app-lock-screen").style.display = "flex";
+        currentPinInput = "";
+        updatePinIndicators();
+    }
 };
 
 window.removeAppPin = function() {
@@ -5296,6 +5306,7 @@ window.removeAppPin = function() {
         localStorage.removeItem("app_pin");
         requiredPin = null;
         document.getElementById("btn-remove-pin").style.display = "none";
+        document.getElementById("btn-lock-now").style.display = "none";
         const msg = document.getElementById("pin-status-msg");
         msg.textContent = "PIN removed.";
         msg.style.color = "var(--text-secondary)";
