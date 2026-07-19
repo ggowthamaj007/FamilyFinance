@@ -1362,20 +1362,12 @@ select option {
     margin-top: 12px;
     width: 100%;
 }
-.cc-action-buttons > button.btn-success,
-.cc-action-buttons > button.btn-primary {
-    flex: 0 1 auto;
-}
 
 @media (max-width: 768px) {
     .dash-filter-actions {
         width: 100%;
     }
     .dash-filter-actions > button {
-        flex: 1;
-    }
-    .cc-action-buttons > button.btn-success,
-    .cc-action-buttons > button.btn-primary {
         flex: 1;
     }
 }
