@@ -5034,7 +5034,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     initAppState();
-    autoSyncFromGithub();
     
     // Add click outside to close all modals
     document.querySelectorAll(".modal-overlay").forEach(m => {
