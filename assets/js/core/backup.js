@@ -17,7 +17,7 @@ function downloadBackupFile() {
                    String(now.getMinutes()).padStart(2, '0') + "-" + 
                    String(now.getSeconds()).padStart(2, '0');
                    
-    dlAnchorElem.download = "family_finance_backup_$dateStr.json";
+    dlAnchorElem.download = `family_finance_backup_${dateStr}.json`;
     document.body.appendChild(dlAnchorElem);
     dlAnchorElem.click();
     document.body.removeChild(dlAnchorElem);
