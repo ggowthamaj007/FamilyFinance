@@ -5302,16 +5302,24 @@ window.lockAppNow = function() {
 };
 
 window.forceAppUpdate = function() {
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-            for(let registration of registrations) {
-                registration.unregister();
-            }
-            alert("Offline cache cleared. The app will now reload to fetch the latest version.");
+    try {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+                alert("Offline cache cleared. The app will now reload to fetch the latest version.");
+                window.location.reload(true);
+            }).catch(function(err) {
+                alert("Could not clear service worker (you might be in Incognito mode). Reloading normally.");
+                window.location.reload(true);
+            });
+        } else {
+            alert("No offline cache found. Reloading app.");
             window.location.reload(true);
-        });
-    } else {
-        alert("No offline cache found. Reloading app.");
+        }
+    } catch (e) {
+        alert("Reloading app.");
         window.location.reload(true);
     }
 };
