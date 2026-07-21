@@ -3672,49 +3672,53 @@ function loadSettingsPage() {
     const list = document.getElementById("settings-categories-list");
     list.innerHTML = "";
     
-    for (const group in appState.categories) {
-        const groupDiv = document.createElement("div");
-        groupDiv.className = "dashboard-panel";
-        groupDiv.style.marginBottom = "20px";
-        
-        let catsHtml = "";
-        for (const cat in appState.categories[group]) {
-            let subcatsHtml = "";
-            appState.categories[group][cat].forEach(sub => {
-                const isProtected = PROTECTED_CATEGORIES.includes(sub);
-                const isDeactivated = appState.settings.deactivatedCategories.includes(sub);
-                const opacity = isDeactivated ? "0.5" : "1";
-                const eyeIcon = isDeactivated ? "ri-eye-off-line" : "ri-eye-line";
-                
-                let actionsHtml = `<i class="${eyeIcon}" style="cursor:pointer; color:var(--text-muted); margin-right:4px;" onclick="toggleCategoryActivation('${sub}')" title="${isDeactivated ? 'Activate' : 'Deactivate'}"></i>`;
-                if (!isProtected) {
-                    actionsHtml += `<i class="ri-close-circle-fill" style="cursor:pointer; color:var(--danger);" onclick="deleteSubcategorySetting('${group}', '${cat}', '${sub}')" title="Delete"></i>`;
+    try {
+        for (const group in appState.categories) {
+            const groupDiv = document.createElement("div");
+            groupDiv.className = "dashboard-panel";
+            groupDiv.style.marginBottom = "20px";
+            
+            let catsHtml = "";
+            for (const cat in appState.categories[group]) {
+                let subcatsHtml = "";
+                const subcats = appState.categories[group][cat];
+                if (Array.isArray(subcats)) {
+                    subcats.forEach(sub => {
+                        const isProtected = PROTECTED_CATEGORIES.includes(sub);
+                        const isDeactivated = appState.settings.deactivatedCategories && appState.settings.deactivatedCategories.includes(sub);
+                        const opacity = isDeactivated ? "0.5" : "1";
+                        const eyeIcon = isDeactivated ? "ri-eye-off-line" : "ri-eye-line";
+                        
+                        let actionsHtml = `<i class="${eyeIcon}" style="cursor:pointer; color:var(--text-muted); margin-right:4px;" onclick="toggleCategoryActivation('${sub}')" title="${isDeactivated ? 'Activate' : 'Deactivate'}"></i>`;
+                        if (!isProtected) {
+                            actionsHtml += `<i class="ri-close-circle-fill" style="cursor:pointer; color:var(--danger);" onclick="deleteSubcategorySetting('${group}', '${cat}', '${sub}')" title="Delete"></i>`;
+                        }
+                        
+                        subcatsHtml += `
+                            <div style="display:inline-flex; align-items:center; gap:8px; padding: 6px 12px; border-radius:var(--radius-sm); background:rgba(255,255,255,0.03); border:1px solid var(--border-color); font-size:12px; opacity:${opacity}; transition: opacity 0.2s;">
+                                <span>${sub}</span>
+                                <div style="display:flex; gap:4px;">${actionsHtml}</div>
+                            </div>
+                        `;
+                    });
                 }
                 
-                subcatsHtml += `
-                    <div style="display:inline-flex; align-items:center; gap:8px; padding: 6px 12px; border-radius:var(--radius-sm); background:rgba(255,255,255,0.03); border:1px solid var(--border-color); font-size:12px; opacity:${opacity}; transition: opacity 0.2s;">
-                        <span>${sub}</span>
-                        <div style="display:flex; gap:4px;">${actionsHtml}</div>
+                catsHtml += `
+                    <div style="margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom:12px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                            <strong style="font-size:14px; color:var(--text-primary);">${cat}</strong>
+                            <button class="btn btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="promptAddSubcategory('${group}', '${cat}')">
+                                <i class="ri-add-line"></i> Add Sub-category
+                            </button>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                            ${subcatsHtml || '<span style="color:var(--text-muted); font-size:12px;">No sub-categories</span>'}
+                        </div>
                     </div>
                 `;
-            });
+            }
             
-            catsHtml += `
-                <div style="margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom:12px;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                        <strong style="font-size:14px; color:var(--text-primary);">${cat}</strong>
-                        <button class="btn btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="promptAddSubcategory('${group}', '${cat}')">
-                            <i class="ri-add-line"></i> Add Sub-category
-                        </button>
-                    </div>
-                    <div style="display:flex; flex-wrap:wrap; gap:8px;">
-                        ${subcatsHtml || '<span style="color:var(--text-muted); font-size:12px;">No sub-categories</span>'}
-                    </div>
-                </div>
-            `;
-        }
-        
-        groupDiv.innerHTML = `
+            groupDiv.innerHTML = `
             <div class="panel-header">
                 <div class="panel-title">${group} Categories</div>
                 <button class="btn btn-primary" style="padding:6px 12px; font-size:12px;" onclick="promptAddCategory('${group}')">
@@ -3726,7 +3730,12 @@ function loadSettingsPage() {
             </div>
         `;
         list.appendChild(groupDiv);
+        }
+    } catch (e) {
+        console.error("Error rendering category settings:", e);
+        list.innerHTML = `<div style="color:var(--danger); padding:10px;">Failed to load category settings.</div>`;
     }
+    
     document.getElementById("settings-currency-select").value = appState.settings.currency;
     document.getElementById("settings-theme-select").value = appState.settings.theme || "dark";
 }
