@@ -57,7 +57,7 @@ function initAppState() {
     if (!appState.trades) appState.trades = [];
     if (!appState.descriptionMap) appState.descriptionMap = {};
     if (!appState.statements) appState.statements = [];
-    if (!appState.categories) appState.categories = DEMO_DATA.categories;
+    if (!appState.categories || Object.keys(appState.categories).length === 0) appState.categories = JSON.parse(JSON.stringify(DEMO_DATA.categories));
     if (!appState.settings) appState.settings = DEMO_DATA.settings;
     if (!appState.settings.savingsTarget) appState.settings.savingsTarget = 30000;
     if (!appState.settings.deactivatedCategories) appState.settings.deactivatedCategories = [];
