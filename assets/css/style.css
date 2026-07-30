@@ -1099,25 +1099,9 @@ select.form-control option {
 /* ========================================== */
 /* LINKED ITEM DROPDOWN (Conditional Field) */
 /* ========================================== */
-.linked-field-group {
-    transition: all 0.25s ease;
-    overflow: hidden;
-}
-
-.linked-field-group.hidden {
-    max-height: 0;
-    opacity: 0;
-    margin: 0;
-    padding: 0;
-}
 
 .hidden {
     display: none !important;
-}
-
-.linked-field-group.visible {
-    max-height: 120px;
-    opacity: 1;
 }
 
 /* ========================================== */
