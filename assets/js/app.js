@@ -57,6 +57,23 @@ function initAppState() {
     if (!appState.trades) appState.trades = [];
     if (!appState.descriptionMap) appState.descriptionMap = {};
     if (!appState.statements) appState.statements = [];
+    
+    // Clean up accidental linkages on Transfers
+    if (appState.statements && appState.debts) {
+        const transferIds = new Set(appState.statements.filter(t => t.type === "Transfer").map(t => t.id));
+        appState.debts.forEach(d => {
+            if (d.repayments) {
+                d.repayments = d.repayments.filter(r => !transferIds.has(r.id));
+            }
+        });
+        appState.statements.forEach(t => {
+            if (t.type === "Transfer") {
+                t.linkedId = null;
+                t.linkedRound = null;
+            }
+        });
+    }
+
     if (!appState.categories || Object.keys(appState.categories).length === 0) appState.categories = JSON.parse(JSON.stringify(DEMO_DATA.categories));
     if (!appState.settings) appState.settings = DEMO_DATA.settings;
     if (!appState.settings.savingsTarget) appState.settings.savingsTarget = 30000;
@@ -2990,11 +3007,12 @@ function saveRepaymentEntry() {
     });
     
     const isLent = debt.type === "Lent";
+    const descPrefix = isLent ? "Repayment from" : "Repayment to";
     appState.statements.unshift({
         id: txId,
         account: account,
         date: date,
-        description: `Repayment from ${debt.person}: ${debt.remarks}`,
+        description: `${descPrefix} ${debt.person}: ${debt.remarks}`,
         subCategory: isLent ? "Lent Repayment" : "Borrow Repayment",
         amount: isLent ? amount : -amount,
         type: isLent ? "Income" : "Expense",
@@ -3920,6 +3938,18 @@ function openTransactionModal(options = {}) {
     document.getElementById("tx-amount").value = options.amount ? formatCurr(Math.abs(options.amount)) : "";
     document.getElementById("tx-type").value = options.type || "Expense";
     
+    // Clear hidden fields to prevent accidental linking of old data
+    const linkedItemEl = document.getElementById("tx-linked-item");
+    const linkedRoundEl = document.getElementById("tx-linked-round");
+    if (linkedItemEl) {
+        linkedItemEl.innerHTML = `<option value="">-- Select --</option>`;
+        linkedItemEl.value = "";
+    }
+    if (linkedRoundEl) {
+        linkedRoundEl.innerHTML = `<option value="">-- Auto --</option>`;
+        linkedRoundEl.value = "";
+    }
+    
     // Store edit ID if editing
     _editingTransactionId = options.editId || null;
     
@@ -3962,6 +3992,12 @@ function handleTxTypeChange(prefillLinkedId = null) {
     if (type === "Transfer") {
         toAccountGroup.classList.remove("hidden");
         linkedGroup.classList.add("hidden");
+        // Clear linked value when switching to Transfer
+        const linkedSelect = document.getElementById("tx-linked-item");
+        if (linkedSelect) {
+            linkedSelect.innerHTML = `<option value="">-- Select --</option>`;
+            linkedSelect.value = "";
+        }
         select.innerHTML = `<option value="Self Transfer">-- Self Transfer --</option>`;
         populateAccountDropdown("tx-to-account");
     } else {
