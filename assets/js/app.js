@@ -3683,7 +3683,10 @@ function loadSettingsPage() {
         if (document.getElementById("github-path")) document.getElementById("github-path").value = appState.githubSync.path || "appState.json";
         
         if (appState.githubSync.token) {
-            document.getElementById("btn-force-sync").style.display = "inline-flex";
+            const btnPush = document.getElementById("btn-force-push");
+            const btnPull = document.getElementById("btn-force-pull");
+            if (btnPush) btnPush.style.display = "inline-flex";
+            if (btnPull) btnPull.style.display = "inline-flex";
         }
     }
 
