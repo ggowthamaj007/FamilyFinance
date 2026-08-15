@@ -117,16 +117,9 @@
                     <div class="dashboard-panel" style="margin-bottom: 0;">
                         <div class="panel-header" style="display: flex; align-items: center; gap: 8px;">
                             <span class="panel-title">Cash Flow Summary</span>
-                            <button class="btn btn-icon btn-secondary" style="width: 24px; height: 24px; font-size: 14px; border-radius: 50%; padding: 0; display: inline-flex; align-items: center; justify-content: center;" onclick="const el = document.getElementById('cashflow-info-box'); el.style.display = el.style.display === 'none' ? 'block' : 'none'">
+                            <button class="btn btn-icon btn-secondary" style="width: 24px; height: 24px; font-size: 14px; border-radius: 50%; padding: 0; display: inline-flex; align-items: center; justify-content: center;" onclick="openCashFlowModal()">
                                 <i class="ri-information-line"></i>
                             </button>
-                        </div>
-                        <div id="cashflow-info-box" style="display: none; padding: 12px 16px; background: var(--bg-body); border-bottom: 1px solid var(--border-color); font-size: 12px; color: var(--text-muted); line-height: 1.6;">
-                            <strong>Total Income:</strong> All incoming cash flow (Salaries, Bonuses, carryforwards).<br>
-                            <strong>Living Expenses:</strong> Day-to-day consumption and bills (Groceries, Fuel, Utilities).<br>
-                            <strong>Invested:</strong> Money parked into growth assets (Stocks, FDs, Mutual Funds, Gold).<br>
-                            <strong>Debt Repaid:</strong> Money spent to clear liabilities (EMIs, Credit Card Bills, Loan repayments).<br>
-                            <strong>Net Surplus:</strong> The true cash left over after all outflows. <br><span style="color: var(--accent); font-weight: 600; font-family: monospace;">Income - (Expenses + Invested + Debt) = Net Surplus</span>
                         </div>
                         <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 18px; padding: 16px;">
                             <div style="text-align: center; min-width: 90px;">
@@ -323,6 +316,11 @@
                                 <!-- Rendered dynamically -->
                             </tbody>
                         </table>
+                        <div style="display: flex; justify-content: center; align-items: center; gap: 16px; padding: 12px; border-top: 1px solid var(--border-color);">
+                            <button class="btn btn-secondary" onclick="prevTransactionsMonth()" style="padding: 4px 8px;"><i class="ri-arrow-left-s-line"></i></button>
+                            <span id="transactions-month-label" style="font-size: 14px; font-weight: 600; min-width: 120px; text-align: center;">Current Month</span>
+                            <button class="btn btn-secondary" onclick="nextTransactionsMonth()" style="padding: 4px 8px;"><i class="ri-arrow-right-s-line"></i></button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -433,6 +431,23 @@
                                 <!-- Rendered dynamically -->
                             </tbody>
                         </table>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-top: 1px solid var(--border-color); font-size: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span>Rows per page:</span>
+                                <select id="debts-rows-select" class="form-control" style="width: auto; padding: 2px 8px; font-size: 12px;" onchange="changeDebtsRows()">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span id="debts-page-info">Page 1</span>
+                                <div style="display: flex; gap: 4px;">
+                                    <button class="btn btn-secondary" onclick="prevDebtsPage()" style="padding: 2px 6px;"><i class="ri-arrow-left-s-line"></i></button>
+                                    <button class="btn btn-secondary" onclick="nextDebtsPage()" style="padding: 2px 6px;"><i class="ri-arrow-right-s-line"></i></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -610,7 +625,7 @@
                         <select id="trade-filter-status" class="form-control" style="flex:1; min-width:120px;" onchange="loadTradingPage()">
                             <option value="All">All Statuses</option>
                             <option value="Closed">Closed Trades</option>
-                            <option value="Open">Open Trades</option>
+                            <option value="Open" selected>Open Trades</option>
                         </select>
                         <input type="text" id="trade-filter-symbol" class="form-control" style="flex:1; min-width:120px;" placeholder="Symbol..." oninput="loadTradingPage()">
                         <input type="date" id="trade-filter-date" class="form-control" style="flex:1; min-width:120px;" title="Filter by exact Date" onchange="loadTradingPage()">
@@ -942,6 +957,30 @@
     <!-- ========================================== -->
     <!-- MODAL DIALOGS -->
     <!-- ========================================== -->
+    
+    <!-- Modals -->
+    <!-- 0. Cash Flow Info Modal -->
+    <div class="modal-overlay" id="cashflow-info-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">Cash Flow Summary Info</div>
+                <button class="modal-close" onclick="closeAllModals()">&times;</button>
+            </div>
+            <div class="modal-body" style="font-size: 14px; line-height: 1.6; color: var(--text-secondary);">
+                <strong>Total Income:</strong> All incoming cash flow (Salaries, Bonuses, carryforwards).<br><br>
+                <strong>Living Expenses:</strong> Day-to-day consumption and bills (Groceries, Fuel, Utilities).<br><br>
+                <strong>Invested:</strong> Money parked into growth assets (Stocks, FDs, Mutual Funds, Gold).<br><br>
+                <strong>Debt Repaid:</strong> Money spent to clear liabilities (EMIs, Credit Card Bills, Loan repayments).<br><br>
+                <strong>Net Surplus:</strong> The true cash left over after all outflows.<br>
+                <div style="background: rgba(255,255,255,0.05); padding: 12px; margin-top: 12px; border-radius: 8px; text-align: center; border: 1px solid var(--border-color);">
+                    <span style="color: var(--accent); font-weight: 600; font-family: monospace; font-size: 13px;">Income - (Expenses + Invested + Debt) = Net Surplus</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeAllModals()">Got it</button>
+            </div>
+        </div>
+    </div>
     
     <!-- Budget Transactions Modal -->
     <div class="modal-overlay" id="budget-transactions-modal">
@@ -1377,6 +1416,6 @@
     </script>
     <!-- Core Scripts -->
     <script src="assets/js/core/backup.js?v=1.2"></script>
-    <script src="assets/js/app.js?v=3.3"></script>
+    <script src="assets/js/app.js?v=3.4"></script>
 </body>
 </html>

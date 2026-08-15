@@ -26,6 +26,13 @@ const DEMO_DATA = {
 // Excel Staging Global State
 let excelStagingTransactions = [];
 
+// Pagination State
+window.debtsCurrentPage = 1;
+window.debtsRowsPerPage = 10;
+window.settledDebtsCurrentPage = 1;
+window.settledDebtsRowsPerPage = 10;
+window.expensesCurrentMonth = new Date();
+
 // Initialize LocalStorage State
 function initAppState() {
     const saved = localStorage.getItem("family_finance_state_v3");
@@ -2339,7 +2346,8 @@ function loadExpensesPage() {
     const subCatFilter = document.getElementById("exp-filter-subcategory");
     subCatFilter.innerHTML = `<option value="">All Sub-Categories</option>` + buildCategoryOptgroupOptions('');
     
-    filterExpensesTable();
+    window.expensesCurrentMonth = new Date();
+    updateTransactionsMonthView();
 }
 
 // -------------------------------------------------------------
@@ -2741,8 +2749,41 @@ function clearAllFilters() {
     if (typeEl) typeEl.value = "";
     if (subcatEl) subcatEl.value = "";
     
+    const label = document.getElementById("transactions-month-label");
+    if (label) label.textContent = "All Time";
+    
     filterExpensesTable();
 }
+
+window.updateTransactionsMonthView = function() {
+    const yyyy = window.expensesCurrentMonth.getFullYear();
+    const mm = String(window.expensesCurrentMonth.getMonth() + 1).padStart(2, '0');
+    
+    const firstDay = `${yyyy}-${mm}-01`;
+    const lastDayObj = new Date(yyyy, window.expensesCurrentMonth.getMonth() + 1, 0);
+    const lastDay = `${yyyy}-${mm}-${String(lastDayObj.getDate()).padStart(2, '0')}`;
+    
+    const fromEl = document.getElementById("exp-date-from");
+    const toEl = document.getElementById("exp-date-to");
+    if (fromEl) fromEl.value = firstDay;
+    if (toEl) toEl.value = lastDay;
+    
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const label = document.getElementById("transactions-month-label");
+    if (label) label.textContent = `${monthNames[window.expensesCurrentMonth.getMonth()]} ${yyyy}`;
+    
+    filterExpensesTable();
+};
+
+window.prevTransactionsMonth = function() {
+    window.expensesCurrentMonth.setMonth(window.expensesCurrentMonth.getMonth() - 1);
+    updateTransactionsMonthView();
+};
+
+window.nextTransactionsMonth = function() {
+    window.expensesCurrentMonth.setMonth(window.expensesCurrentMonth.getMonth() + 1);
+    updateTransactionsMonthView();
+};
 
 function editStatementItem(id) {
     const item = appState.statements.find(t => t.id === id);
@@ -2828,10 +2869,19 @@ function renderDebtsTable() {
         else settledDebts.push({ ...d, repaid, outstanding });
     });
     
-    if (activeDebts.length === 0) {
+    // Pagination logic for Active Debts
+    const totalActive = activeDebts.length;
+    const activeStart = (window.debtsCurrentPage - 1) * window.debtsRowsPerPage;
+    const activeEnd = activeStart + window.debtsRowsPerPage;
+    const paginatedActive = activeDebts.slice(activeStart, activeEnd);
+    const activeTotalPages = Math.ceil(totalActive / window.debtsRowsPerPage) || 1;
+    const activePageInfo = document.getElementById("debts-page-info");
+    if (activePageInfo) activePageInfo.textContent = `Page ${window.debtsCurrentPage} of ${activeTotalPages}`;
+    
+    if (paginatedActive.length === 0) {
         activeTbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--text-muted);">No active lending/borrowing agreements.</td></tr>`;
     } else {
-        activeDebts.forEach(d => {
+        paginatedActive.forEach(d => {
             const isLent = d.type === "Lent";
             const tr = document.createElement("tr");
             tr.innerHTML = `
@@ -2853,10 +2903,19 @@ function renderDebtsTable() {
         });
     }
     
-    if (settledDebts.length === 0) {
+    // Pagination logic for Settled Debts
+    const totalSettled = settledDebts.length;
+    const settledStart = (window.settledDebtsCurrentPage - 1) * window.settledDebtsRowsPerPage;
+    const settledEnd = settledStart + window.settledDebtsRowsPerPage;
+    const paginatedSettled = settledDebts.slice(settledStart, settledEnd);
+    const settledTotalPages = Math.ceil(totalSettled / window.settledDebtsRowsPerPage) || 1;
+    const settledPageInfo = document.getElementById("settled-debts-page-info");
+    if (settledPageInfo) settledPageInfo.textContent = `Page ${window.settledDebtsCurrentPage} of ${settledTotalPages}`;
+
+    if (paginatedSettled.length === 0) {
         settledTbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-muted);">No settled loans yet.</td></tr>`;
     } else {
-        settledDebts.forEach(d => {
+        paginatedSettled.forEach(d => {
             const isLent = d.type === "Lent";
             const tr = document.createElement("tr");
             tr.innerHTML = `
@@ -2876,6 +2935,51 @@ function renderDebtsTable() {
         });
     }
 }
+
+window.changeDebtsRows = function() {
+    window.debtsRowsPerPage = parseInt(document.getElementById("debts-rows-select").value);
+    window.debtsCurrentPage = 1;
+    renderDebtsTable();
+};
+window.prevDebtsPage = function() {
+    if (window.debtsCurrentPage > 1) {
+        window.debtsCurrentPage--;
+        renderDebtsTable();
+    }
+};
+window.nextDebtsPage = function() {
+    const activeCount = appState.debts.filter(d => {
+        const repaid = d.repayments.reduce((sum, r) => sum + r.amount, 0);
+        return Math.max(0, d.amount - repaid) > 0;
+    }).length;
+    const maxPage = Math.ceil(activeCount / window.debtsRowsPerPage) || 1;
+    if (window.debtsCurrentPage < maxPage) {
+        window.debtsCurrentPage++;
+        renderDebtsTable();
+    }
+};
+window.changeSettledDebtsRows = function() {
+    window.settledDebtsRowsPerPage = parseInt(document.getElementById("settled-debts-rows-select").value);
+    window.settledDebtsCurrentPage = 1;
+    renderDebtsTable();
+};
+window.prevSettledDebtsPage = function() {
+    if (window.settledDebtsCurrentPage > 1) {
+        window.settledDebtsCurrentPage--;
+        renderDebtsTable();
+    }
+};
+window.nextSettledDebtsPage = function() {
+    const settledCount = appState.debts.filter(d => {
+        const repaid = d.repayments.reduce((sum, r) => sum + r.amount, 0);
+        return Math.max(0, d.amount - repaid) === 0;
+    }).length;
+    const maxPage = Math.ceil(settledCount / window.settledDebtsRowsPerPage) || 1;
+    if (window.settledDebtsCurrentPage < maxPage) {
+        window.settledDebtsCurrentPage++;
+        renderDebtsTable();
+    }
+};
 
 function renderFamilyDebtPosition() {
     const container = document.getElementById("debts-contacts-grid");
@@ -5160,6 +5264,11 @@ function saveTradeEntry() {
     closeAllModals();
     loadTradingPage();
 }
+
+window.openCashFlowModal = function() {
+    document.getElementById("cashflow-info-modal").classList.add("active");
+};
+
 function closeAllModals() {
     document.querySelectorAll(".modal-overlay").forEach(m => m.classList.remove("active"));
 }
