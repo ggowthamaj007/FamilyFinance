@@ -1000,6 +1000,16 @@
                     <input type="text" inputmode="decimal" id="tx-amount" class="form-control" placeholder="0.00" onblur="this.value = formatCurr(parseAmountStr(this.value))">
                 </div>
                 
+                <div class="form-group full-width hidden" id="tx-fund-savings-group">
+                    <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); cursor: pointer;">
+                        <input type="checkbox" id="tx-fund-savings-checkbox" onchange="toggleFundSavingsDropdown()">
+                        Fund this expense from Savings
+                    </label>
+                    <select id="tx-fund-savings-category" class="form-control hidden" style="margin-top: 8px;">
+                        <option value="">-- Select Savings Category --</option>
+                    </select>
+                </div> 
+
                 <!-- Dynamic Fields -->
                 <div class="form-group hidden" id="tx-to-account-group">
                     <label class="form-label">To Account</label>
@@ -1367,6 +1377,6 @@
     </script>
     <!-- Core Scripts -->
     <script src="assets/js/core/backup.js?v=1.2"></script>
-    <script src="assets/js/app.js?v=3.1"></script>
+    <script src="assets/js/app.js?v=3.2"></script>
 </body>
 </html>

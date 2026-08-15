@@ -2794,7 +2794,9 @@ function deleteStatementItem(id) {
             }
         }
         
-        appState.statements = appState.statements.filter(s => s.id !== id);
+        // Auto-delete the associated withdrawal if it exists
+        const withdrawId = id + "_withdraw";
+        appState.statements = appState.statements.filter(s => s.id !== id && s.id !== withdrawId);
         saveState();
         filterExpensesTable();
     }
@@ -3952,6 +3954,13 @@ function openTransactionModal(options = {}) {
         linkedRoundEl.innerHTML = `<option value="">-- Auto --</option>`;
         linkedRoundEl.value = "";
     }
+    const fundCheckbox = document.getElementById("tx-fund-savings-checkbox");
+    const fundDropdown = document.getElementById("tx-fund-savings-category");
+    if (fundCheckbox) fundCheckbox.checked = false;
+    if (fundDropdown) {
+        fundDropdown.classList.add("hidden");
+        fundDropdown.value = "";
+    }
     
     // Store edit ID if editing
     _editingTransactionId = options.editId || null;
@@ -3992,6 +4001,18 @@ function handleTxTypeChange(prefillLinkedId = null) {
     
     const currentSubCat = select.value;
     
+    const fundSavingsGroup = document.getElementById("tx-fund-savings-group");
+    if (fundSavingsGroup) {
+        if (type === "Expense") {
+            fundSavingsGroup.classList.remove("hidden");
+        } else {
+            fundSavingsGroup.classList.add("hidden");
+            const checkbox = document.getElementById("tx-fund-savings-checkbox");
+            if (checkbox) checkbox.checked = false;
+            toggleFundSavingsDropdown();
+        }
+    }
+    
     if (type === "Transfer") {
         toAccountGroup.classList.remove("hidden");
         linkedGroup.classList.add("hidden");
@@ -4009,6 +4030,34 @@ function handleTxTypeChange(prefillLinkedId = null) {
         const subCat = select.value;
         const currentLinked = prefillLinkedId || document.getElementById("tx-linked-item").value;
         updateLinkedItemDropdown(subCat, currentLinked);
+    }
+}
+
+window.toggleFundSavingsDropdown = function() {
+    const checkbox = document.getElementById("tx-fund-savings-checkbox");
+    const dropdown = document.getElementById("tx-fund-savings-category");
+    if (!checkbox || !dropdown) return;
+    
+    if (checkbox.checked) {
+        dropdown.classList.remove("hidden");
+        // Populate with Savings categories
+        let options = `<option value="">-- Select Savings Category --</option>`;
+        if (appState.categories && appState.categories["Savings"]) {
+            for (const group in appState.categories["Savings"]) {
+                const subcats = appState.categories["Savings"][group];
+                if (Array.isArray(subcats) && subcats.length > 0) {
+                    options += `<optgroup label="${group}">`;
+                    subcats.forEach(sub => {
+                        options += `<option value="${sub}">${sub}</option>`;
+                    });
+                    options += `</optgroup>`;
+                }
+            }
+        }
+        dropdown.innerHTML = options;
+    } else {
+        dropdown.classList.add("hidden");
+        dropdown.value = "";
     }
 }
 
@@ -4201,6 +4250,24 @@ function saveTransactionEntry() {
         linkedId: linkedId || null,
         linkedRound
     });
+    
+    // Auto-Fund from Savings feature
+    const fundCheckbox = document.getElementById("tx-fund-savings-checkbox");
+    const fundDropdown = document.getElementById("tx-fund-savings-category");
+    if (type === "Expense" && fundCheckbox && fundCheckbox.checked && fundDropdown && fundDropdown.value) {
+        appState.statements.unshift({
+            id: txId + "_withdraw",
+            account,
+            toAccount: null,
+            date,
+            description: `Withdraw for ${desc}`,
+            subCategory: fundDropdown.value,
+            amount: -rawAmt, // Negative savings equals withdrawal
+            type: "Savings",
+            linkedId: txId,
+            linkedRound: null
+        });
+    }
     
     appState.statements.sort((a, b) => new Date(b.date) - new Date(a.date));
     if (subcat) appState.descriptionMap[desc] = subcat;
