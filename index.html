@@ -563,7 +563,7 @@
                 </div>
 
                 <div class="content-grid">
-                    <div class="dashboard-panel">
+                    <div class="dashboard-panel" style="margin-bottom: 20px;">
                         <div class="panel-header">
                             <span class="panel-title">Active EMIs Trackers</span>
                             <div class="panel-actions">
@@ -587,6 +587,23 @@
                                     <!-- Rendered dynamically -->
                                 </tbody>
                             </table>
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-top: 1px solid var(--border-color); font-size: 12px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span>Rows per page:</span>
+                                    <select id="emis-rows-select" class="form-control" style="width: auto; padding: 2px 8px; font-size: 12px;" onchange="changeEmisRows()">
+                                        <option value="5">5</option>
+                                        <option value="10" selected>10</option>
+                                        <option value="15">15</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <span id="emis-page-info">Page 1</span>
+                                    <div style="display: flex; gap: 4px;">
+                                        <button class="btn btn-secondary" onclick="prevEmisPage()" style="padding: 2px 6px;"><i class="ri-arrow-left-s-line"></i></button>
+                                        <button class="btn btn-secondary" onclick="nextEmisPage()" style="padding: 2px 6px;"><i class="ri-arrow-right-s-line"></i></button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -1233,8 +1250,8 @@
                 <button class="modal-close" onclick="closeAllModals()">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
-                    <input type="checkbox" id="chit-is-fixed-target" checked onchange="toggleChitType()">
+                <div class="form-group" style="display: flex; align-items: center; justify-content: flex-start; gap: 8px; margin-bottom: 20px;">
+                    <input type="checkbox" id="chit-is-fixed-target" checked onchange="toggleChitType()" style="margin: 0; width: auto;">
                     <label for="chit-is-fixed-target" style="margin: 0; font-weight: 600; cursor: pointer;">Fixed Target / Fixed Term (e.g. Chit, RD)</label>
                 </div>
                 
@@ -1450,6 +1467,6 @@
     </script>
     <!-- Core Scripts -->
     <script src="assets/js/core/backup.js?v=1.2"></script>
-    <script src="assets/js/app.js?v=3.5"></script>
+    <script src="assets/js/app.js?v=3.6"></script>
 </body>
 </html>

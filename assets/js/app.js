@@ -34,6 +34,8 @@ window.settledDebtsRowsPerPage = 10;
 window.tradesCurrentPage = 1;
 window.tradesRowsPerPage = 10;
 window.tradesTotalFilteredCount = 0;
+window.emisCurrentPage = 1;
+window.emisRowsPerPage = 10;
 window.expensesCurrentMonth = new Date();
 
 // Initialize LocalStorage State
@@ -3391,10 +3393,19 @@ function loadEMIsPage() {
         totalObligEl.textContent = formatCurr(totalEmiPrincipal + totalCCOutstanding);
     }
     
-    if (activeEmis.length === 0) {
+    // Pagination logic for Active EMIs
+    const totalActive = activeEmis.length;
+    const activeStart = (window.emisCurrentPage - 1) * window.emisRowsPerPage;
+    const activeEnd = activeStart + window.emisRowsPerPage;
+    const paginatedActive = activeEmis.slice(activeStart, activeEnd);
+    const activeTotalPages = Math.ceil(totalActive / window.emisRowsPerPage) || 1;
+    const activePageInfo = document.getElementById("emis-page-info");
+    if (activePageInfo) activePageInfo.textContent = `Page ${window.emisCurrentPage} of ${activeTotalPages}`;
+
+    if (paginatedActive.length === 0) {
         activeTbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No active EMI loans found.</td></tr>`;
     } else {
-        activeEmis.forEach(e => {
+        paginatedActive.forEach(e => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td><strong>${e.name}</strong></td>
@@ -3493,6 +3504,28 @@ function loadEMIsPage() {
         }
     }
 }
+
+window.changeEmisRows = function() {
+    window.emisRowsPerPage = parseInt(document.getElementById("emis-rows-select").value);
+    window.emisCurrentPage = 1;
+    loadEMIsPage();
+};
+
+window.prevEmisPage = function() {
+    if (window.emisCurrentPage > 1) {
+        window.emisCurrentPage--;
+        loadEMIsPage();
+    }
+};
+
+window.nextEmisPage = function() {
+    const activeCount = appState.emis.filter(e => e.remainingMonths > 0).length;
+    const maxPage = Math.ceil(activeCount / window.emisRowsPerPage) || 1;
+    if (window.emisCurrentPage < maxPage) {
+        window.emisCurrentPage++;
+        loadEMIsPage();
+    }
+};
 
 function deleteEMIItem(id) {
     if (confirm("Are you sure you want to delete this EMI tracker record?")) {
