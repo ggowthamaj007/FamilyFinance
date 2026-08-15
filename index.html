@@ -562,50 +562,51 @@
                     </div>
                 </div>
 
-                <div class="content-grid">
-                    <div class="dashboard-panel" style="margin-bottom: 20px;">
-                        <div class="panel-header">
-                            <span class="panel-title">Active EMIs Trackers</span>
-                            <div class="panel-actions">
-                                <button class="btn btn-primary" onclick="openEMIAddModal()"><i class="ri-add-line"></i> Add EMI</button>
-                            </div>
+                <div class="dashboard-panel" style="margin-bottom: 20px;">
+                    <div class="panel-header">
+                        <span class="panel-title">Active EMIs Trackers</span>
+                        <div class="panel-actions">
+                            <button class="btn btn-primary" onclick="openEMIAddModal()"><i class="ri-add-line"></i> Add EMI</button>
                         </div>
-                        <div class="table-wrapper">
-                            <table class="custom-table mobile-list-table" id="emis-table">
-                                <thead>
-                                    <tr>
-                                        <th>EMI Loan Name</th>
-                                        <th>Acc Owner</th>
-                                        <th>Lending Bank</th>
-                                        <th>Monthly Payment</th>
-                                        <th>Rate</th>
-                                        <th>Repayment progress</th>
-                                        <th style="text-align: right;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Rendered dynamically -->
-                                </tbody>
-                            </table>
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-top: 1px solid var(--border-color); font-size: 12px;">
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span>Rows per page:</span>
-                                    <select id="emis-rows-select" class="form-control" style="width: auto; padding: 2px 8px; font-size: 12px;" onchange="changeEmisRows()">
-                                        <option value="5">5</option>
-                                        <option value="10" selected>10</option>
-                                        <option value="15">15</option>
-                                    </select>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 12px;">
-                                    <span id="emis-page-info">Page 1</span>
-                                    <div style="display: flex; gap: 4px;">
-                                        <button class="btn btn-secondary" onclick="prevEmisPage()" style="padding: 2px 6px;"><i class="ri-arrow-left-s-line"></i></button>
-                                        <button class="btn btn-secondary" onclick="nextEmisPage()" style="padding: 2px 6px;"><i class="ri-arrow-right-s-line"></i></button>
-                                    </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="custom-table mobile-list-table" id="emis-table">
+                            <thead>
+                                <tr>
+                                    <th>EMI Loan Name</th>
+                                    <th>Acc Owner</th>
+                                    <th>Lending Bank</th>
+                                    <th>Monthly Payment</th>
+                                    <th>Rate</th>
+                                    <th>Repayment progress</th>
+                                    <th style="text-align: right;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rendered dynamically -->
+                            </tbody>
+                        </table>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-top: 1px solid var(--border-color); font-size: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span>Rows per page:</span>
+                                <select id="emis-rows-select" class="form-control" style="width: auto; padding: 2px 8px; font-size: 12px;" onchange="changeEmisRows()">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span id="emis-page-info">Page 1</span>
+                                <div style="display: flex; gap: 4px;">
+                                    <button class="btn btn-secondary" onclick="prevEmisPage()" style="padding: 2px 6px;"><i class="ri-arrow-left-s-line"></i></button>
+                                    <button class="btn btn-secondary" onclick="nextEmisPage()" style="padding: 2px 6px;"><i class="ri-arrow-right-s-line"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="content-grid">
                     
                     <div class="dashboard-panel">
                         <div class="panel-header">
