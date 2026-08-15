@@ -31,6 +31,9 @@ window.debtsCurrentPage = 1;
 window.debtsRowsPerPage = 10;
 window.settledDebtsCurrentPage = 1;
 window.settledDebtsRowsPerPage = 10;
+window.tradesCurrentPage = 1;
+window.tradesRowsPerPage = 10;
+window.tradesTotalFilteredCount = 0;
 window.expensesCurrentMonth = new Date();
 
 // Initialize LocalStorage State
@@ -2936,11 +2939,33 @@ function renderDebtsTable() {
     }
 }
 
+window.changeTradesRows = function() {
+    window.tradesRowsPerPage = parseInt(document.getElementById("trades-rows-select").value);
+    window.tradesCurrentPage = 1;
+    loadTradingPage();
+};
+
+window.prevTradesPage = function() {
+    if (window.tradesCurrentPage > 1) {
+        window.tradesCurrentPage--;
+        loadTradingPage();
+    }
+};
+
+window.nextTradesPage = function() {
+    const maxPage = Math.ceil(window.tradesTotalFilteredCount / window.tradesRowsPerPage) || 1;
+    if (window.tradesCurrentPage < maxPage) {
+        window.tradesCurrentPage++;
+        loadTradingPage();
+    }
+};
+
 window.changeDebtsRows = function() {
     window.debtsRowsPerPage = parseInt(document.getElementById("debts-rows-select").value);
     window.debtsCurrentPage = 1;
     renderDebtsTable();
 };
+
 window.prevDebtsPage = function() {
     if (window.debtsCurrentPage > 1) {
         window.debtsCurrentPage--;
@@ -5121,12 +5146,21 @@ function loadTradingPage() {
     if (!tbody) return;
     tbody.innerHTML = "";
     
-    if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="10" style="text-align: center; color: var(--text-muted); padding: 30px;">No trades match the selected filters. Use the Excel Wizard to import a Zerodha Tradebook.</td></tr>`;
+    // Pagination logic for Trading Table
+    window.tradesTotalFilteredCount = filtered.length;
+    const tradesStart = (window.tradesCurrentPage - 1) * window.tradesRowsPerPage;
+    const tradesEnd = tradesStart + window.tradesRowsPerPage;
+    const paginatedTrades = filtered.slice(tradesStart, tradesEnd);
+    const tradesTotalPages = Math.ceil(window.tradesTotalFilteredCount / window.tradesRowsPerPage) || 1;
+    const tradesPageInfo = document.getElementById("trades-page-info");
+    if (tradesPageInfo) tradesPageInfo.textContent = `Page ${window.tradesCurrentPage} of ${tradesTotalPages}`;
+
+    if (paginatedTrades.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="14" style="text-align: center; color: var(--text-muted); padding: 30px;">No trades match the selected filters. Use the Excel Wizard to import a Zerodha Tradebook.</td></tr>`;
         return;
     }
     
-    filtered.forEach(p => {
+    paginatedTrades.forEach(p => {
         const tr = document.createElement("tr");
         let pnlColor = p.pnl >= 0 ? "var(--success)" : "var(--danger)";
         if (p.status === "Open") pnlColor = "var(--text-color)";

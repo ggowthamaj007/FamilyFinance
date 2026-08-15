@@ -473,6 +473,23 @@
                                 <!-- Rendered dynamically -->
                             </tbody>
                         </table>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-top: 1px solid var(--border-color); font-size: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span>Rows per page:</span>
+                                <select id="settled-debts-rows-select" class="form-control" style="width: auto; padding: 2px 8px; font-size: 12px;" onchange="changeSettledDebtsRows()">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span id="settled-debts-page-info">Page 1</span>
+                                <div style="display: flex; gap: 4px;">
+                                    <button class="btn btn-secondary" onclick="prevSettledDebtsPage()" style="padding: 2px 6px;"><i class="ri-arrow-left-s-line"></i></button>
+                                    <button class="btn btn-secondary" onclick="nextSettledDebtsPage()" style="padding: 2px 6px;"><i class="ri-arrow-right-s-line"></i></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -727,6 +744,23 @@
                                 <!-- Populated by JS -->
                             </tbody>
                         </table>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-top: 1px solid var(--border-color); font-size: 12px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span>Rows per page:</span>
+                                <select id="trades-rows-select" class="form-control" style="width: auto; padding: 2px 8px; font-size: 12px;" onchange="changeTradesRows()">
+                                    <option value="5">5</option>
+                                    <option value="10" selected>10</option>
+                                    <option value="15">15</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <span id="trades-page-info">Page 1</span>
+                                <div style="display: flex; gap: 4px;">
+                                    <button class="btn btn-secondary" onclick="prevTradesPage()" style="padding: 2px 6px;"><i class="ri-arrow-left-s-line"></i></button>
+                                    <button class="btn btn-secondary" onclick="nextTradesPage()" style="padding: 2px 6px;"><i class="ri-arrow-right-s-line"></i></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1416,6 +1450,6 @@
     </script>
     <!-- Core Scripts -->
     <script src="assets/js/core/backup.js?v=1.2"></script>
-    <script src="assets/js/app.js?v=3.4"></script>
+    <script src="assets/js/app.js?v=3.5"></script>
 </body>
 </html>
