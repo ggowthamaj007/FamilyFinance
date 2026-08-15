@@ -3730,9 +3730,14 @@ function loadSettingsPage() {
                     <div style="margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom:12px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                             <strong style="font-size:14px; color:var(--text-primary);">${cat}</strong>
-                            <button class="btn btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="promptAddSubcategory('${group}', '${cat}')">
-                                <i class="ri-add-line"></i> Add Sub-category
-                            </button>
+                            <div style="display:flex; gap: 8px;">
+                                <button class="btn btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="promptAddSubcategory('${group}', '${cat}')">
+                                    <i class="ri-add-line"></i> Add Sub-category
+                                </button>
+                                <button class="btn btn-secondary" style="padding:4px 8px; font-size:11px; color: var(--danger);" onclick="deleteCategorySetting('${group}', '${cat}')" title="Delete Category">
+                                    <i class="ri-delete-bin-line"></i>
+                                </button>
+                            </div>
                         </div>
                         <div style="display:flex; flex-wrap:wrap; gap:8px;">
                             ${subcatsHtml || '<span style="color:var(--text-muted); font-size:12px;">No sub-categories</span>'}
@@ -3836,6 +3841,26 @@ function deleteSubcategorySetting(group, cat, sub) {
         if (confirm(`Are you sure you want to delete "${sub}" and leave transactions as-is?`)) {
             finalizeDeletion();
         }
+    }
+}
+
+function deleteCategorySetting(group, cat) {
+    // Check if there are any transactions using any subcategory inside this category
+    const subcats = appState.categories[group][cat] || [];
+    let affected = [];
+    subcats.forEach(sub => {
+        affected = affected.concat(appState.statements.filter(t => t.subCategory === sub));
+    });
+    
+    if (affected.length > 0) {
+        alert(`Cannot delete category "${cat}" because it contains sub-categories that have ${affected.length} historical transactions associated with them. Please delete or migrate those sub-categories first.`);
+        return;
+    }
+    
+    if (confirm(`Are you sure you want to delete the entire "${cat}" category?`)) {
+        delete appState.categories[group][cat];
+        saveState();
+        loadSettingsPage();
     }
 }
 
@@ -5268,6 +5293,7 @@ window.loadSettingsPage = loadSettingsPage;
 window.updateSettingsConfig = updateSettingsConfig;
 window.toggleCategoryActivation = toggleCategoryActivation;
 window.deleteSubcategorySetting = deleteSubcategorySetting;
+window.deleteCategorySetting = deleteCategorySetting;
 window.promptAddSubcategory = promptAddSubcategory;
 window.promptAddCategory = promptAddCategory;
 window.getAccountBalances = getAccountBalances;
