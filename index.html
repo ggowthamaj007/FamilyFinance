@@ -610,6 +610,18 @@
                     
                     <div class="dashboard-panel">
                         <div class="panel-header">
+                            <span class="panel-title">Credit Cards Billing Dues</span>
+                            <div class="panel-actions">
+                                <button class="btn btn-primary" style="padding: 6px 12px; font-size:12px;" onclick="openCCAddModal()"><i class="ri-add-line"></i> Add Card</button>
+                            </div>
+                        </div>
+                        <div class="reminders-list" id="cc-billing-list">
+                            <!-- CC widgets rendered dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-panel">
+                        <div class="panel-header">
                             <span class="panel-title">Completed EMIs</span>
                         </div>
                         <div class="table-wrapper">
@@ -629,18 +641,6 @@
                                     <!-- Rendered dynamically -->
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-panel">
-                        <div class="panel-header">
-                            <span class="panel-title">Credit Cards Billing Dues</span>
-                            <div class="panel-actions">
-                                <button class="btn btn-primary" style="padding: 6px 12px; font-size:12px;" onclick="openCCAddModal()"><i class="ri-add-line"></i> Add Card</button>
-                            </div>
-                        </div>
-                        <div class="reminders-list" id="cc-billing-list">
-                            <!-- CC widgets rendered dynamically -->
                         </div>
                     </div>
                 </div>
