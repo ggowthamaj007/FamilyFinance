@@ -888,7 +888,7 @@ function getContactSummary() {
 // -------------------------------------------------------------
 function getMonthlyReconciliation(yearMonth) {
     // yearMonth is in format "YYYY-MM"
-    const targetTransactions = appState.statements.filter(t => t.date.startsWith(yearMonth));
+    const targetTransactions = appState.statements.filter(t => !t.isIgnored && t.date.startsWith(yearMonth));
     
     let totalIncome = 0;
     let totalExpense = 0;
@@ -1424,6 +1424,7 @@ function loadDashboardPage() {
     const account = document.getElementById("dash-filter-account")?.value || "All";
 
     const filtered = appState.statements.filter(s => {
+        if (s.isIgnored) return false;
         let match = true;
         if (year !== "All") match = match && s.date.startsWith(year);
         if (month !== "All") match = match && s.date.substring(5, 7) === month;
@@ -2106,6 +2107,7 @@ function renderDashboardCharts(statementsToUse = appState.statements) {
         let sav = 0, debt = 0, tExp = 0;
         
         appState.statements.forEach(s => {
+            if (s.isIgnored) return;
             if (s.date.startsWith(ym)) {
                 const amt = Math.abs(s.amount);
                 const incCats = appState.categories?.Income || {};
@@ -2367,6 +2369,7 @@ window.showBudgetTransactions = function(subcat, monthYear) {
     
     // Filter transactions
     const filtered = appState.statements.filter(t => {
+        if (t.isIgnored) return false;
         if (t.subCategory !== subcat) return false;
         
         let d;
@@ -2415,6 +2418,7 @@ function loadBudgetPage() {
     const actuals = {};
     
     appState.statements.forEach(s => {
+        if (s.isIgnored) return;
         if (s.date.startsWith(currentMonth)) {
             actuals[s.subCategory] = (actuals[s.subCategory] || 0) + Math.abs(s.amount);
         }
@@ -2651,6 +2655,7 @@ function exportTransactionsCSV() {
     const dateTo = document.getElementById("exp-date-to") ? document.getElementById("exp-date-to").value : "";
     
     const filtered = appState.statements.filter(t => {
+        if (t.isIgnored) return false;
         const matchesType = !txType || t.type === txType;
         const matchesSubcat = !subcat || t.subCategory === subcat;
         const matchesSearch = !search || (t.description || "").toLowerCase().includes(search) || (t.subCategory || "").toLowerCase().includes(search);
@@ -2717,6 +2722,10 @@ function filterExpensesTable() {
     filtered.forEach(t => {
         const tr = document.createElement("tr");
         const isDebit = t.amount < 0;
+        if (t.isIgnored) {
+            tr.style.opacity = "0.5";
+            tr.title = "This transaction is currently deactivated and ignored from balances.";
+        }
         tr.innerHTML = `
             <td>${formatDateDisplay(t.date)}</td>
             <td><strong>${t.account}</strong></td>
@@ -2724,8 +2733,11 @@ function filterExpensesTable() {
             <td><span class="badge badge-secondary" style="background-color: var(--accent-light); color: var(--accent);">${t.subCategory || 'Uncategorized'}</span></td>
             <td><span class="badge ${t.type === 'Income' ? 'badge-income' : t.type === 'Expense' ? 'badge-expense' : 'badge-savings'}">${t.type}</span></td>
             <td style="font-weight: 700; text-align: right; color: ${isDebit ? 'var(--danger)' : 'var(--success)'}">${formatCurr(t.amount)}</td>
-            <td style="text-align: right;">
+            <td style="text-align: right; white-space: nowrap;">
                 <div class="action-btn-group">
+                    <button class="action-btn" title="${t.isIgnored ? 'Activate' : 'Deactivate'}" onclick="toggleStatementActive('${t.id}')">
+                        <i class="${t.isIgnored ? 'ri-eye-off-line' : 'ri-eye-line'}"></i>
+                    </button>
                     <button class="action-btn" title="Edit" onclick="editStatementItem('${t.id}')">
                         <i class="ri-pencil-line"></i>
                     </button>
@@ -2738,6 +2750,15 @@ function filterExpensesTable() {
         tbody.appendChild(tr);
     });
 }
+
+window.toggleStatementActive = function(id) {
+    const t = appState.statements.find(s => s.id === id);
+    if (t) {
+        t.isIgnored = !t.isIgnored;
+        saveState();
+        filterExpensesTable();
+    }
+};
 
 function clearAllFilters() {
     const fromEl = document.getElementById("exp-date-from");
@@ -4070,6 +4091,7 @@ function getAccountBalances() {
         appState.creditCards.forEach(cc => balances[cc.name] = -(cc.outstandingAmount || 0));
     }
     appState.statements.forEach(t => {
+        if (t.isIgnored) return;
         if (balances[t.account] !== undefined) {
             if (t.type === "Income") balances[t.account] += Math.abs(t.amount);
             else if (t.type === "Expense" || t.type === "Savings") balances[t.account] -= Math.abs(t.amount);
